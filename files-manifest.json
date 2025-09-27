@@ -1,10 +1,10 @@
 {
   "metadata": {
     "version": "1.0.0",
-    "generated": "2025-09-27T16:22:11.609Z",
+    "generated": "2025-09-27T16:28:54.723Z",
     "generator": "build-manifest.js",
     "description": "AI 創意實驗室檔案清單 - 供 GitHub Pages 使用",
-    "totalFiles": 55
+    "totalFiles": 56
   },
   "environment": {
     "isStatic": true,
@@ -12,6 +12,13 @@
     "platform": "GitHub Pages"
   },
   "files": [
+    {
+      "name": "futuristic_ai_dashboard.html",
+      "title": "未來主義 AI 儀表板  AI 創意實驗室",
+      "description": "展示未來主義設計美學的 AI 儀表板界面，具有霓虹光效和動態數據視覺化",
+      "lastModified": "2025-09-27T16:28:37.919Z",
+      "size": 17
+    },
     {
       "name": "creative_agency_portfolio.html",
       "title": "Creative Agency Portfolio  AI Creative Laboratory",
@@ -399,9 +406,9 @@
     }
   ],
   "statistics": {
-    "totalSize": 1295,
-    "averageSize": 24,
-    "newestFile": "creative_agency_portfolio.html",
+    "totalSize": 1312,
+    "averageSize": 23,
+    "newestFile": "futuristic_ai_dashboard.html",
     "oldestFile": "holographic_memory.html"
   }
 }
