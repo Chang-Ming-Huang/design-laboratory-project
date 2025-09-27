@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typography-First Manifesto - 字體至上主義宣言</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+        :root {
+            --typo-void: #000000;
+            --typo-paper: #ffffff;
+            --typo-ink: #1a1a1a;
+            --typo-accent: #ff3333;
+            --typo-muted: #666666;
+            --typo-highlight: #ffff00;
+            --typo-shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--typo-paper);
+            color: var(--typo-ink);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            overflow-x: hidden;
+            cursor: crosshair;
+            line-height: 1.2;
+        }
+
+        /* 字體游標系統 */
+        .typo-cursor {
+            position: fixed;
+            width: 2px;
+            height: 24px;
+            background: var(--typo-ink);
+            pointer-events: none;
+            z-index: 10000;
+            animation: cursor-blink 1s infinite;
+            transition: all 0.1s ease;
+        }
+
+        @keyframes cursor-blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* 字體網格系統 */
+        .typography-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(to right, rgba(26, 26, 26, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(26, 26, 26, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            z-index: -1;
+            animation: grid-drift 60s linear infinite;
+        }
+
+        @keyframes grid-drift {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-20px, -20px); }
+        }
+
+        /* 主要容器 */
+        .typo-container {
+            min-height: 100vh;
+            padding: 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* 巨型標題系統 */
+        .mega-title {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0 80px;
+            overflow: hidden;
+        }
+
+        .mega-title h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(8rem, 20vw, 25rem);
+            font-weight: 900;
+            line-height: 0.8;
+            letter-spacing: -0.04em;
+            color: var(--typo-ink);
+            margin: 0;
+            position: relative;
+            z-index: 2;
+            text-shadow: 4px 4px 0px var(--typo-shadow);
+        }
+
+        .mega-title .word-1 {
+            transform: translateX(-5%);
+            animation: word-entrance-1 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation-delay: 0.2s;
+            opacity: 0;
+        }
+
+        .mega-title .word-2 {
+            transform: translateX(10%);
+            animation: word-entrance-2 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation-delay: 0.8s;
+            opacity: 0;
+        }
+
+        .mega-title .word-3 {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            color: var(--typo-accent);
+            transform: translateX(-10%) scale(1.2);
+            animation: word-entrance-3 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation-delay: 1.4s;
+            opacity: 0;
+        }
+
+        @keyframes word-entrance-1 {
+            0% { transform: translateX(-50%) rotateZ(-5deg); opacity: 0; }
+            100% { transform: translateX(-5%) rotateZ(0deg); opacity: 1; }
+        }
+
+        @keyframes word-entrance-2 {
+            0% { transform: translateX(100%) rotateZ(5deg); opacity: 0; }
+            100% { transform: translateX(10%) rotateZ(0deg); opacity: 1; }
+        }
+
+        @keyframes word-entrance-3 {
+            0% { transform: translateX(-50%) scale(0.5); opacity: 0; }
+            100% { transform: translateX(-10%) scale(1.2); opacity: 1; }
+        }
+
+        /* 背景字體裝飾 */
+        .type-decoration {
+            position: absolute;
+            font-family: 'Inter', sans-serif;
+            font-weight: 100;
+            color: rgba(26, 26, 26, 0.05);
+            z-index: 1;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .type-decoration:nth-child(1) {
+            font-size: 15rem;
+            top: -5%;
+            right: -10%;
+            transform: rotate(15deg);
+            animation: float-decoration 20s ease-in-out infinite;
+        }
+
+        .type-decoration:nth-child(2) {
+            font-size: 12rem;
+            bottom: -5%;
+            left: -5%;
+            transform: rotate(-10deg);
+            animation: float-decoration 25s ease-in-out infinite;
+            animation-delay: -10s;
+        }
+
+        @keyframes float-decoration {
+            0%, 100% { transform: rotate(15deg) translateY(0); }
+            50% { transform: rotate(18deg) translateY(-30px); }
+        }
+
+        /* 互動字體展示區 */
+        .type-showcase {
+            min-height: 100vh;
+            padding: 160px 80px;
+            background: linear-gradient(135deg, 
+                var(--typo-paper) 0%, 
+                rgba(255, 255, 255, 0.95) 100%);
+            position: relative;
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* 字體卡片 */
+        .type-card {
+            background: var(--typo-paper);
+            border: 1px solid rgba(26, 26, 26, 0.1);
+            padding: 60px 50px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 
+                5px 5px 0px var(--typo-shadow),
+                10px 10px 0px rgba(0, 0, 0, 0.05);
+        }
+
+        .type-card:hover {
+            transform: translate(-8px, -8px);
+            box-shadow: 
+                13px 13px 0px var(--typo-shadow),
+                20px 20px 0px rgba(0, 0, 0, 0.05);
+        }
+
+        .type-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: var(--typo-highlight);
+            transition: width 0.4s ease;
+            z-index: 1;
+        }
+
+        .type-card:hover::before {
+            width: 8px;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--typo-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 20px;
+        }
+
+        .card-display {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            line-height: 1.1;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .card-display.serif {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-style: italic;
+        }
+
+        .card-display.sans {
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+        }
+
+        .card-display.mono {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            color: var(--typo-accent);
+        }
+
+        .card-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--typo-muted);
+            font-weight: 300;
+        }
+
+        /* 動態字體效果 */
+        .dynamic-text {
+            font-size: clamp(3rem, 8vw, 8rem);
+            font-weight: 900;
+            text-align: center;
+            margin: 120px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .morphing-word {
+            display: inline-block;
+            font-family: 'Inter', sans-serif;
+            animation: morph-fonts 6s ease-in-out infinite;
+        }
+
+        @keyframes morph-fonts {
+            0%, 33% { 
+                font-family: 'Inter', sans-serif; 
+                font-weight: 900; 
+                transform: scaleY(1); 
+            }
+            34%, 66% { 
+                font-family: 'Playfair Display', serif; 
+                font-weight: 700; 
+                transform: scaleY(1.1); 
+            }
+            67%, 100% { 
+                font-family: 'JetBrains Mono', monospace; 
+                font-weight: 800; 
+                transform: scaleY(0.9); 
+            }
+        }
+
+        /* 文字雨效果 */
+        .text-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+            overflow: hidden;
+        }
+
+        .falling-letter {
+            position: absolute;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            color: rgba(26, 26, 26, 0.1);
+            animation: letter-fall 8s linear infinite;
+            user-select: none;
+        }
+
+        @keyframes letter-fall {
+            0% { 
+                transform: translateY(-100px) rotate(0deg); 
+                opacity: 0; 
+            }
+            10% { 
+                opacity: 1; 
+            }
+            90% { 
+                opacity: 1; 
+            }
+            100% { 
+                transform: translateY(100vh) rotate(360deg); 
+                opacity: 0; 
+            }
+        }
+
+        /* 字重滑桿 */
+        .weight-slider {
+            position: fixed;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 200px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid var(--typo-ink);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .weight-control {
+            width: 100%;
+            height: 4px;
+            background: var(--typo-muted);
+            border-radius: 2px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .weight-handle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--typo-accent);
+            border-radius: 50%;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(255, 51, 51, 0.3);
+        }
+
+        .weight-handle:hover {
+            transform: translateX(-50%) scale(1.2);
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .mega-title {
+                padding: 0 40px;
+            }
+            
+            .mega-title h1 {
+                font-size: clamp(4rem, 15vw, 12rem);
+            }
+            
+            .type-showcase {
+                padding: 100px 40px;
+            }
+            
+            .showcase-grid {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+            
+            .type-card {
+                padding: 40px 30px;
+            }
+            
+            .weight-slider {
+                display: none;
+            }
+        }
+
+        /* 載入動畫 */
+        .loading-text {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.2rem;
+            font-weight: 600;
+            z-index: 10000;
+            animation: loading-pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes loading-pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* 字體快照效果 */
+        .type-snapshot {
+            position: absolute;
+            font-size: 2rem;
+            font-weight: 700;
+            color: rgba(255, 51, 51, 0.8);
+            pointer-events: none;
+            z-index: 1000;
+            animation: snapshot-fade 2s ease-out forwards;
+        }
+
+        @keyframes snapshot-fade {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.5) rotate(5deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- 字體游標 -->
+    <div class="typo-cursor" id="typoCursor"></div>
+
+    <!-- 字體網格 -->
+    <div class="typography-grid"></div>
+
+    <!-- 文字雨 -->
+    <div class="text-rain" id="textRain"></div>
+
+    <!-- 載入文字 -->
+    <div class="loading-text" id="loadingText">Loading Typography Engine...</div>
+
+    <!-- 主要容器 -->
+    <div class="typo-container">
+        <!-- 巨型標題區 -->
+        <section class="mega-title">
+            <!-- 背景裝飾字體 -->
+            <div class="type-decoration">FONT</div>
+            <div class="type-decoration">TYPE</div>
+            
+            <h1>
+                <div class="word-1">TYPOGRAPHY</div>
+                <div class="word-2">FIRST</div>
+                <div class="word-3">MANIFESTO</div>
+            </h1>
+        </section>
+
+        <!-- 動態文字展示 -->
+        <section class="dynamic-text">
+            <div class="morphing-word">字體即靈魂</div>
+        </section>
+
+        <!-- 字體展示區 -->
+        <section class="type-showcase">
+            <div class="showcase-grid">
+                <!-- 襯線字體卡片 -->
+                <div class="type-card" data-font="serif">
+                    <div class="card-content">
+                        <div class="card-label">Serif Typography</div>
+                        <div class="card-display serif">Elegance</div>
+                        <p class="card-description">
+                            襯線字體承載著數百年的印刷傳統，每一個筆觸都充滿了人文氣息。
+                            它們在正文閱讀中提供最佳的視覺流暢性，是文學與學術的理想選擇。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 無襯線字體卡片 -->
+                <div class="type-card" data-font="sans">
+                    <div class="card-content">
+                        <div class="card-label">Sans-Serif Typography</div>
+                        <div class="card-display sans">MODERN</div>
+                        <p class="card-description">
+                            無襯線字體體現了現代主義的純粹美學，簡潔而有力。
+                            它們在數位媒體中表現卓越，適合標題和界面設計，
+                            代表著當代設計的核心精神。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 等寬字體卡片 -->
+                <div class="type-card" data-font="mono">
+                    <div class="card-content">
+                        <div class="card-label">Monospace Typography</div>
+                        <div class="card-display mono">CODE</div>
+                        <p class="card-description">
+                            等寬字體是程式設計師的語言，每個字元佔據相同的空間，
+                            創造了完美的對齊和節奏感。它們代表了邏輯、精確和技術美學。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 字重展示卡片 -->
+                <div class="type-card" data-font="weight">
+                    <div class="card-content">
+                        <div class="card-label">Variable Font Weights</div>
+                        <div class="card-display sans" id="weightDemo">WEIGHT</div>
+                        <p class="card-description">
+                            可變字重系統讓設計師能夠精確控制文字的視覺重量，
+                            從最輕盈的 100 到最厚重的 900，每一級都承載著不同的情感。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 字距調整卡片 -->
+                <div class="type-card" data-font="spacing">
+                    <div class="card-content">
+                        <div class="card-label">Letter Spacing</div>
+                        <div class="card-display sans" id="spacingDemo" style="letter-spacing: 0.1em;">SPACE</div>
+                        <p class="card-description">
+                            字母間距是隱形的設計師，它控制著文字的呼吸節奏。
+                            緊密的間距創造親密感，寬鬆的間距則帶來優雅和空氣感。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 行高控制卡片 -->
+                <div class="type-card" data-font="leading">
+                    <div class="card-content">
+                        <div class="card-label">Line Height Control</div>
+                        <div class="card-display sans" style="line-height: 0.8;">LINE<br>HEIGHT</div>
+                        <p class="card-description">
+                            行高決定了文字的垂直節奏，影響著讀者的視覺舒適度。
+                            它是版面設計中最重要的呼吸空間，決定了內容的可讀性和美感。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 字重控制滑桿 -->
+    <div class="weight-slider">
+        <div class="weight-control">
+            <div class="weight-handle" id="weightHandle"></div>
+        </div>
+    </div>
+
+    <script>
+        class TypographyFirstManifesto {
+            constructor() {
+                this.currentWeight = 400;
+                this.fontStack = ['Inter', 'Playfair Display', 'JetBrains Mono'];
+                this.currentFontIndex = 0;
+                this.letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ字體設計創意藝術';
+                this.isLoaded = false;
+                
+                this.init();
+            }
+
+            init() {
+                this.setupEventListeners();
+                this.startTextRain();
+                this.setupWeightSlider();
+                this.startTypographyAnimations();
+                this.simulateLoading();
+            }
+
+            simulateLoading() {
+                const loadingText = document.getElementById('loadingText');
+                const messages = [
+                    'Loading Typography Engine...',
+                    'Initializing Font Variations...',
+                    'Calibrating Letter Spacing...',
+                    'Optimizing Character Rendering...',
+                    'Typography System Ready.'
+                ];
+                
+                let messageIndex = 0;
+                const loadingInterval = setInterval(() => {
+                    if (messageIndex < messages.length) {
+                        loadingText.textContent = messages[messageIndex];
+                        messageIndex++;
+                    } else {
+                        loadingText.style.animation = 'snapshot-fade 1s ease-out forwards';
+                        setTimeout(() => {
+                            loadingText.remove();
+                            this.isLoaded = true;
+                        }, 1000);
+                        clearInterval(loadingInterval);
+                    }
+                }, 500);
+            }
+
+            setupEventListeners() {
+                // 游標追蹤
+                document.addEventListener('mousemove', (e) => {
+                    this.updateCursor(e);
+                    this.createTypeSnapshot(e);
+                });
+
+                // 字體卡片互動
+                document.querySelectorAll('.type-card').forEach(card => {
+                    card.addEventListener('mouseenter', () => {
+                        this.animateCardText(card);
+                    });
+                    
+                    card.addEventListener('click', () => {
+                        this.switchGlobalFont(card.dataset.font);
+                    });
+                });
+
+                // 鍵盤控制
+                document.addEventListener('keydown', (e) => {
+                    this.handleKeyboardControls(e);
+                });
+
+                // 滾動效果
+                window.addEventListener('scroll', () => {
+                    this.updateScrollEffects();
+                });
+            }
+
+            updateCursor(e) {
+                const cursor = document.getElementById('typoCursor');
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY - 12 + 'px';
+                
+                // 根據滑鼠速度調整游標高度
+                const velocity = Math.min(Math.abs(e.movementX) + Math.abs(e.movementY), 20);
+                cursor.style.height = (24 + velocity) + 'px';
+            }
+
+            createTypeSnapshot(e) {
+                if (!this.isLoaded || Math.random() > 0.02) return;
+                
+                const snapshot = document.createElement('div');
+                snapshot.className = 'type-snapshot';
+                snapshot.textContent = this.letters[Math.floor(Math.random() * this.letters.length)];
+                snapshot.style.left = e.clientX - 20 + 'px';
+                snapshot.style.top = e.clientY - 20 + 'px';
+                snapshot.style.fontFamily = this.fontStack[Math.floor(Math.random() * this.fontStack.length)];
+                
+                document.body.appendChild(snapshot);
+                
+                setTimeout(() => snapshot.remove(), 2000);
+            }
+
+            startTextRain() {
+                setInterval(() => {
+                    if (!this.isLoaded) return;
+                    
+                    const rain = document.getElementById('textRain');
+                    const letter = document.createElement('div');
+                    letter.className = 'falling-letter';
+                    letter.textContent = this.letters[Math.floor(Math.random() * this.letters.length)];
+                    letter.style.left = Math.random() * window.innerWidth + 'px';
+                    letter.style.fontSize = (20 + Math.random() * 40) + 'px';
+                    letter.style.animationDuration = (6 + Math.random() * 4) + 's';
+                    letter.style.fontWeight = 100 + Math.floor(Math.random() * 8) * 100;
+                    
+                    rain.appendChild(letter);
+                    
+                    setTimeout(() => letter.remove(), 10000);
+                }, 300);
+            }
+
+            setupWeightSlider() {
+                const handle = document.getElementById('weightHandle');
+                const control = handle.parentElement;
+                let isDragging = false;
+
+                handle.addEventListener('mousedown', () => {
+                    isDragging = true;
+                });
+
+                document.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+                    
+                    const rect = control.getBoundingClientRect();
+                    const x = Math.max(0, Math.min(rect.width, e.clientX - rect.left));
+                    const percentage = x / rect.width;
+                    
+                    handle.style.left = percentage * 100 + '%';
+                    
+                    // 更新字重 (100-900)
+                    this.currentWeight = 100 + Math.floor(percentage * 800);
+                    this.updateWeightDemo();
+                });
+
+                document.addEventListener('mouseup', () => {
+                    isDragging = false;
+                });
+            }
+
+            updateWeightDemo() {
+                const demo = document.getElementById('weightDemo');
+                if (demo) {
+                    demo.style.fontWeight = this.currentWeight;
+                    demo.textContent = `${this.currentWeight}`;
+                }
+            }
+
+            animateCardText(card) {
+                const display = card.querySelector('.card-display');
+                const originalText = display.textContent;
+                
+                // 文字解構動畫
+                let frame = 0;
+                const animateFrame = () => {
+                    if (frame < 20) {
+                        let scrambled = '';
+                        for (let i = 0; i < originalText.length; i++) {
+                            if (Math.random() < 0.7) {
+                                scrambled += this.letters[Math.floor(Math.random() * this.letters.length)];
+                            } else {
+                                scrambled += originalText[i];
+                            }
+                        }
+                        display.textContent = scrambled;
+                        frame++;
+                        setTimeout(animateFrame, 50);
+                    } else {
+                        display.textContent = originalText;
+                    }
+                };
+                
+                animateFrame();
+            }
+
+            switchGlobalFont(fontType) {
+                const body = document.body;
+                
+                switch(fontType) {
+                    case 'serif':
+                        body.style.fontFamily = "'Playfair Display', serif";
+                        break;
+                    case 'sans':
+                        body.style.fontFamily = "'Inter', sans-serif";
+                        break;
+                    case 'mono':
+                        body.style.fontFamily = "'JetBrains Mono', monospace";
+                        break;
+                    default:
+                        body.style.fontFamily = "'Inter', sans-serif";
+                }
+                
+                this.showFontChangeNotification(fontType);
+            }
+
+            showFontChangeNotification(fontType) {
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    bottom: 40px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: var(--typo-ink);
+                    color: var(--typo-paper);
+                    padding: 15px 30px;
+                    border-radius: 0;
+                    font-family: 'JetBrains Mono', monospace;
+                    font-weight: 600;
+                    z-index: 10000;
+                    animation: snapshot-fade 3s ease-out forwards;
+                `;
+                notification.textContent = `Font switched to: ${fontType.toUpperCase()}`;
+                
+                document.body.appendChild(notification);
+                setTimeout(() => notification.remove(), 3000);
+            }
+
+            handleKeyboardControls(e) {
+                switch(e.key) {
+                    case '1':
+                        this.switchGlobalFont('serif');
+                        break;
+                    case '2':
+                        this.switchGlobalFont('sans');
+                        break;
+                    case '3':
+                        this.switchGlobalFont('mono');
+                        break;
+                    case ' ':
+                        e.preventDefault();
+                        this.triggerGlobalTextAnimation();
+                        break;
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        this.adjustGlobalWeight(100);
+                        break;
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        this.adjustGlobalWeight(-100);
+                        break;
+                }
+            }
+
+            adjustGlobalWeight(delta) {
+                this.currentWeight = Math.max(100, Math.min(900, this.currentWeight + delta));
+                document.body.style.fontWeight = this.currentWeight;
+                this.updateWeightSlider();
+            }
+
+            updateWeightSlider() {
+                const handle = document.getElementById('weightHandle');
+                const percentage = (this.currentWeight - 100) / 800;
+                handle.style.left = percentage * 100 + '%';
+                this.updateWeightDemo();
+            }
+
+            triggerGlobalTextAnimation() {
+                const allText = document.querySelectorAll('h1, h2, h3, p, div');
+                allText.forEach((element, index) => {
+                    setTimeout(() => {
+                        element.style.animation = 'none';
+                        element.offsetHeight; // 觸發重繪
+                        element.style.animation = 'word-entrance-1 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards';
+                    }, index * 50);
+                });
+            }
+
+            startTypographyAnimations() {
+                // 動態改變行高
+                setInterval(() => {
+                    if (!this.isLoaded) return;
+                    
+                    const spacingDemo = document.getElementById('spacingDemo');
+                    if (spacingDemo) {
+                        const spacing = 0.05 + Math.sin(Date.now() * 0.001) * 0.1;
+                        spacingDemo.style.letterSpacing = spacing + 'em';
+                    }
+                }, 100);
+
+                // 字體變形循環
+                setInterval(() => {
+                    if (!this.isLoaded) return;
+                    
+                    const morphingWord = document.querySelector('.morphing-word');
+                    if (morphingWord) {
+                        const words = ['字體即靈魂', 'TYPE IS SOUL', 'FONT = LIFE', '字重傳情'];
+                        const randomWord = words[Math.floor(Math.random() * words.length)];
+                        morphingWord.textContent = randomWord;
+                    }
+                }, 6000);
+            }
+
+            updateScrollEffects() {
+                const scrollProgress = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+                
+                // 根據滾動調整字體網格
+                const grid = document.querySelector('.typography-grid');
+                grid.style.opacity = 0.05 + scrollProgress * 0.1;
+                
+                // 調整背景裝飾透明度
+                document.querySelectorAll('.type-decoration').forEach((decoration, index) => {
+                    decoration.style.opacity = 0.05 + (scrollProgress * 0.15) + (index * 0.02);
+                });
+            }
+        }
+
+        // 初始化字體至上主義系統
+        document.addEventListener('DOMContentLoaded', () => {
+            new TypographyFirstManifesto();
+        });
+
+        // 防止右鍵選單
+        document.addEventListener('contextmenu', e => e.preventDefault());
+
+        // 防止文字選擇影響體驗
+        document.addEventListener('selectstart', e => {
+            if (e.target.classList.contains('type-decoration') || 
+                e.target.classList.contains('falling-letter')) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tokyo Neon - 東京霓虹美學</title>
+    <style>
+        :root {
+            --neon-night: #0a0f1c;
+            --neon-pink: #ff1744;
+            --neon-cyan: #00e5ff;
+            --neon-white: #ffffff;
+            --neon-gray: #1a1f2e;
+            --neon-dark: #0d1117;
+            --neon-glow-pink: rgba(255, 23, 68, 0.6);
+            --neon-glow-cyan: rgba(0, 229, 255, 0.6);
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--neon-night);
+            color: var(--neon-white);
+            line-height: 1.5;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* 霓虹城市背景 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(255, 23, 68, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(0, 229, 255, 0.1) 0%, transparent 50%),
+                linear-gradient(180deg, var(--neon-night) 0%, var(--neon-dark) 100%);
+            z-index: -2;
+        }
+
+        /* 賽博朋克網格 */
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, rgba(0, 229, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(0deg, rgba(0, 229, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            animation: cyber-pulse 4s ease-in-out infinite;
+        }
+
+        /* 自定義霓虹游標 */
+        .neon-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--neon-cyan);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: all 0.1s ease;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px var(--neon-glow-cyan);
+        }
+
+        .cursor-trail {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: var(--neon-pink);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px var(--neon-glow-pink);
+        }
+
+        /* 東京霓虹容器 */
+        .tokyo-container {
+            min-height: 100vh;
+            padding: 0 60px;
+            max-width: 1600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* 賽博朋克標題區 */
+        .cyber-header {
+            padding: 120px 0 180px;
+            text-align: center;
+            position: relative;
+        }
+
+        .tokyo-brand {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            margin-bottom: 60px;
+            opacity: 0;
+            animation: neon-flicker 3s ease-in-out infinite, cyber-appear 2s ease-out forwards 0.5s;
+        }
+
+        .cyber-title {
+            font-size: clamp(5rem, 15vw, 15rem);
+            font-weight: 900;
+            color: var(--neon-white);
+            line-height: 0.8;
+            letter-spacing: -0.05em;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            position: relative;
+            opacity: 0;
+            animation: cyber-glitch 2s ease-out forwards 1s;
+        }
+
+        .cyber-title::before {
+            content: 'TOKYO NEON';
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: var(--neon-pink);
+            text-shadow: 0 0 30px var(--neon-glow-pink);
+            animation: title-drift 3s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        .cyber-title::after {
+            content: 'TOKYO NEON';
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 30px var(--neon-glow-cyan);
+            animation: title-drift 3s ease-in-out infinite reverse;
+            z-index: -1;
+        }
+
+        .cyber-subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-weight: 300;
+            color: var(--neon-cyan);
+            margin-bottom: 50px;
+            opacity: 0;
+            animation: cyber-appear 2s ease-out forwards 1.5s;
+            text-shadow: 0 0 20px var(--neon-glow-cyan);
+        }
+
+        .cyber-description {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0;
+            animation: cyber-appear 2s ease-out forwards 2s;
+        }
+
+        /* 霓虹數據面板 */
+        .data-panels {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 60px;
+            margin-bottom: 120px;
+        }
+
+        .data-panel {
+            background: linear-gradient(135deg, var(--neon-gray) 0%, var(--neon-dark) 100%);
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            padding: 60px 40px;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: panel-materialize 1.5s ease-out forwards;
+        }
+
+        .data-panel:nth-child(1) { animation-delay: 2.5s; }
+        .data-panel:nth-child(2) { animation-delay: 2.8s; }
+        .data-panel:nth-child(3) { animation-delay: 3.1s; }
+        .data-panel:nth-child(4) { animation-delay: 3.4s; }
+
+        .data-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                var(--neon-pink) 0%, 
+                var(--neon-cyan) 100%);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.6s ease;
+        }
+
+        .data-panel:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-pink);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.5),
+                0 0 40px var(--neon-glow-cyan);
+        }
+
+        .data-panel:hover::before {
+            transform: scaleX(1);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .panel-id {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-family: 'SF Mono', monospace;
+        }
+
+        .panel-status {
+            width: 12px;
+            height: 12px;
+            background: var(--neon-pink);
+            border-radius: 50%;
+            animation: status-pulse 2s ease-in-out infinite;
+            box-shadow: 0 0 15px var(--neon-glow-pink);
+        }
+
+        .panel-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--neon-white);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .panel-content {
+            font-size: 1rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .panel-metrics {
+            display: flex;
+            gap: 30px;
+            font-family: 'SF Mono', monospace;
+        }
+
+        .metric {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 15px var(--neon-glow-cyan);
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* 霓虹裝飾線條 */
+        .neon-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .neon-line {
+            position: absolute;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                var(--neon-cyan) 50%, 
+                transparent 100%);
+            height: 1px;
+            animation: line-scan 3s linear infinite;
+        }
+
+        .neon-line:nth-child(1) {
+            top: 20%;
+            width: 200px;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .neon-line:nth-child(2) {
+            top: 60%;
+            width: 150px;
+            right: 15%;
+            animation-delay: 1s;
+        }
+
+        .neon-line:nth-child(3) {
+            bottom: 30%;
+            width: 300px;
+            left: 30%;
+            animation-delay: 2s;
+        }
+
+        /* 日文裝飾文字 */
+        .japanese-text {
+            position: fixed;
+            font-size: 8rem;
+            font-weight: 100;
+            color: rgba(0, 229, 255, 0.05);
+            pointer-events: none;
+            z-index: -1;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+
+        .japanese-text.left {
+            top: 20%;
+            left: 5%;
+            animation: japanese-drift 20s linear infinite;
+        }
+
+        .japanese-text.right {
+            bottom: 20%;
+            right: 5%;
+            animation: japanese-drift 25s linear infinite reverse;
+        }
+
+        /* 動畫定義 */
+        @keyframes cyber-appear {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes cyber-glitch {
+            0% { 
+                opacity: 0; 
+                transform: translateX(-20px); 
+                filter: blur(5px);
+            }
+            20% { 
+                transform: translateX(10px); 
+                filter: blur(2px);
+            }
+            40% { 
+                transform: translateX(-5px); 
+                filter: blur(1px);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateX(0); 
+                filter: blur(0);
+            }
+        }
+
+        @keyframes neon-flicker {
+            0%, 100% { 
+                opacity: 1; 
+                text-shadow: 0 0 20px var(--neon-glow-cyan);
+            }
+            50% { 
+                opacity: 0.8; 
+                text-shadow: 0 0 30px var(--neon-glow-cyan);
+            }
+        }
+
+        @keyframes title-drift {
+            0%, 100% { 
+                transform: translate(0, 0);
+                opacity: 0.3;
+            }
+            50% { 
+                transform: translate(2px, -2px);
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes panel-materialize {
+            from { 
+                opacity: 0; 
+                transform: translateY(50px) scale(0.95);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes cyber-pulse {
+            0%, 100% { opacity: 0.05; }
+            50% { opacity: 0.15; }
+        }
+
+        @keyframes status-pulse {
+            0%, 100% { 
+                opacity: 1; 
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.6; 
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes line-scan {
+            0% { 
+                opacity: 0; 
+                transform: translateX(-100%);
+            }
+            50% { 
+                opacity: 1;
+            }
+            100% { 
+                opacity: 0; 
+                transform: translateX(100%);
+            }
+        }
+
+        @keyframes japanese-drift {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100px); }
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .tokyo-container {
+                padding: 0 30px;
+            }
+
+            .cyber-header {
+                padding: 80px 0 120px;
+            }
+
+            .data-panels {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .data-panel {
+                padding: 40px 30px;
+            }
+
+            .japanese-text {
+                display: none;
+            }
+
+            .neon-lines {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 霓虹游標 -->
+    <div class="neon-cursor"></div>
+    <div class="cursor-trail"></div>
+
+    <!-- 賽博朋克網格 -->
+    <div class="cyber-grid"></div>
+
+    <!-- 霓虹裝飾線條 -->
+    <div class="neon-lines">
+        <div class="neon-line"></div>
+        <div class="neon-line"></div>
+        <div class="neon-line"></div>
+    </div>
+
+    <!-- 日文裝飾文字 -->
+    <div class="japanese-text left">東京夜景</div>
+    <div class="japanese-text right">未来都市</div>
+
+    <div class="tokyo-container">
+        <!-- 賽博朋克標題區 -->
+        <header class="cyber-header">
+            <div class="tokyo-brand">Neo Tokyo 2089</div>
+            <h1 class="cyber-title">TOKYO<br>NEON</h1>
+            <h2 class="cyber-subtitle">賽博朋克與日式美學的數位融合</h2>
+            <p class="cyber-description">
+                在霓虹燈海中尋找靈魂，在數位廢墟中建構未來。
+                這是東京夜晚的電子詩篇，每一個像素都在訴說著明日的故事。
+            </p>
+        </header>
+
+        <!-- 霓虹數據面板 -->
+        <section class="data-panels">
+            <div class="data-panel">
+                <div class="panel-header">
+                    <span class="panel-id">[SYS_01]</span>
+                    <div class="panel-status"></div>
+                </div>
+                <h3 class="panel-title">Neural Interface</h3>
+                <p class="panel-content">
+                    人機界面的極致體驗，將意識與數位世界無縫連接。
+                    每一次互動都是神經元的共鳴，每一個反應都是靈魂的觸碰。
+                </p>
+                <div class="panel-metrics">
+                    <div class="metric">
+                        <span class="metric-value">99.7%</span>
+                        <span class="metric-label">Sync Rate</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-value">2089</span>
+                        <span class="metric-label">Connections</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="data-panel">
+                <div class="panel-header">
+                    <span class="panel-id">[VIS_02]</span>
+                    <div class="panel-status"></div>
+                </div>
+                <h3 class="panel-title">Holographic Display</h3>
+                <p class="panel-content">
+                    三維全息投影技術重新定義視覺體驗。
+                    光與影的舞蹈，現實與虛擬的邊界在此消失。
+                </p>
+                <div class="panel-metrics">
+                    <div class="metric">
+                        <span class="metric-value">8K</span>
+                        <span class="metric-label">Resolution</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-value">∞</span>
+                        <span class="metric-label">Depth</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="data-panel">
+                <div class="panel-header">
+                    <span class="panel-id">[AUD_03]</span>
+                    <div class="panel-status"></div>
+                </div>
+                <h3 class="panel-title">Sonic Architecture</h3>
+                <p class="panel-content">
+                    城市的電子脈動，合成器的未來和聲。
+                    音樂不再是背景，而是構建情感空間的建築材料。
+                </p>
+                <div class="panel-metrics">
+                    <div class="metric">
+                        <span class="metric-value">432Hz</span>
+                        <span class="metric-label">Base Freq</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-value">24bit</span>
+                        <span class="metric-label">Depth</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="data-panel">
+                <div class="panel-header">
+                    <span class="panel-id">[ENR_04]</span>
+                    <div class="panel-status"></div>
+                </div>
+                <h3 class="panel-title">Energy Matrix</h3>
+                <p class="panel-content">
+                    霓虹燈管中流動的不只是電流，更是城市的生命力。
+                    每一束光都承載著夢想，每一個色彩都映射著靈魂。
+                </p>
+                <div class="panel-metrics">
+                    <div class="metric">
+                        <span class="metric-value">2.1TW</span>
+                        <span class="metric-label">Output</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-value">∞</span>
+                        <span class="metric-label">Duration</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // 東京霓虹互動系統
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursor = document.querySelector('.neon-cursor');
+            const trail = document.querySelector('.cursor-trail');
+            let mouseX = 0, mouseY = 0;
+            let trailX = 0, trailY = 0;
+
+            // 霓虹游標追蹤
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                cursor.style.left = mouseX + 'px';
+                cursor.style.top = mouseY + 'px';
+            });
+
+            // 游標軌跡效果
+            function animateTrail() {
+                trailX += (mouseX - trailX) * 0.1;
+                trailY += (mouseY - trailY) * 0.1;
+                trail.style.left = trailX + 'px';
+                trail.style.top = trailY + 'px';
+                requestAnimationFrame(animateTrail);
+            }
+            animateTrail();
+
+            // 數據面板互動
+            const panels = document.querySelectorAll('.data-panel');
+            panels.forEach((panel, index) => {
+                panel.addEventListener('mouseenter', () => {
+                    createCyberGlow(panel);
+                    triggerPanelScan(panel);
+                });
+
+                panel.addEventListener('click', () => {
+                    createDataBurst(panel);
+                });
+
+                // 隨機數據更新
+                const metrics = panel.querySelectorAll('.metric-value');
+                setInterval(() => {
+                    updateMetrics(metrics, index);
+                }, 3000 + index * 1000);
+            });
+
+            // 霓虹閃爍效果
+            setInterval(() => {
+                createRandomFlicker();
+            }, 2000);
+
+            // 掃描線效果
+            createScanlines();
+
+            // 賽博朋克背景脈動
+            let pulseIntensity = 0;
+            function cyberpulse() {
+                pulseIntensity += 0.05;
+                const grid = document.querySelector('.cyber-grid');
+                grid.style.filter = `brightness(${1 + Math.sin(pulseIntensity) * 0.3})`;
+                requestAnimationFrame(cyberpulse);
+            }
+            cyberpulse();
+        });
+
+        function createCyberGlow(panel) {
+            const glow = document.createElement('div');
+            glow.style.cssText = `
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(45deg, 
+                    rgba(255, 23, 68, 0.1), 
+                    transparent,
+                    rgba(0, 229, 255, 0.1));
+                background-size: 400% 400%;
+                animation: cyber-glow-shift 2s ease infinite;
+                pointer-events: none;
+                z-index: 0;
+            `;
+            
+            panel.appendChild(glow);
+            setTimeout(() => glow.remove(), 2000);
+        }
+
+        function triggerPanelScan(panel) {
+            const scanline = document.createElement('div');
+            scanline.style.cssText = `
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                background: linear-gradient(90deg, 
+                    transparent 0%, 
+                    var(--neon-cyan) 50%, 
+                    transparent 100%);
+                animation: panel-scan 1s ease-out forwards;
+                z-index: 10;
+            `;
+            
+            panel.appendChild(scanline);
+            setTimeout(() => scanline.remove(), 1000);
+        }
+
+        function createDataBurst(panel) {
+            for (let i = 0; i < 8; i++) {
+                const particle = document.createElement('div');
+                const angle = (i / 8) * Math.PI * 2;
+                const distance = 100;
+                
+                particle.style.cssText = `
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: 4px;
+                    height: 4px;
+                    background: ${i % 2 ? 'var(--neon-pink)' : 'var(--neon-cyan)'};
+                    border-radius: 50%;
+                    pointer-events: none;
+                    z-index: 20;
+                    animation: data-burst 1.5s ease-out forwards;
+                    transform: translate(-50%, -50%);
+                    box-shadow: 0 0 10px ${i % 2 ? 'var(--neon-glow-pink)' : 'var(--neon-glow-cyan)'};
+                `;
+                
+                particle.style.setProperty('--burst-x', Math.cos(angle) * distance + 'px');
+                particle.style.setProperty('--burst-y', Math.sin(angle) * distance + 'px');
+                
+                panel.appendChild(particle);
+                setTimeout(() => particle.remove(), 1500);
+            }
+        }
+
+        function updateMetrics(metrics, panelIndex) {
+            metrics.forEach(metric => {
+                const currentText = metric.textContent;
+                if (currentText.includes('%')) {
+                    metric.textContent = (Math.random() * 100).toFixed(1) + '%';
+                } else if (currentText.includes('K')) {
+                    metric.textContent = Math.floor(Math.random() * 16) + 'K';
+                } else if (currentText.includes('TW')) {
+                    metric.textContent = (Math.random() * 5).toFixed(1) + 'TW';
+                } else if (currentText.includes('Hz')) {
+                    metric.textContent = Math.floor(Math.random() * 1000) + 'Hz';
+                }
+            });
+        }
+
+        function createRandomFlicker() {
+            const elements = document.querySelectorAll('[class*="neon"], .panel-status');
+            const randomElement = elements[Math.floor(Math.random() * elements.length)];
+            
+            if (randomElement) {
+                randomElement.style.animation = 'neon-flicker 0.3s ease-in-out';
+                setTimeout(() => {
+                    randomElement.style.animation = '';
+                }, 300);
+            }
+        }
+
+        function createScanlines() {
+            const container = document.querySelector('.tokyo-container');
+            const scanline = document.createElement('div');
+            
+            scanline.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                background: linear-gradient(90deg, 
+                    transparent 0%, 
+                    var(--neon-cyan) 50%, 
+                    transparent 100%);
+                pointer-events: none;
+                z-index: 1000;
+                animation: full-scan 5s linear infinite;
+                opacity: 0.3;
+            `;
+            
+            document.body.appendChild(scanline);
+        }
+
+        // 動態樣式擴展
+        const neonStyles = document.createElement('style');
+        neonStyles.textContent = `
+            @keyframes cyber-glow-shift {
+                0%, 100% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+            }
+
+            @keyframes panel-scan {
+                0% { transform: translateY(0); opacity: 1; }
+                100% { transform: translateY(400px); opacity: 0; }
+            }
+
+            @keyframes data-burst {
+                0% { 
+                    transform: translate(-50%, -50%) scale(1);
+                    opacity: 1;
+                }
+                100% { 
+                    transform: translate(calc(-50% + var(--burst-x)), calc(-50% + var(--burst-y))) scale(0);
+                    opacity: 0;
+                }
+            }
+
+            @keyframes full-scan {
+                0% { top: -10px; opacity: 0; }
+                10% { opacity: 0.8; }
+                90% { opacity: 0.8; }
+                100% { top: 100vh; opacity: 0; }
+            }
+        `;
+        document.head.appendChild(neonStyles);
+
+        console.log('🌃 Tokyo Neon loaded - Welcome to Neo Tokyo 2089');
+    </script>
+</body>
+</html>

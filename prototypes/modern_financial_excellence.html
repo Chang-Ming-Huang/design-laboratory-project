@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Financial Excellence - Bold Innovation in Financial Technology</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Bold Sunset Orange Color System */
+        :root {
+            --primary-dark: #0a0a0a;
+            --secondary-dark: #431407;
+            --gradient-primary: linear-gradient(135deg, #ea580c 0%, #dc2626 100%);
+            --gradient-secondary: linear-gradient(135deg, #fb923c 0%, #ea580c 100%);
+            --gradient-accent: linear-gradient(135deg, #fdba74 0%, #fb923c 100%);
+            --pure-white: #ffffff;
+            --light-orange: #fff7ed;
+            --success-green: #10b981;
+            --warning-orange: #f59e0b;
+            --subtle-gray: #a8a29e;
+            --border-color: rgba(251, 146, 60, 0.2);
+            --financial-transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            background: var(--primary-dark);
+            color: var(--pure-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Financial Navigation */
+        .financial-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 60px;
+            background: rgba(15, 20, 25, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--financial-transition);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .financial-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--pure-white);
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: var(--financial-transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-accent);
+            transition: var(--financial-transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            padding: 12px 24px;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 8px;
+            color: var(--pure-white);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--financial-transition);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(234, 88, 12, 0.3);
+        }
+
+        /* Hero Section with Data Visualization */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 60px;
+            position: relative;
+            background: radial-gradient(ellipse at center, rgba(234, 88, 12, 0.15) 0%, transparent 70%);
+        }
+
+        .hero-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 20px;
+            color: var(--success-green);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, var(--pure-white) 0%, #fb923c 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--subtle-gray);
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .primary-button {
+            padding: 16px 32px;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 8px;
+            color: var(--pure-white);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--financial-transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .primary-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: var(--financial-transition);
+        }
+
+        .primary-button:hover::before {
+            left: 100%;
+        }
+
+        .primary-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(234, 88, 12, 0.4);
+        }
+
+        .secondary-button {
+            padding: 16px 32px;
+            background: transparent;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--pure-white);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--financial-transition);
+        }
+
+        .secondary-button:hover {
+            border-color: #ea580c;
+            background: rgba(234, 88, 12, 0.1);
+        }
+
+        /* Data Visualization */
+        .hero-visual {
+            position: relative;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 380px;
+            height: 350px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            margin-right: 200px;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .chart-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--pure-white);
+        }
+
+        .chart-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--success-green);
+        }
+
+        .chart-bars {
+            display: flex;
+            align-items: end;
+            gap: 8px;
+            height: 200px;
+            margin: 20px 0;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: var(--gradient-primary);
+            border-radius: 4px 4px 0 0;
+            animation: barGrow 2s ease forwards;
+            transform-origin: bottom;
+        }
+
+        .chart-bar:nth-child(1) { height: 60%; animation-delay: 0.1s; }
+        .chart-bar:nth-child(2) { height: 80%; animation-delay: 0.2s; }
+        .chart-bar:nth-child(3) { height: 45%; animation-delay: 0.3s; }
+        .chart-bar:nth-child(4) { height: 90%; animation-delay: 0.4s; }
+        .chart-bar:nth-child(5) { height: 75%; animation-delay: 0.5s; }
+        .chart-bar:nth-child(6) { height: 100%; animation-delay: 0.6s; }
+
+        @keyframes barGrow {
+            0% { transform: scaleY(0); }
+            100% { transform: scaleY(1); }
+        }
+
+        .data-points {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            background: rgba(251, 146, 60, 0.1);
+            border: 1px solid rgba(234, 88, 12, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            width: 180px;
+            backdrop-filter: blur(10px);
+        }
+
+        .data-point {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 0.85rem;
+            padding: 4px 0;
+        }
+
+        .data-point:last-child {
+            margin-bottom: 0;
+        }
+
+        .data-label {
+            color: var(--subtle-gray);
+            font-weight: 500;
+            flex: 1;
+        }
+
+        .data-value {
+            color: var(--pure-white);
+            font-weight: 700;
+            text-align: right;
+            margin-left: 12px;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 120px 60px;
+            background: var(--secondary-dark);
+        }
+
+        .features-container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--subtle-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            padding: 40px 30px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            transition: var(--financial-transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient-accent);
+            opacity: 0;
+            transition: var(--financial-transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(234, 88, 12, 0.3);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-accent);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--pure-white);
+        }
+
+        .feature-description {
+            color: var(--subtle-gray);
+            line-height: 1.6;
+        }
+
+        /* Metrics Section */
+        .metrics-section {
+            padding: 100px 60px;
+        }
+
+        .metrics-container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 60px;
+            text-align: center;
+        }
+
+        .metric-item {
+            position: relative;
+        }
+
+        .metric-number {
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 800;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .metric-label {
+            font-size: 1rem;
+            color: var(--subtle-gray);
+            font-weight: 500;
+        }
+
+        /* Footer */
+        .financial-footer {
+            padding: 80px 60px 40px;
+            background: var(--primary-dark);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-cta {
+            margin-bottom: 40px;
+        }
+
+        .footer-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: var(--gradient-secondary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-subtitle {
+            font-size: 1.1rem;
+            color: var(--subtle-gray);
+            margin-bottom: 30px;
+        }
+
+        .footer-text {
+            color: var(--subtle-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 50px;
+                text-align: center;
+            }
+
+            .chart-container {
+                width: 300px;
+                height: 280px;
+                margin-right: 0;
+            }
+
+            .data-points {
+                position: static;
+                transform: none;
+                width: 200px;
+                margin: 30px auto 0;
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .financial-nav {
+                padding: 15px 30px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero-section,
+            .features-section,
+            .metrics-section,
+            .financial-footer {
+                padding: 60px 30px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Financial Navigation -->
+    <nav class="financial-nav">
+        <div class="nav-container">
+            <div class="financial-logo">IGNITE</div>
+            <ul class="nav-links">
+                <li><a href="#home">Platform</a></li>
+                <li><a href="#features">Solutions</a></li>
+                <li><a href="#metrics">Analytics</a></li>
+                <li><a href="../index.html">Gallery</a></li>
+            </ul>
+            <a href="#contact" class="nav-cta">Get Started</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    ✓ Trusted by 10,000+ businesses
+                </div>
+                <h1 class="hero-title">
+                    The Future of<br>
+                    Financial Technology
+                </h1>
+                <p class="hero-subtitle">
+                    Transform your business with our next-generation financial platform. 
+                    Process payments, manage data, and scale globally with enterprise-grade security.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#features" class="primary-button">Start Building</a>
+                    <a href="#metrics" class="secondary-button">View Demo</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">Revenue Growth</div>
+                        <div class="chart-value">+247%</div>
+                    </div>
+                    <div class="chart-bars">
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                    </div>
+                </div>
+                <div class="data-points">
+                    <div class="data-point">
+                        <span class="data-label">Conversion</span>
+                        <span class="data-value">98.2%</span>
+                    </div>
+                    <div class="data-point">
+                        <span class="data-label">Speed</span>
+                        <span class="data-value">0.3s</span>
+                    </div>
+                    <div class="data-point">
+                        <span class="data-label">Uptime</span>
+                        <span class="data-value">99.99%</span>
+                    </div>
+                    <div class="data-point">
+                        <span class="data-label">Security</span>
+                        <span class="data-value">256-bit</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="features-container">
+            <div class="section-header">
+                <h2 class="section-title">Enterprise Solutions</h2>
+                <p class="section-subtitle">
+                    Built for scale, designed for performance, trusted by industry leaders.
+                </p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3 class="feature-title">Lightning Fast Processing</h3>
+                    <p class="feature-description">
+                        Process millions of transactions per second with our advanced 
+                        infrastructure. 99.99% uptime guaranteed with real-time monitoring.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3 class="feature-title">Bank-Grade Security</h3>
+                    <p class="feature-description">
+                        Enterprise encryption, fraud detection, and compliance tools that 
+                        protect your business and customers at every touchpoint.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">Advanced Analytics</h3>
+                    <p class="feature-description">
+                        Real-time insights and predictive analytics that help you make 
+                        data-driven decisions and optimize financial performance.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3 class="feature-title">Global Reach</h3>
+                    <p class="feature-description">
+                        Accept payments in 135+ currencies with local processing in 40+ 
+                        countries. Scale internationally with confidence.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Developer-First API</h3>
+                    <p class="feature-description">
+                        RESTful APIs with extensive documentation, SDKs in 8+ languages, 
+                        and webhooks for seamless integration.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3 class="feature-title">Scalable Infrastructure</h3>
+                    <p class="feature-description">
+                        Auto-scaling architecture that grows with your business. From 
+                        startup to enterprise, we handle your growth.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Metrics Section -->
+    <section id="metrics" class="metrics-section">
+        <div class="metrics-container">
+            <div class="metrics-grid">
+                <div class="metric-item">
+                    <span class="metric-number">$50B+</span>
+                    <span class="metric-label">Processed Annually</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-number">10K+</span>
+                    <span class="metric-label">Active Businesses</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-number">99.99%</span>
+                    <span class="metric-label">Platform Uptime</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-number">0.3s</span>
+                    <span class="metric-label">Average Response</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Financial Footer -->
+    <footer class="financial-footer">
+        <div class="footer-container">
+            <div class="footer-cta">
+                <h3 class="footer-title">Ready to Transform Your Business?</h3>
+                <p class="footer-subtitle">
+                    Join thousands of companies building the future of finance with our platform.
+                </p>
+                <a href="#contact" class="primary-button">Start Your Integration</a>
+            </div>
+            <p class="footer-text">
+                IGNITE Financial Excellence — Powering bold innovation in the next generation of financial technology.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Chart animation observer
+            const chartObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const bars = entry.target.querySelectorAll('.chart-bar');
+                        bars.forEach((bar, index) => {
+                            setTimeout(() => {
+                                bar.style.animation = `barGrow 1s ease forwards`;
+                            }, index * 100);
+                        });
+                    }
+                });
+            }, {
+                threshold: 0.5
+            });
+
+            const chartContainer = document.querySelector('.chart-container');
+            if (chartContainer) {
+                chartObserver.observe(chartContainer);
+            }
+
+            // Feature cards animation
+            const cardObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, {
+                threshold: 0.2
+            });
+
+            const featureCards = document.querySelectorAll('.feature-card');
+            featureCards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = `all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 0.1}s`;
+                cardObserver.observe(card);
+            });
+
+            // Metrics counter animation
+            const metricsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const number = entry.target.querySelector('.metric-number');
+                        const originalText = number.textContent;
+                        
+                        // Only animate numbers, not text
+                        if (originalText.includes('$') || originalText.includes('%') || originalText.includes('K+') || originalText.includes('s')) {
+                            number.style.animation = 'numberPulse 0.8s ease forwards';
+                        }
+                    }
+                });
+            }, {
+                threshold: 0.5
+            });
+
+            const metricItems = document.querySelectorAll('.metric-item');
+            metricItems.forEach(item => {
+                metricsObserver.observe(item);
+            });
+
+            // Add pulse animation for metrics
+            const metricsStyle = document.createElement('style');
+            metricsStyle.textContent = `
+                @keyframes numberPulse {
+                    0% { transform: scale(0.8); opacity: 0; }
+                    50% { transform: scale(1.1); }
+                    100% { transform: scale(1); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(metricsStyle);
+
+            // Navigation scroll effect
+            const nav = document.querySelector('.financial-nav');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    nav.style.background = 'rgba(15, 20, 25, 0.98)';
+                } else {
+                    nav.style.background = 'rgba(15, 20, 25, 0.95)';
+                }
+            });
+
+            // Smooth data point updates
+            const dataValues = document.querySelectorAll('.data-value');
+            dataValues.forEach(value => {
+                value.addEventListener('mouseenter', () => {
+                    value.style.color = '#fb923c';
+                    value.style.transform = 'scale(1.1)';
+                });
+                value.addEventListener('mouseleave', () => {
+                    value.style.color = '#ffffff';
+                    value.style.transform = 'scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

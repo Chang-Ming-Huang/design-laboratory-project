@@ -1,0 +1,57 @@
+{
+  "name": "design-laboratory-project",
+  "version": "2.0.0",
+  "description": "🎨 AI 創意自由實驗室 - 無框架限制的純粹創意表達平台",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "npm run build && node server.js",
+    "dev:watch": "concurrently \"chokidar 'prototypes/*.html' -c 'npm run build'\" \"nodemon server.js\"",
+    "build": "node build-manifest.js",
+    "build:manifest": "node build-manifest.js",
+    "serve": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -f files-manifest.json",
+    "deploy:github-pages": "npm run build && echo '準備部署到 GitHub Pages'",
+    "help": "echo '\n🎨 AI 創意實驗室 - 可用指令:\n\n  npm start          - 啟動本機開發服務器\n  npm run dev        - 啟動開發模式 (自動 build + 服務器)\n  npm run dev:watch  - 啟動監控模式 (檔案變更時自動 rebuild)\n  npm run build      - 生成 GitHub Pages 用檔案清單\n  npm run serve      - 啟動服務器 (同 start)\n  npm run clean      - 清理生成的檔案\n\n🌐 使用方式:\n  1. 本機開發: npm run dev 然後打開 http://localhost:3000\n  2. GitHub Pages: npm run build 後推送到 GitHub\n'"
+  },
+  "keywords": [
+    "ai",
+    "creative",
+    "design",
+    "laboratory",
+    "html",
+    "css",
+    "javascript",
+    "experimental",
+    "art",
+    "frontend"
+  ],
+  "author": "AI Creative Laboratory",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Chang-Ming-Huang/design-laboratory-project.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Chang-Ming-Huang/design-laboratory-project/issues"
+  },
+  "homepage": "https://chang-ming-huang.github.io/design-laboratory-project",
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "config": {
+    "port": 3000,
+    "host": "localhost"
+  }
+}

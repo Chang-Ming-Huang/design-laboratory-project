@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spatial Navigation Lab - 3D空間導航實驗室</title>
+    <style>
+        :root {
+            --space-void: #0a0a0f;
+            --space-primary: #1a1a2e;
+            --space-accent: #00d4ff;
+            --space-glow: #4facfe;
+            --space-text: #e8eaed;
+            --space-muted: #9aa0a6;
+
+            /* 漸層色系統定義 - 8層無縫色彩過渡 */
+            --gradient-stop-1: #ff6b6b;  /* 珊瑚紅 */
+            --gradient-stop-2: #feca57;  /* 暖黃 */
+            --gradient-stop-3: #48cab3;  /* 青綠 */
+            --gradient-stop-4: #3742fa;  /* 靛藍 */
+            --gradient-stop-5: #a55eea;  /* 紫羅蘭 */
+            --gradient-stop-6: #ff9ff3;  /* 粉紫 */
+            --gradient-stop-7: #54a0ff;  /* 天藍 */
+            --gradient-stop-8: #5f27cd;  /* 深紫 */
+
+            /* 動態漸層背景 */
+            --gradient-bg: linear-gradient(135deg, 
+                var(--gradient-stop-1) 0%, 
+                var(--gradient-stop-2) 12.5%, 
+                var(--gradient-stop-3) 25%, 
+                var(--gradient-stop-4) 37.5%, 
+                var(--gradient-stop-5) 50%, 
+                var(--gradient-stop-6) 62.5%, 
+                var(--gradient-stop-7) 75%, 
+                var(--gradient-stop-8) 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--space-void);
+            color: var(--space-text);
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            overflow: hidden;
+            cursor: none;
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+
+        /* 自定義3D游標 */
+        .spatial-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: var(--space-accent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            box-shadow: 
+                0 0 20px var(--space-accent),
+                0 0 40px var(--space-accent),
+                inset 0 0 10px rgba(255, 255, 255, 0.3);
+            transition: all 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translate(-50%, -50%);
+            mix-blend-mode: screen;
+        }
+
+        .spatial-cursor.active {
+            transform: translate(-50%, -50%) scale(1.5);
+            background: var(--space-glow);
+        }
+
+        /* 3D空間網格 */
+        .spatial-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
+            background-size: 80px 80px;
+            animation: spatial-flow 20s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes spatial-flow {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-80px) translateY(-80px); }
+        }
+
+        /* 3D導航層級 */
+        .spatial-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .spatial-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+        }
+
+        .spatial-layer.layer-1 { transform: translateZ(0px); }
+        .spatial-layer.layer-2 { transform: translateZ(-300px); }
+        .spatial-layer.layer-3 { transform: translateZ(-600px); }
+        .spatial-layer.layer-4 { transform: translateZ(-900px); }
+        .spatial-layer.layer-5 { transform: translateZ(-1200px); }
+        .spatial-layer.layer-6 { transform: translateZ(-1500px); }
+        .spatial-layer.layer-7 { transform: translateZ(-1800px); }
+        .spatial-layer.layer-8 { transform: translateZ(-2100px); }
+
+        /* 漸層層級樣式 */
+        .spatial-layer.layer-1 .spatial-title {
+            background: linear-gradient(135deg, var(--gradient-stop-1), var(--gradient-stop-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .spatial-layer.layer-1 .spatial-card { border-color: var(--gradient-stop-1); }
+        .spatial-layer.layer-1 .card-title { color: var(--gradient-stop-1); }
+
+        .spatial-layer.layer-2 .spatial-title {
+            background: linear-gradient(135deg, var(--gradient-stop-2), var(--gradient-stop-3));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .spatial-layer.layer-2 .spatial-card { border-color: var(--gradient-stop-2); }
+        .spatial-layer.layer-2 .card-title { color: var(--gradient-stop-2); }
+
+        .spatial-layer.layer-3 .spatial-title {
+            background: linear-gradient(135deg, var(--gradient-stop-3), var(--gradient-stop-4));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .spatial-layer.layer-3 .spatial-card { border-color: var(--gradient-stop-3); }
+        .spatial-layer.layer-3 .card-title { color: var(--gradient-stop-3); }
+
+        .spatial-layer.layer-4 .spatial-title {
+            background: linear-gradient(135deg, var(--gradient-stop-4), var(--gradient-stop-5));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .spatial-layer.layer-4 .spatial-card { border-color: var(--gradient-stop-4); }
+        .spatial-layer.layer-4 .card-title { color: var(--gradient-stop-4); }
+
+        .spatial-layer.layer-5 .spatial-title {
+            background: linear-gradient(135deg, var(--gradient-stop-5), var(--gradient-stop-6));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .spatial-layer.layer-5 .spatial-card { border-color: var(--gradient-stop-5); }
+        .spatial-layer.layer-5 .card-title { color: var(--gradient-stop-5); }
+
+        .spatial-layer.layer-6 .spatial-title {
+            background: linear-gradient(135deg, var(--gradient-stop-6), var(--gradient-stop-7));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .spatial-layer.layer-6 .spatial-card { border-color: var(--gradient-stop-6); }
+        .spatial-layer.layer-6 .card-title { color: var(--gradient-stop-6); }
+
+        .spatial-layer.layer-7 .spatial-title {
+            background: linear-gradient(135deg, var(--gradient-stop-7), var(--gradient-stop-8));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .spatial-layer.layer-7 .spatial-card { border-color: var(--gradient-stop-7); }
+        .spatial-layer.layer-7 .card-title { color: var(--gradient-stop-7); }
+
+        .spatial-layer.layer-8 .spatial-title {
+            background: linear-gradient(135deg, var(--gradient-stop-8), var(--gradient-stop-1));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .spatial-layer.layer-8 .spatial-card { border-color: var(--gradient-stop-8); }
+        .spatial-layer.layer-8 .card-title { color: var(--gradient-stop-8); }
+
+        /* 主要內容區域 */
+        .spatial-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+            width: 90%;
+            max-width: 1200px;
+            padding: 0 20px;
+        }
+
+        .spatial-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 100;
+            letter-spacing: -0.03em;
+            line-height: 0.9;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, var(--space-accent), var(--space-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: spatial-breathe 4s ease-in-out infinite;
+            text-align: center;
+            width: 100%;
+        }
+
+        @keyframes spatial-breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .spatial-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+            font-weight: 300;
+            color: var(--space-muted);
+            margin-bottom: 60px;
+            opacity: 0.8;
+            letter-spacing: 0.1em;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* 浮動幾何元素 */
+        .floating-geometry {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .geo-element {
+            position: absolute;
+            background: linear-gradient(45deg, 
+                rgba(0, 212, 255, 0.1), 
+                rgba(79, 172, 254, 0.05));
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            backdrop-filter: blur(10px);
+            animation: float-3d 15s ease-in-out infinite;
+        }
+
+        .geo-element:nth-child(1) {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 15%;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            animation-delay: -2s;
+        }
+
+        .geo-element:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 10%;
+            border-radius: 50%;
+            animation-delay: -7s;
+        }
+
+        .geo-element:nth-child(3) {
+            width: 180px;
+            height: 120px;
+            bottom: 20%;
+            left: 60%;
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+            animation-delay: -12s;
+        }
+
+        @keyframes float-3d {
+            0%, 100% { 
+                transform: translateY(0) rotateZ(0deg) scale(1);
+                opacity: 0.3;
+            }
+            33% { 
+                transform: translateY(-30px) rotateZ(120deg) scale(1.1);
+                opacity: 0.6;
+            }
+            66% { 
+                transform: translateY(20px) rotateZ(240deg) scale(0.9);
+                opacity: 0.4;
+            }
+        }
+
+        /* 深度指示器 */
+        .depth-indicator {
+            position: fixed;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 100;
+        }
+
+        .depth-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(0, 212, 255, 0.3);
+            border: 2px solid rgba(0, 212, 255, 0.6);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .depth-dot.active {
+            background: var(--space-accent);
+            box-shadow: 0 0 20px var(--space-accent);
+            transform: scale(1.3);
+        }
+
+        /* 導航控制提示 */
+        .navigation-hint {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--space-muted);
+            opacity: 0.6;
+            z-index: 100;
+        }
+
+        .hint-key {
+            display: inline-block;
+            padding: 4px 8px;
+            margin: 0 4px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 4px;
+            font-family: 'SF Mono', monospace;
+        }
+
+        /* 內容卡片 */
+        .spatial-card {
+            background: rgba(26, 26, 46, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 20px;
+            padding: 60px 40px;
+            margin: 0 auto;
+            max-width: 600px;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transform: translateZ(50px);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .spatial-card:hover {
+            transform: translateZ(80px) scale(1.02);
+            border-color: rgba(0, 212, 255, 0.4);
+            box-shadow: 
+                0 30px 80px rgba(0, 0, 0, 0.4),
+                0 0 40px rgba(0, 212, 255, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            color: var(--space-accent);
+        }
+
+        .card-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--space-muted);
+            margin-bottom: 30px;
+        }
+
+        /* 互動粒子系統 */
+        .particle-system {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--space-accent);
+            border-radius: 50%;
+            animation: particle-drift 10s linear infinite;
+        }
+
+        @keyframes particle-drift {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) scale(0);
+            }
+            10% {
+                opacity: 1;
+                transform: translateY(90vh) scale(1);
+            }
+            90% {
+                opacity: 1;
+                transform: translateY(-10vh) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-20vh) scale(0);
+            }
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .spatial-title {
+                font-size: clamp(2.5rem, 10vw, 6rem);
+                margin-bottom: 40px;
+            }
+            
+            .spatial-card {
+                padding: 40px 30px;
+                margin: 0 20px;
+            }
+            
+            .depth-indicator {
+                right: 20px;
+            }
+        }
+
+        /* 載入動畫 */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--space-void);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transition: opacity 1s ease;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 2px solid rgba(0, 212, 255, 0.2);
+            border-top: 2px solid var(--space-accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- 載入畫面 -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- 自定義游標 -->
+    <div class="spatial-cursor" id="spatialCursor"></div>
+
+    <!-- 3D空間網格 -->
+    <div class="spatial-grid"></div>
+
+    <!-- 互動粒子系統 -->
+    <div class="particle-system" id="particleSystem"></div>
+
+    <!-- 主要3D容器 -->
+    <div class="spatial-container" id="spatialContainer">
+        <!-- 第一層 - 主要內容 -->
+        <div class="spatial-layer layer-1">
+            <div class="spatial-content">
+                <h1 class="spatial-title">SPATIAL<br>LAB</h1>
+                <p class="spatial-subtitle">探索三維網頁導航的未來</p>
+                
+                <div class="spatial-card">
+                    <h3 class="card-title">空間導航體驗</h3>
+                    <p class="card-description">
+                        這是一個突破性的3D網頁導航實驗。使用滑鼠移動探索空間深度，
+                        體驗未來網頁設計的立體化交互方式。滾輪控制深度層級，
+                        創造前所未有的沉浸式瀏覽體驗。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 浮動幾何元素 -->
+            <div class="floating-geometry">
+                <div class="geo-element"></div>
+                <div class="geo-element"></div>
+                <div class="geo-element"></div>
+            </div>
+        </div>
+
+        <!-- 第二層 - 深度內容 -->
+        <div class="spatial-layer layer-2">
+            <div class="spatial-content">
+                <div class="spatial-card">
+                    <h3 class="card-title">深度層級 2</h3>
+                    <p class="card-description">
+                        您現在位於第二個空間層級。每個層級都展現了不同的視覺深度和交互體驗。
+                        這種設計方法將傳統的平面網頁轉化為立體的信息空間。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第三層 -->
+        <div class="spatial-layer layer-3">
+            <div class="spatial-content">
+                <div class="spatial-card">
+                    <h3 class="card-title">深度層級 3</h3>
+                    <p class="card-description">
+                        深入空間的第三層級，體驗更加抽象的數位環境。
+                        這裡的交互邏輯完全基於三維空間概念，打破傳統的頁面瀏覽模式。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第四層 -->
+        <div class="spatial-layer layer-4">
+            <div class="spatial-content">
+                <div class="spatial-card">
+                    <h3 class="card-title">量子界面</h3>
+                    <p class="card-description">
+                        進入量子級別的數位空間，這裡的邏輯遵循量子力學原理。
+                        界面元素處於疊加態，只有當觀察者與其互動時才會坍縮成確定狀態。
+                        體驗超越經典物理學的交互設計。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第五層 -->
+        <div class="spatial-layer layer-5">
+            <div class="spatial-content">
+                <div class="spatial-card">
+                    <h3 class="card-title">神經網路層</h3>
+                    <p class="card-description">
+                        模擬大腦神經元連接的視覺空間。每個節點代表一個思維片段，
+                        連線代表概念之間的關聯。在這個層級，界面變成了思考本身的可視化，
+                        展現人機交互的認知科學基礎。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第六層 -->
+        <div class="spatial-layer layer-6">
+            <div class="spatial-content">
+                <div class="spatial-card">
+                    <h3 class="card-title">數據矩陣</h3>
+                    <p class="card-description">
+                        純粹的信息空間，數據以幾何形式存在。這裡沒有物理約束，
+                        只有邏輯結構和數學美學。每個形狀都代表不同類型的信息，
+                        它們在虛擬空間中自由流動，形成動態的數據景觀。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第七層 -->
+        <div class="spatial-layer layer-7">
+            <div class="spatial-content">
+                <div class="spatial-card">
+                    <h3 class="card-title">意識流動</h3>
+                    <p class="card-description">
+                        抽象思維的數位化表現。這裡不再有具體的形式，
+                        只有純粹的概念流動。顏色、形狀、運動都成為思想的載體，
+                        創造出一個真正超越物質世界的意識空間。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第八層 -->
+        <div class="spatial-layer layer-8">
+            <div class="spatial-content">
+                <div class="spatial-card">
+                    <h3 class="card-title">奇點核心</h3>
+                    <p class="card-description">
+                        最終的抽象層級 - 所有信息的奇點。
+                        在這裡，時間、空間、數據、意識融合為一。這是數位宇宙的中心，
+                        一個超越所有傳統界面概念的純粹體驗領域。
+                        歡迎來到空間導航的終極深度。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 深度指示器 -->
+    <div class="depth-indicator">
+        <div class="depth-dot active" data-layer="1"></div>
+        <div class="depth-dot" data-layer="2"></div>
+        <div class="depth-dot" data-layer="3"></div>
+        <div class="depth-dot" data-layer="4"></div>
+        <div class="depth-dot" data-layer="5"></div>
+        <div class="depth-dot" data-layer="6"></div>
+        <div class="depth-dot" data-layer="7"></div>
+        <div class="depth-dot" data-layer="8"></div>
+    </div>
+
+    <!-- 導航提示 -->
+    <div class="navigation-hint">
+        <div>滑鼠移動 = 空間探索 | <span class="hint-key">滾輪</span> = 深度控制 | <span class="hint-key">點擊</span> = 層級跳躍</div>
+    </div>
+
+    <script>
+        class SpatialNavigationLab {
+            constructor() {
+                this.currentLayer = 1;
+                this.maxLayers = 8;
+                this.currentFlyPosition = 0;    // 當前飛行位置（0-2100px）
+                this.flyStepSize = 150;         // 每次飛行150px
+                this.maxFlyPosition = 2100;     // 最大飛行距離
+                this.mouseX = 0;
+                this.mouseY = 0;
+                this.targetRotationY = 0;
+                this.targetRotationX = 0;
+                this.currentRotationY = 0;
+                this.currentRotationX = 0;
+                
+                this.init();
+            }
+
+            init() {
+                this.setupEventListeners();
+                this.createParticles();
+                this.startAnimationLoop();
+                this.hideLoading();
+                this.updateGradientTheme(); // 初始化漸層主題
+            }
+
+            hideLoading() {
+                setTimeout(() => {
+                    document.getElementById('loadingOverlay').classList.add('hidden');
+                }, 2000);
+            }
+
+            setupEventListeners() {
+                // 滑鼠移動 - 3D旋轉控制
+                document.addEventListener('mousemove', (e) => {
+                    this.updateCursor(e);
+                    this.updateSpatialRotation(e);
+                });
+
+                // 滾輪 - 深度層級控制
+                document.addEventListener('wheel', (e) => {
+                    e.preventDefault();
+                    this.handleDepthNavigation(e);
+                }, { passive: false });
+
+                // 深度指示器點擊
+                document.querySelectorAll('.depth-dot').forEach(dot => {
+                    dot.addEventListener('click', (e) => {
+                        const targetLayer = parseInt(e.target.dataset.layer);
+                        this.navigateToLayer(targetLayer);
+                    });
+                });
+
+                // 游標活躍狀態
+                document.addEventListener('mousedown', () => {
+                    document.getElementById('spatialCursor').classList.add('active');
+                });
+
+                document.addEventListener('mouseup', () => {
+                    document.getElementById('spatialCursor').classList.remove('active');
+                });
+
+                // 鍵盤控制
+                document.addEventListener('keydown', (e) => {
+                    switch(e.key) {
+                        case 'ArrowUp':
+                        case 'w':
+                            this.navigateToLayer(Math.max(1, this.currentLayer - 1));
+                            break;
+                        case 'ArrowDown':
+                        case 's':
+                            this.navigateToLayer(Math.min(this.maxLayers, this.currentLayer + 1));
+                            break;
+                    }
+                });
+            }
+
+            updateCursor(e) {
+                const cursor = document.getElementById('spatialCursor');
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            }
+
+            updateSpatialRotation(e) {
+                this.mouseX = e.clientX;
+                this.mouseY = e.clientY;
+                
+                // 計算旋轉角度 (基於滑鼠位置)
+                this.targetRotationY = (this.mouseX / window.innerWidth - 0.5) * 15;
+                this.targetRotationX = -(this.mouseY / window.innerHeight - 0.5) * 10;
+            }
+
+            handleDepthNavigation(e) {
+                const direction = e.deltaY > 0 ? 1 : -1;
+                const newFlyPosition = Math.max(0, Math.min(this.maxFlyPosition, 
+                    this.currentFlyPosition + (direction * this.flyStepSize)));
+                this.flyToPosition(newFlyPosition);
+            }
+
+            flyToPosition(newFlyPosition) {
+                this.currentFlyPosition = newFlyPosition;
+                
+                // 根據飛行位置計算當前層級（每300px一層）
+                const newLayer = Math.min(this.maxLayers, Math.floor(newFlyPosition / 300) + 1);
+                
+                // 更新容器的3D變換
+                const container = document.getElementById('spatialContainer');
+                container.style.transform = `
+                    translateZ(${newFlyPosition}px) 
+                    rotateY(${this.currentRotationY}deg) 
+                    rotateX(${this.currentRotationX}deg)
+                `;
+                
+                // 如果層級改變，更新相關指示器
+                if (newLayer !== this.currentLayer) {
+                    this.currentLayer = newLayer;
+                    this.updateDepthIndicator();
+                    this.triggerSpatialEffect();
+                }
+            }
+
+            navigateToLayer(targetLayer) {
+                if (targetLayer === this.currentLayer) return;
+                
+                // 直接跳轉到指定層級的飛行位置
+                const targetFlyPosition = (targetLayer - 1) * 300;
+                this.flyToPosition(targetFlyPosition);
+            }
+
+            updateDepthIndicator() {
+                document.querySelectorAll('.depth-dot').forEach((dot, index) => {
+                    if (index + 1 === this.currentLayer) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+                
+                // 更新漸層主題
+                this.updateGradientTheme();
+            }
+
+            updateGradientTheme() {
+                // 定義8層漸層色彩
+                const gradientColors = [
+                    '#ff6b6b', '#feca57', '#48cab3', '#3742fa',
+                    '#a55eea', '#ff9ff3', '#54a0ff', '#5f27cd'
+                ];
+                
+                const currentColor = gradientColors[this.currentLayer - 1];
+                const nextColor = gradientColors[this.currentLayer % 8];
+
+                // 更新游標顏色
+                const cursor = document.getElementById('spatialCursor');
+                if (cursor) {
+                    cursor.style.background = `linear-gradient(45deg, ${currentColor}, ${nextColor})`;
+                    cursor.style.boxShadow = `
+                        0 0 20px ${currentColor},
+                        0 0 40px ${currentColor},
+                        inset 0 0 10px rgba(255, 255, 255, 0.3)
+                    `;
+                }
+
+                // 更新深度指示器活躍狀態顏色
+                const activeDot = document.querySelector('.depth-dot.active');
+                if (activeDot) {
+                    activeDot.style.background = `linear-gradient(45deg, ${currentColor}, ${nextColor})`;
+                    activeDot.style.boxShadow = `0 0 20px ${currentColor}`;
+                    activeDot.style.borderColor = currentColor;
+                }
+
+                // 更新空間網格顏色
+                const grid = document.querySelector('.spatial-grid');
+                if (grid) {
+                    grid.style.backgroundImage = `
+                        linear-gradient(${currentColor}30 1px, transparent 1px),
+                        linear-gradient(90deg, ${currentColor}30 1px, transparent 1px)
+                    `;
+                }
+                
+                // 更新頁面背景漸層
+                document.body.style.background = `#0a0a0f`;
+            }
+
+            triggerSpatialEffect() {
+                // 獲取當前層級的漸層色彩
+                const gradientColors = [
+                    '#ff6b6b', '#feca57', '#48cab3', '#3742fa',
+                    '#a55eea', '#ff9ff3', '#54a0ff', '#5f27cd'
+                ];
+                
+                const currentColor = gradientColors[this.currentLayer - 1];
+                const nextColor = gradientColors[this.currentLayer % 8];
+                
+                // 創建漸層空間變化的視覺反饋
+                const effect = document.createElement('div');
+                effect.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: radial-gradient(circle, ${currentColor}30 0%, ${nextColor}15 50%, transparent 70%);
+                    pointer-events: none;
+                    z-index: 1000;
+                    animation: gradient-flash 0.8s ease-out forwards;
+                `;
+
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes gradient-flash {
+                        0% { 
+                            opacity: 0; 
+                            transform: scale(0.8);
+                            filter: hue-rotate(0deg);
+                        }
+                        50% { 
+                            opacity: 1; 
+                            transform: scale(1.2);
+                            filter: hue-rotate(180deg);
+                        }
+                        100% { 
+                            opacity: 0; 
+                            transform: scale(1.5);
+                            filter: hue-rotate(360deg);
+                        }
+                    }
+                `;
+
+                document.head.appendChild(style);
+                document.body.appendChild(effect);
+
+                setTimeout(() => {
+                    effect.remove();
+                    style.remove();
+                }, 800);
+            }
+
+            createParticles() {
+                const particleSystem = document.getElementById('particleSystem');
+                
+                setInterval(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 2 + 's';
+                    particle.style.animationDuration = (Math.random() * 5 + 8) + 's';
+                    
+                    // 根據當前層級設置漸層粒子顏色
+                    const gradientColors = [
+                        '#ff6b6b', '#feca57', '#48cab3', '#3742fa',
+                        '#a55eea', '#ff9ff3', '#54a0ff', '#5f27cd'
+                    ];
+                    
+                    const currentColor = gradientColors[this.currentLayer - 1];
+                    const nextColor = gradientColors[this.currentLayer % 8];
+                    particle.style.background = `linear-gradient(45deg, ${currentColor}, ${nextColor})`;
+                    particle.style.boxShadow = `0 0 10px ${currentColor}`;
+                    
+                    particleSystem.appendChild(particle);
+                    
+                    setTimeout(() => {
+                        particle.remove();
+                    }, 12000);
+                }, 800);
+            }
+
+            startAnimationLoop() {
+                const animate = () => {
+                    // 平滑的旋轉動畫
+                    this.currentRotationY += (this.targetRotationY - this.currentRotationY) * 0.05;
+                    this.currentRotationX += (this.targetRotationX - this.currentRotationX) * 0.05;
+
+                    const container = document.getElementById('spatialContainer');
+                    
+                    container.style.transform = `
+                        translateZ(${this.currentFlyPosition}px) 
+                        rotateY(${this.currentRotationY}deg) 
+                        rotateX(${this.currentRotationX}deg)
+                    `;
+
+                    requestAnimationFrame(animate);
+                };
+                
+                animate();
+            }
+        }
+
+        // 初始化空間導航實驗室
+        document.addEventListener('DOMContentLoaded', () => {
+            new SpatialNavigationLab();
+        });
+
+        // 防止右鍵選單影響體驗
+        document.addEventListener('contextmenu', e => e.preventDefault());
+    </script>
+</body>
+</html>

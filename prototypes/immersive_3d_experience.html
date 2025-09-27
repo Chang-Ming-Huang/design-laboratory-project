@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>沉浸式 3D 交互體驗 - 未來介面實驗</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600&family=JetBrains+Mono:wght@100;300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-void: #000000;
+            --text-primary: #ffffff;
+            --text-secondary: #808080;
+            --accent-cyan: #00d9ff;
+            --accent-magenta: #ff0080;
+            --accent-yellow: #ffff00;
+            --surface-dark: #111111;
+            --surface-glass: rgba(255, 255, 255, 0.05);
+            --border-glow: rgba(0, 217, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg-void);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* 自定義游標 */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--accent-cyan);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            mix-blend-mode: difference;
+            transition: all 0.1s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .custom-cursor.hover {
+            width: 40px;
+            height: 40px;
+            border-color: var(--accent-magenta);
+        }
+
+        /* 導航 */
+        .nav {
+            position: fixed;
+            top: 40px;
+            left: 40px;
+            z-index: 1000;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 300;
+            font-family: 'JetBrains Mono', monospace;
+            border: 1px solid var(--border-glow);
+            padding: 12px 20px;
+            border-radius: 4px;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            backdrop-filter: blur(10px);
+            background: var(--surface-glass);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .nav-link:hover {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+            box-shadow: 0 0 20px var(--border-glow);
+        }
+
+        /* 主容器 */
+        .container {
+            perspective: 1500px;
+            min-height: 100vh;
+        }
+
+        /* 3D 場景 */
+        .scene-3d {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform-style: preserve-3d;
+        }
+
+        /* 中央立方體 */
+        .cube-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            transform-style: preserve-3d;
+            animation: cubeFloat 8s ease-in-out infinite;
+        }
+
+        @keyframes cubeFloat {
+            0%, 100% { transform: rotateX(15deg) rotateY(0deg) translateZ(0); }
+            50% { transform: rotateX(-15deg) rotateY(180deg) translateZ(50px); }
+        }
+
+        .cube {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            transform-style: preserve-3d;
+            cursor: pointer;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .cube:hover {
+            transform: scale(1.1) rotateY(45deg) rotateX(15deg);
+        }
+
+        .cube-face {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border: 2px solid var(--border-glow);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            transition: all 0.4s ease;
+        }
+
+        .face-front {
+            background: rgba(0, 217, 255, 0.1);
+            transform: rotateY(0deg) translateZ(150px);
+            color: var(--accent-cyan);
+        }
+
+        .face-back {
+            background: rgba(255, 0, 128, 0.1);
+            transform: rotateY(180deg) translateZ(150px);
+            color: var(--accent-magenta);
+        }
+
+        .face-right {
+            background: rgba(255, 255, 0, 0.1);
+            transform: rotateY(90deg) translateZ(150px);
+            color: var(--accent-yellow);
+        }
+
+        .face-left {
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotateY(-90deg) translateZ(150px);
+            color: var(--text-primary);
+        }
+
+        .face-top {
+            background: rgba(0, 217, 255, 0.05);
+            transform: rotateX(90deg) translateZ(150px);
+            color: var(--text-secondary);
+        }
+
+        .face-bottom {
+            background: rgba(255, 0, 128, 0.05);
+            transform: rotateX(-90deg) translateZ(150px);
+            color: var(--text-secondary);
+        }
+
+        /* 環繞粒子系統 */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+
+        /* 互動控制面板 */
+        .control-panel {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            z-index: 1000;
+            display: flex;
+            gap: 20px;
+            flex-direction: column;
+        }
+
+        .control-btn {
+            background: var(--surface-glass);
+            border: 1px solid var(--border-glow);
+            color: var(--text-primary);
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            backdrop-filter: blur(10px);
+            user-select: none;
+        }
+
+        .control-btn:hover {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+            box-shadow: 0 0 20px var(--border-glow);
+            transform: translateX(-5px);
+        }
+
+        .control-btn.active {
+            background: rgba(0, 217, 255, 0.2);
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+
+        /* 資訊面板 */
+        .info-panel {
+            position: fixed;
+            top: 50%;
+            left: 40px;
+            transform: translateY(-50%);
+            z-index: 1000;
+            max-width: 300px;
+        }
+
+        .info-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--accent-cyan);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .info-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            font-weight: 300;
+            margin-bottom: 15px;
+        }
+
+        .info-stats {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--accent-cyan);
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 5px;
+        }
+
+        /* 底部內容區域 */
+        .content-section {
+            min-height: 100vh;
+            padding: 100px 60px;
+            background: linear-gradient(180deg, var(--bg-void) 0%, var(--surface-dark) 100%);
+            border-top: 1px solid var(--border-glow);
+        }
+
+        .content-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 60px;
+        }
+
+        .content-card {
+            background: var(--surface-glass);
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+            padding: 40px 30px;
+            backdrop-filter: blur(15px);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--accent-cyan);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .nav, .info-panel {
+                left: 20px;
+            }
+
+            .control-panel {
+                right: 20px;
+                bottom: 20px;
+            }
+
+            .cube-container {
+                width: 200px;
+                height: 200px;
+            }
+
+            .cube, .cube-face {
+                width: 200px;
+                height: 200px;
+            }
+
+            .face-front, .face-back, .face-right, .face-left {
+                transform: rotateY(0deg) translateZ(100px);
+            }
+
+            .info-panel {
+                max-width: 250px;
+            }
+
+            .content-section {
+                padding: 60px 30px;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        /* 載入動畫 */
+        .loading {
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 0.5s;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 自定義游標 -->
+    <div class="custom-cursor"></div>
+
+    <div class="container loading">
+        <!-- 導航 -->
+        <nav class="nav">
+            <a href="../index.html" class="nav-link">← Exit</a>
+        </nav>
+
+        <!-- 資訊面板 -->
+        <div class="info-panel">
+            <h2 class="info-title">3D Interface</h2>
+            <p class="info-text">
+                體驗未來介面設計。通過滑鼠交互控制 3D 立方體，
+                探索空間中的不同維度和視覺層次。
+            </p>
+            <p class="info-text">
+                這個實驗展示了 2025 年 3D 交互趨勢的實際應用，
+                結合視差效果和深度感知創造沉浸式用戶體驗。
+            </p>
+            <div class="info-stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="rotationX">0°</div>
+                    <div class="stat-label">Rotation X</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="rotationY">0°</div>
+                    <div class="stat-label">Rotation Y</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="depth">0px</div>
+                    <div class="stat-label">Depth</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主 3D 場景 -->
+        <section class="scene-3d">
+            <!-- 粒子系統 -->
+            <div class="particles" id="particles"></div>
+
+            <!-- 中央立方體 -->
+            <div class="cube-container">
+                <div class="cube" id="cube">
+                    <div class="cube-face face-front">FUTURE</div>
+                    <div class="cube-face face-back">DESIGN</div>
+                    <div class="cube-face face-right">3D</div>
+                    <div class="cube-face face-left">SPACE</div>
+                    <div class="cube-face face-top">DEPTH</div>
+                    <div class="cube-face face-bottom">MOTION</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 互動控制面板 -->
+        <div class="control-panel">
+            <button class="control-btn" id="autoRotate">Auto Rotate</button>
+            <button class="control-btn" id="resetView">Reset View</button>
+            <button class="control-btn" id="toggleParticles">Particles</button>
+            <button class="control-btn" id="changeMode">3D Mode</button>
+        </div>
+
+        <!-- 底部內容區域 -->
+        <section class="content-section">
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3 class="card-title">3D 交互設計</h3>
+                    <p class="card-description">
+                        運用 CSS 3D transforms 創造真正的立體交互體驗。
+                        通過 perspective 和 transform-style: preserve-3d
+                        實現硬體加速的 3D 渲染效果。
+                    </p>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">視差深度感知</h3>
+                    <p class="card-description">
+                        滑鼠移動觸發的視差效果創造深度感知。
+                        多層次的 Z 軸變化和動態透明度調整，
+                        營造沉浸式的空間體驗。
+                    </p>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">粒子系統動畫</h3>
+                    <p class="card-description">
+                        動態生成的粒子系統增強空間氛圍。
+                        每個粒子獨立運動軌跡，配合 3D 立方體
+                        創造豐富的視覺層次。
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // 自定義游標
+        const cursor = document.querySelector('.custom-cursor');
+        const interactiveElements = document.querySelectorAll('button, a, .cube');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        // 3D 立方體交互控制
+        const cube = document.getElementById('cube');
+        const scene = document.querySelector('.scene-3d');
+        let mouseX = 0, mouseY = 0;
+        let rotationX = 0, rotationY = 0;
+        let isAutoRotating = false;
+
+        // 滑鼠移動控制
+        document.addEventListener('mousemove', (e) => {
+            if (!isAutoRotating) {
+                mouseX = (e.clientX - window.innerWidth / 2) / window.innerWidth;
+                mouseY = (e.clientY - window.innerHeight / 2) / window.innerHeight;
+
+                rotationY = mouseX * 60;
+                rotationX = -mouseY * 60;
+
+                updateCubeRotation();
+                updateStats();
+            }
+        });
+
+        function updateCubeRotation() {
+            cube.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
+        }
+
+        function updateStats() {
+            document.getElementById('rotationX').textContent = Math.round(rotationX) + '°';
+            document.getElementById('rotationY').textContent = Math.round(rotationY) + '°';
+            document.getElementById('depth').textContent = Math.round(Math.abs(rotationX) + Math.abs(rotationY)) + 'px';
+        }
+
+        // 控制面板功能
+        const autoRotateBtn = document.getElementById('autoRotate');
+        const resetViewBtn = document.getElementById('resetView');
+        const toggleParticlesBtn = document.getElementById('toggleParticles');
+        const changeModeBtn = document.getElementById('changeMode');
+
+        let autoRotateInterval;
+
+        autoRotateBtn.addEventListener('click', () => {
+            isAutoRotating = !isAutoRotating;
+            autoRotateBtn.classList.toggle('active', isAutoRotating);
+
+            if (isAutoRotating) {
+                autoRotateInterval = setInterval(() => {
+                    rotationY += 1;
+                    rotationX = Math.sin(rotationY * 0.02) * 20;
+                    updateCubeRotation();
+                    updateStats();
+                }, 50);
+            } else {
+                clearInterval(autoRotateInterval);
+            }
+        });
+
+        resetViewBtn.addEventListener('click', () => {
+            isAutoRotating = false;
+            clearInterval(autoRotateInterval);
+            autoRotateBtn.classList.remove('active');
+
+            rotationX = 0;
+            rotationY = 0;
+            updateCubeRotation();
+            updateStats();
+        });
+
+        // 粒子系統
+        const particlesContainer = document.getElementById('particles');
+        let particlesVisible = true;
+
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+
+            const startX = Math.random() * window.innerWidth;
+            const startY = Math.random() * window.innerHeight;
+
+            particle.style.left = startX + 'px';
+            particle.style.top = startY + 'px';
+
+            const colors = ['#00d9ff', '#ff0080', '#ffff00'];
+            particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+            particlesContainer.appendChild(particle);
+
+            // 粒子運動動畫
+            const duration = 5000 + Math.random() * 5000;
+            const endX = Math.random() * window.innerWidth;
+            const endY = Math.random() * window.innerHeight;
+
+            particle.animate([
+                { transform: 'translate(0, 0) scale(0)', opacity: 0 },
+                { transform: 'translate(50px, 50px) scale(1)', opacity: 1, offset: 0.1 },
+                { transform: `translate(${endX - startX}px, ${endY - startY}px) scale(0)`, opacity: 0 }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+            }).onfinish = () => {
+                particle.remove();
+            };
+        }
+
+        // 持續生成粒子
+        let particleInterval = setInterval(createParticle, 500);
+
+        toggleParticlesBtn.addEventListener('click', () => {
+            particlesVisible = !particlesVisible;
+            toggleParticlesBtn.classList.toggle('active', particlesVisible);
+
+            if (particlesVisible) {
+                particleInterval = setInterval(createParticle, 500);
+                particlesContainer.style.opacity = '1';
+            } else {
+                clearInterval(particleInterval);
+                particlesContainer.style.opacity = '0';
+            }
+        });
+
+        // 3D 模式切換
+        let is3DMode = true;
+
+        changeModeBtn.addEventListener('click', () => {
+            is3DMode = !is3DMode;
+            changeModeBtn.classList.toggle('active', !is3DMode);
+            changeModeBtn.textContent = is3DMode ? '3D Mode' : '2D Mode';
+
+            if (is3DMode) {
+                scene.style.perspective = '1500px';
+                cube.style.transformStyle = 'preserve-3d';
+            } else {
+                scene.style.perspective = 'none';
+                cube.style.transformStyle = 'flat';
+            }
+        });
+
+        // 初始化
+        toggleParticlesBtn.classList.add('active');
+        changeModeBtn.classList.add('active');
+
+        console.log('🚀 沉浸式 3D 交互體驗已載入');
+        console.log('🎮 使用滑鼠控制 3D 立方體旋轉');
+        console.log('⚡ 探索右側控制面板的各種功能');
+        console.log('🌟 體驗 2025 年 3D 交互設計趨勢');
+    </script>
+</body>
+</html>

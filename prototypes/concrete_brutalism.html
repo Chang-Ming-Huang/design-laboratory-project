@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concrete Brutalism - 混凝土野獸派美學</title>
+    <style>
+        :root {
+            --concrete-gray: #8a8a8a;
+            --concrete-dark: #4a4a4a;
+            --brutalist-black: #1a1a1a;
+            --brutalist-orange: #ff6b35;
+            --concrete-light: #d4d4d4;
+            --shadow-deep: rgba(26, 26, 26, 0.4);
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        body {
+            font-family: 'Arial Black', 'Helvetica', sans-serif;
+            background: var(--concrete-gray);
+            color: var(--brutalist-black);
+            overflow-x: hidden;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+        }
+
+        /* 混凝土紋理背景 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 3px,
+                    rgba(26, 26, 26, 0.02) 3px,
+                    rgba(26, 26, 26, 0.02) 6px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 50px,
+                    rgba(26, 26, 26, 0.01) 50px,
+                    rgba(26, 26, 26, 0.01) 51px
+                );
+            z-index: -1;
+        }
+
+        /* 野獸派容器 */
+        .brutalist-container {
+            min-height: 100vh;
+            padding: 0;
+            position: relative;
+        }
+
+        /* 厚重標題區域 */
+        .massive-header {
+            background: var(--brutalist-black);
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-texture {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 20px,
+                    rgba(255, 255, 255, 0.02) 20px,
+                    rgba(255, 255, 255, 0.02) 21px
+                );
+        }
+
+        .brutalist-title {
+            font-size: clamp(4rem, 12vw, 10rem);
+            font-weight: 900;
+            color: var(--concrete-light);
+            text-align: center;
+            line-height: 0.8;
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            text-shadow: 4px 4px 0px var(--brutalist-orange);
+            position: relative;
+            z-index: 2;
+            animation: massive-entrance 2s ease-out forwards;
+            opacity: 0;
+        }
+
+        .subtitle-brutalist {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-weight: 700;
+            color: var(--brutalist-orange);
+            text-align: center;
+            text-transform: uppercase;
+            margin-top: 40px;
+            letter-spacing: 0.1em;
+            position: relative;
+            z-index: 2;
+            animation: massive-entrance 2s ease-out forwards 0.5s;
+            opacity: 0;
+        }
+
+        /* 巨大內容塊 */
+        .concrete-blocks {
+            padding: 100px 60px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .concrete-block {
+            background: var(--concrete-dark);
+            padding: 60px 50px;
+            position: relative;
+            border-left: 12px solid var(--brutalist-orange);
+            box-shadow: 
+                8px 8px 0px rgba(26, 26, 26, 0.3),
+                inset 0 0 50px rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .concrete-block:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 
+                12px 12px 0px rgba(26, 26, 26, 0.4),
+                inset 0 0 50px rgba(255, 255, 255, 0.08);
+        }
+
+        .block-massive-number {
+            position: absolute;
+            top: -30px;
+            left: -30px;
+            width: 80px;
+            height: 80px;
+            background: var(--brutalist-orange);
+            color: var(--brutalist-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 900;
+            box-shadow: 4px 4px 0px rgba(26, 26, 26, 0.4);
+        }
+
+        .block-title-massive {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 900;
+            color: var(--concrete-light);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            line-height: 0.9;
+        }
+
+        .block-content-raw {
+            font-size: 1.1rem;
+            color: var(--concrete-light);
+            line-height: 1.5;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        /* 原始材質展示區 */
+        .raw-materials {
+            background: var(--brutalist-black);
+            padding: 120px 60px;
+            position: relative;
+        }
+
+        .materials-title {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 900;
+            color: var(--brutalist-orange);
+            text-align: center;
+            margin-bottom: 80px;
+            text-transform: uppercase;
+            letter-spacing: -0.03em;
+        }
+
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 60px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .material-sample {
+            aspect-ratio: 1;
+            position: relative;
+            overflow: hidden;
+            border: 4px solid var(--concrete-dark);
+            transition: all 0.5s ease;
+        }
+
+        .material-concrete {
+            background: 
+                repeating-linear-gradient(
+                    45deg,
+                    var(--concrete-gray),
+                    var(--concrete-gray) 20px,
+                    var(--concrete-dark) 20px,
+                    var(--concrete-dark) 40px
+                );
+        }
+
+        .material-steel {
+            background: 
+                linear-gradient(135deg, 
+                    var(--concrete-dark) 0%, 
+                    var(--concrete-light) 50%, 
+                    var(--concrete-dark) 100%);
+        }
+
+        .material-raw {
+            background: var(--concrete-gray);
+            position: relative;
+        }
+
+        .material-raw::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 60% 40%, var(--brutalist-orange) 2px, transparent 2px),
+                radial-gradient(circle at 20% 80%, var(--brutalist-black) 1px, transparent 1px);
+            background-size: 40px 40px, 20px 20px;
+            opacity: 0.3;
+        }
+
+        .material-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 26, 26, 0.8);
+            color: var(--concrete-light);
+            padding: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .material-sample:hover .material-label {
+            transform: translateY(0);
+        }
+
+        .material-sample:hover {
+            border-color: var(--brutalist-orange);
+            box-shadow: 0 0 30px rgba(255, 107, 53, 0.3);
+        }
+
+        /* 工業裝飾元素 */
+        .industrial-elements {
+            position: fixed;
+            top: 20%;
+            right: 5%;
+            z-index: -1;
+        }
+
+        .industrial-beam {
+            width: 20px;
+            height: 300px;
+            background: var(--brutalist-orange);
+            margin-bottom: 40px;
+            opacity: 0.6;
+            animation: industrial-pulse 8s ease-in-out infinite;
+        }
+
+        .industrial-block {
+            width: 80px;
+            height: 80px;
+            background: var(--concrete-dark);
+            box-shadow: 4px 4px 0px rgba(26, 26, 26, 0.3);
+            animation: industrial-pulse 6s ease-in-out infinite reverse;
+        }
+
+        /* 動畫定義 */
+        @keyframes massive-entrance {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes industrial-pulse {
+            0%, 100% {
+                opacity: 0.6;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.9;
+                transform: scale(1.05);
+            }
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .massive-header {
+                padding: 60px 20px;
+            }
+
+            .concrete-blocks {
+                padding: 80px 30px;
+                gap: 60px;
+            }
+
+            .concrete-block {
+                padding: 40px 30px;
+            }
+
+            .raw-materials {
+                padding: 80px 30px;
+            }
+
+            .materials-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .industrial-elements {
+                display: none;
+            }
+        }
+
+        /* 混凝土裂痕效果 */
+        .concrete-crack {
+            position: absolute;
+            width: 2px;
+            height: 100px;
+            background: linear-gradient(
+                0deg,
+                transparent 0%,
+                var(--brutalist-black) 20%,
+                var(--brutalist-black) 80%,
+                transparent 100%
+            );
+            opacity: 0.2;
+        }
+
+        .crack-1 {
+            top: 30%;
+            left: 20%;
+            transform: rotate(15deg);
+            animation: crack-appear 3s ease-in-out infinite;
+        }
+
+        .crack-2 {
+            top: 60%;
+            right: 25%;
+            transform: rotate(-10deg);
+            animation: crack-appear 4s ease-in-out infinite reverse;
+        }
+
+        @keyframes crack-appear {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.3; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 混凝土裂痕裝飾 -->
+    <div class="concrete-crack crack-1"></div>
+    <div class="concrete-crack crack-2"></div>
+
+    <div class="brutalist-container">
+        <!-- 厚重標題區域 -->
+        <header class="massive-header">
+            <div class="header-texture"></div>
+            <h1 class="brutalist-title">CONCRETE<br>BRUTALISM</h1>
+            <p class="subtitle-brutalist">RAW · MASSIVE · UNCOMPROMISING</p>
+        </header>
+
+        <!-- 巨大內容塊 -->
+        <section class="concrete-blocks">
+            <div class="concrete-block">
+                <div class="block-massive-number">01</div>
+                <h2 class="block-title-massive">RAW POWER</h2>
+                <p class="block-content-raw">
+                    混凝土不需要掩飾。它的美來自於原始的力量，來自於對重量和質感的坦誠表達。每一道裂痕都是時間的印記，每一處粗糙都是真實的證明。
+                </p>
+            </div>
+
+            <div class="concrete-block">
+                <div class="block-massive-number">02</div>
+                <h2 class="block-title-massive">MASSIVE FORMS</h2>
+                <p class="block-content-raw">
+                    野獸派建築拒絕輕盈，擁抱厚重。巨大的體量創造出壓倒性的視覺衝擊，讓觀者感受到建築的存在感和永恆性。這是對抗消費文化的建築宣言。
+                </p>
+            </div>
+
+            <div class="concrete-block">
+                <div class="block-massive-number">03</div>
+                <h2 class="block-title-massive">INDUSTRIAL TRUTH</h2>
+                <p class="block-content-raw">
+                    工業材料的誠實表達。鋼筋混凝土不是建築的妥協，而是現代性的象徵。它展示了人類改造環境的能力，也承載了社會進步的理想。
+                </p>
+            </div>
+        </section>
+
+        <!-- 原始材質展示區 -->
+        <section class="raw-materials">
+            <h2 class="materials-title">MATERIAL HONESTY</h2>
+            <div class="materials-grid">
+                <div class="material-sample material-concrete">
+                    <div class="material-label">CONCRETE</div>
+                </div>
+                <div class="material-sample material-steel">
+                    <div class="material-label">STEEL</div>
+                </div>
+                <div class="material-sample material-raw">
+                    <div class="material-label">RAW FORM</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 工業裝飾元素 -->
+        <div class="industrial-elements">
+            <div class="industrial-beam"></div>
+            <div class="industrial-block"></div>
+        </div>
+    </div>
+
+    <script>
+        // 野獸派互動系統
+        document.addEventListener('DOMContentLoaded', () => {
+            // 混凝土塊的重量感效果
+            const concreteBlocks = document.querySelectorAll('.concrete-block');
+            
+            concreteBlocks.forEach((block, index) => {
+                block.addEventListener('mouseenter', () => {
+                    createMassiveImpact(block);
+                });
+
+                // 隨機裂痕生成
+                setTimeout(() => {
+                    addRandomCracks(block);
+                }, index * 500);
+            });
+
+            // 材質樣本的觸感效果
+            const materialSamples = document.querySelectorAll('.material-sample');
+            materialSamples.forEach(sample => {
+                sample.addEventListener('click', () => {
+                    createMaterialFeedback(sample);
+                });
+            });
+
+            // 滾動時的重力效果
+            let lastScrollY = 0;
+            window.addEventListener('scroll', () => {
+                const currentScrollY = window.scrollY;
+                const delta = currentScrollY - lastScrollY;
+                
+                // 創造重力感的視差效果
+                document.body.style.transform = `translateY(${-delta * 0.1}px)`;
+                
+                setTimeout(() => {
+                    document.body.style.transform = 'translateY(0)';
+                }, 100);
+                
+                lastScrollY = currentScrollY;
+            });
+        });
+
+        function createMassiveImpact(element) {
+            const impact = document.createElement('div');
+            impact.style.cssText = `
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+                pointer-events: none;
+                z-index: 1;
+                animation: massive-impact 0.8s ease-out forwards;
+            `;
+            
+            element.style.position = 'relative';
+            element.appendChild(impact);
+            
+            setTimeout(() => impact.remove(), 800);
+        }
+
+        function addRandomCracks(element) {
+            const crackCount = Math.floor(Math.random() * 3) + 1;
+            
+            for (let i = 0; i < crackCount; i++) {
+                const crack = document.createElement('div');
+                crack.style.cssText = `
+                    position: absolute;
+                    top: ${Math.random() * 80 + 10}%;
+                    left: ${Math.random() * 80 + 10}%;
+                    width: ${Math.random() * 60 + 20}px;
+                    height: 1px;
+                    background: rgba(255, 107, 53, 0.3);
+                    transform: rotate(${Math.random() * 60 - 30}deg);
+                    pointer-events: none;
+                    animation: crack-form ${2 + Math.random() * 2}s ease-in-out;
+                `;
+                
+                element.appendChild(crack);
+            }
+        }
+
+        function createMaterialFeedback(element) {
+            const feedback = document.createElement('div');
+            feedback.style.cssText = `
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 20px;
+                height: 20px;
+                background: var(--brutalist-orange);
+                transform: translate(-50%, -50%);
+                pointer-events: none;
+                z-index: 10;
+                animation: material-impact 1s ease-out forwards;
+            `;
+            
+            element.appendChild(feedback);
+            setTimeout(() => feedback.remove(), 1000);
+        }
+
+        // 動態樣式添加
+        const dynamicStyles = document.createElement('style');
+        dynamicStyles.textContent = `
+            @keyframes massive-impact {
+                0% { opacity: 0; transform: scale(0.8); }
+                50% { opacity: 1; transform: scale(1); }
+                100% { opacity: 0; transform: scale(1.2); }
+            }
+
+            @keyframes crack-form {
+                0% { width: 0; opacity: 0; }
+                50% { opacity: 0.5; }
+                100% { opacity: 0.3; }
+            }
+
+            @keyframes material-impact {
+                0% { 
+                    width: 20px; 
+                    height: 20px; 
+                    opacity: 1;
+                    border-radius: 0%;
+                }
+                100% { 
+                    width: 100px; 
+                    height: 100px; 
+                    opacity: 0;
+                    border-radius: 50%;
+                    background: transparent;
+                    border: 3px solid var(--brutalist-orange);
+                }
+            }
+        `;
+        document.head.appendChild(dynamicStyles);
+
+        console.log('🏗️ Concrete Brutalism loaded - Raw power unleashed');
+    </script>
+</body>
+</html>

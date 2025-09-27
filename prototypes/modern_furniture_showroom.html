@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nordic Form - Modern Scandinavian Furniture Gallery</title>
+    <style>
+        :root {
+            --pure-white: #FFFFFF;
+            --soft-gray: #F8F9FA;
+            --warm-gray: #E9ECEF;
+            --charcoal: #2F3349;
+            --ash-blue: #6C757D;
+            --natural-beige: #F5F3F0;
+            --warm-oak: #D4A574;
+            --sage-green: #B8C5A6;
+            --soft-shadow: 0 2px 20px rgba(47, 51, 73, 0.08);
+            --hover-shadow: 0 8px 40px rgba(47, 51, 73, 0.12);
+            --gallery-shadow: 0 1px 3px rgba(47, 51, 73, 0.12);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--pure-white);
+            color: var(--charcoal);
+            line-height: 1.6;
+            font-weight: 400;
+        }
+        
+        /* Navigation */
+        .nav-container {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--warm-gray);
+        }
+        
+        .navbar {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 24px 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 32px;
+            font-weight: 300;
+            color: var(--charcoal);
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+        
+        .logo::after {
+            content: '●';
+            color: var(--warm-oak);
+            margin-left: 8px;
+            font-size: 12px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 50px;
+        }
+        
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-weight: 400;
+            font-size: 15px;
+            letter-spacing: 0.3px;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            padding: 8px 0;
+            position: relative;
+        }
+        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background: var(--warm-oak);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--warm-oak);
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 80px;
+        }
+        
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 120px;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .hero-content {
+            padding-right: 40px;
+        }
+        
+        .hero-title {
+            font-size: clamp(3rem, 5vw, 5rem);
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 40px;
+            color: var(--charcoal);
+            letter-spacing: -1px;
+        }
+        
+        .hero-title .accent {
+            color: var(--warm-oak);
+            font-style: italic;
+        }
+        
+        .hero-subtitle {
+            font-size: 22px;
+            font-weight: 400;
+            color: var(--ash-blue);
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+        
+        .hero-description {
+            font-size: 16px;
+            color: var(--ash-blue);
+            margin-bottom: 50px;
+            line-height: 1.7;
+            opacity: 0.9;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .btn-primary {
+            background: var(--charcoal);
+            color: var(--pure-white);
+            padding: 18px 40px;
+            border: none;
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary:hover {
+            background: var(--warm-oak);
+            transform: translateY(-2px);
+            box-shadow: var(--hover-shadow);
+        }
+        
+        .btn-secondary {
+            color: var(--charcoal);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            padding: 18px 0;
+            border-bottom: 1px solid var(--charcoal);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            color: var(--warm-oak);
+            border-color: var(--warm-oak);
+        }
+        
+        .hero-gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            height: 600px;
+        }
+        
+        .gallery-item {
+            background: var(--soft-gray);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        
+        .gallery-item:first-child {
+            grid-row: span 2;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.02);
+            box-shadow: var(--hover-shadow);
+        }
+        
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 60%;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--warm-gray);
+        }
+        
+        .gallery-item::after {
+            content: attr(data-title);
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--charcoal);
+            letter-spacing: 0.5px;
+        }
+        
+        /* Categories Section */
+        .categories-section {
+            padding: 160px 80px;
+            background: var(--soft-gray);
+        }
+        
+        .categories-container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 100px;
+        }
+        
+        .section-title {
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 300;
+            margin-bottom: 30px;
+            color: var(--charcoal);
+            letter-spacing: -0.5px;
+        }
+        
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--ash-blue);
+            font-weight: 400;
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+        
+        .category-card {
+            background: var(--pure-white);
+            padding: 0;
+            border-radius: 0;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            box-shadow: var(--gallery-shadow);
+        }
+        
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--hover-shadow);
+        }
+        
+        .category-image {
+            height: 300px;
+            background: var(--natural-beige);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .category-image::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(108, 117, 125, 0.2);
+        }
+        
+        .category-content {
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .category-content h3 {
+            font-size: 24px;
+            font-weight: 400;
+            margin-bottom: 15px;
+            color: var(--charcoal);
+            letter-spacing: 0.5px;
+        }
+        
+        .category-content p {
+            font-size: 15px;
+            color: var(--ash-blue);
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        
+        .category-link {
+            color: var(--warm-oak);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--warm-oak);
+            padding-bottom: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        .category-link:hover {
+            opacity: 0.7;
+        }
+        
+        /* Products Section */
+        .products-section {
+            padding: 160px 80px;
+            background: var(--pure-white);
+        }
+        
+        .products-container {
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+        
+        .products-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+        
+        .products-title {
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 300;
+            color: var(--charcoal);
+            letter-spacing: -0.5px;
+        }
+        
+        .filter-tabs {
+            display: flex;
+            gap: 40px;
+        }
+        
+        .filter-tab {
+            background: none;
+            border: none;
+            font-size: 15px;
+            color: var(--ash-blue);
+            cursor: pointer;
+            padding: 10px 0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .filter-tab.active,
+        .filter-tab:hover {
+            color: var(--charcoal);
+        }
+        
+        .filter-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--warm-oak);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 60px;
+        }
+        
+        .product-card {
+            background: var(--pure-white);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-image {
+            height: 400px;
+            background: var(--soft-gray);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            height: 70%;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: var(--gallery-shadow);
+        }
+        
+        .product-info {
+            text-align: left;
+        }
+        
+        .product-name {
+            font-size: 20px;
+            font-weight: 400;
+            margin-bottom: 8px;
+            color: var(--charcoal);
+            letter-spacing: 0.3px;
+        }
+        
+        .product-designer {
+            font-size: 14px;
+            color: var(--ash-blue);
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        
+        .product-price {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--warm-oak);
+            margin-bottom: 20px;
+        }
+        
+        .product-materials {
+            font-size: 13px;
+            color: var(--ash-blue);
+            line-height: 1.5;
+        }
+        
+        /* Footer */
+        .footer-section {
+            background: var(--charcoal);
+            color: var(--pure-white);
+            padding: 120px 80px 60px;
+        }
+        
+        .footer-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 80px;
+        }
+        
+        .footer-brand h3 {
+            font-size: 36px;
+            font-weight: 300;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+        
+        .footer-brand p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            border-color: var(--warm-oak);
+            color: var(--warm-oak);
+        }
+        
+        .footer-section-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 30px;
+            letter-spacing: 0.5px;
+        }
+        
+        .footer-links a {
+            display: block;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            margin-bottom: 15px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--warm-oak);
+        }
+        
+        .footer-contact p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 1200px) {
+            .navbar {
+                padding: 20px 40px;
+            }
+            
+            .hero-section,
+            .categories-section,
+            .products-section,
+            .footer-section {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+            
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 80px;
+                text-align: center;
+            }
+            
+            .hero-content {
+                padding-right: 0;
+            }
+            
+            .categories-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 30px;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 40px;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 60px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+            
+            .nav-menu {
+                gap: 25px;
+                font-size: 14px;
+            }
+            
+            .logo {
+                font-size: 24px;
+            }
+            
+            .hero-section,
+            .categories-section,
+            .products-section,
+            .footer-section {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            
+            .hero-section {
+                min-height: 70vh;
+            }
+            
+            .hero-title {
+                font-size: clamp(2rem, 8vw, 3rem);
+            }
+            
+            .hero-subtitle {
+                font-size: 18px;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .hero-gallery {
+                height: 400px;
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-gallery .gallery-item:first-child {
+                grid-row: span 1;
+            }
+            
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .products-header {
+                flex-direction: column;
+                gap: 40px;
+                align-items: flex-start;
+            }
+            
+            .filter-tabs {
+                gap: 30px;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-container">
+        <nav class="navbar">
+            <a href="#" class="logo">NORDIC FORM</a>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#collections">Collections</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#designers">Designers</a></li>
+                <li><a href="#showroom">Showroom</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Modern <em class="accent">Scandinavian</em><br>Furniture Gallery</h1>
+                <p class="hero-subtitle">Curated collection of contemporary Nordic design</p>
+                <p class="hero-description">Discover exceptional furniture pieces that embody the essence of Scandinavian design philosophy - clean lines, natural materials, and functional beauty that transforms living spaces into sanctuaries of comfort and style.</p>
+                <div class="hero-buttons">
+                    <a href="#collections" class="btn-primary">EXPLORE COLLECTION</a>
+                    <a href="#showroom" class="btn-secondary">Visit Showroom</a>
+                </div>
+            </div>
+            <div class="hero-gallery">
+                <div class="gallery-item" data-title="Oak Dining Table"></div>
+                <div class="gallery-item" data-title="Leather Lounge Chair"></div>
+                <div class="gallery-item" data-title="Wool Throw Blanket"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories-section" id="collections">
+        <div class="categories-container">
+            <div class="section-header">
+                <h2 class="section-title">Our Collections</h2>
+                <p class="section-subtitle">Carefully curated furniture categories that define modern Nordic living</p>
+            </div>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-image"></div>
+                    <div class="category-content">
+                        <h3>Seating Collection</h3>
+                        <p>Chairs, sofas, and lounge pieces that combine comfort with timeless Scandinavian aesthetics.</p>
+                        <a href="#" class="category-link">View Collection</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-image"></div>
+                    <div class="category-content">
+                        <h3>Dining Furniture</h3>
+                        <p>Tables and dining sets crafted from premium oak and sustainable materials.</p>
+                        <a href="#" class="category-link">View Collection</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-image"></div>
+                    <div class="category-content">
+                        <h3>Storage Solutions</h3>
+                        <p>Minimalist shelving and storage that maximizes space while maintaining clean lines.</p>
+                        <a href="#" class="category-link">View Collection</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-image"></div>
+                    <div class="category-content">
+                        <h3>Lighting Design</h3>
+                        <p>Contemporary lighting fixtures that create warm, inviting atmospheres.</p>
+                        <a href="#" class="category-link">View Collection</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-image"></div>
+                    <div class="category-content">
+                        <h3>Textiles & Accessories</h3>
+                        <p>Premium woolens, cushions, and accessories in natural, muted tones.</p>
+                        <a href="#" class="category-link">View Collection</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-image"></div>
+                    <div class="category-content">
+                        <h3>Bedroom Essentials</h3>
+                        <p>Beds, nightstands, and wardrobes designed for restful, organized living.</p>
+                        <a href="#" class="category-link">View Collection</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section" id="products">
+        <div class="products-container">
+            <div class="products-header">
+                <h2 class="products-title">Featured Products</h2>
+                <div class="filter-tabs">
+                    <button class="filter-tab active">All</button>
+                    <button class="filter-tab">New</button>
+                    <button class="filter-tab">Best Sellers</button>
+                    <button class="filter-tab">Sale</button>
+                </div>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image"></div>
+                    <div class="product-info">
+                        <h3 class="product-name">Minimalist Oak Dining Table</h3>
+                        <p class="product-designer">by Erik Lundberg</p>
+                        <p class="product-price">$2,840</p>
+                        <p class="product-materials">Solid Oak, Steel Legs<br>240cm x 95cm x 75cm</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image"></div>
+                    <div class="product-info">
+                        <h3 class="product-name">Curved Lounge Chair</h3>
+                        <p class="product-designer">by Astrid Holm</p>
+                        <p class="product-price">$1,920</p>
+                        <p class="product-materials">Wool Upholstery, Birch Frame<br>76cm x 82cm x 78cm</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image"></div>
+                    <div class="product-info">
+                        <h3 class="product-name">Modular Shelving System</h3>
+                        <p class="product-designer">by Nordic Form Studio</p>
+                        <p class="product-price">$1,240</p>
+                        <p class="product-materials">Ash Wood, Adjustable<br>Custom Configurations</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image"></div>
+                    <div class="product-info">
+                        <h3 class="product-name">Pendant Light Series</h3>
+                        <p class="product-designer">by Lars Petersen</p>
+                        <p class="product-price">$680</p>
+                        <p class="product-materials">Spun Aluminum, LED<br>30cm Diameter</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image"></div>
+                    <div class="product-info">
+                        <h3 class="product-name">Wool Throw Collection</h3>
+                        <p class="product-designer">by Ingrid Svensson</p>
+                        <p class="product-price">$340</p>
+                        <p class="product-materials">100% Merino Wool<br>130cm x 180cm</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image"></div>
+                    <div class="product-info">
+                        <h3 class="product-name">Platform Bed Frame</h3>
+                        <p class="product-designer">by Nordic Form Studio</p>
+                        <p class="product-price">$1,580</p>
+                        <p class="product-materials">White Oak, Low Profile<br>Queen & King Available</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-section" id="contact">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>NORDIC FORM</h3>
+                <p>We are passionate about bringing authentic Scandinavian design to modern homes. Our curated collection features pieces from established and emerging Nordic designers who share our commitment to sustainability, craftsmanship, and timeless beauty.</p>
+                <div class="footer-social">
+                    <a href="#" class="social-link">📘</a>
+                    <a href="#" class="social-link">📷</a>
+                    <a href="#" class="social-link">🐦</a>
+                    <a href="#" class="social-link">📌</a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4 class="footer-section-title">Collections</h4>
+                <a href="#">Seating</a>
+                <a href="#">Dining</a>
+                <a href="#">Storage</a>
+                <a href="#">Lighting</a>
+                <a href="#">Textiles</a>
+                <a href="#">Bedroom</a>
+            </div>
+            <div class="footer-links">
+                <h4 class="footer-section-title">Services</h4>
+                <a href="#">Design Consultation</a>
+                <a href="#">Custom Orders</a>
+                <a href="#">White Glove Delivery</a>
+                <a href="#">Trade Program</a>
+                <a href="#">Warranty</a>
+                <a href="#">Care Instructions</a>
+            </div>
+            <div class="footer-contact">
+                <h4 class="footer-section-title">Visit Us</h4>
+                <p>📍 789 Design Quarter<br>Copenhagen, Denmark</p>
+                <p>📞 +45 33 12 34 56</p>
+                <p>✉️ hello@nordicform.dk</p>
+                <p>🌐 www.nordicform.com</p>
+                <p>🕒 Mon-Sat: 10AM-7PM<br>Sunday: 12PM-5PM</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const navHeight = document.querySelector('.nav-container').offsetHeight;
+                    const targetPosition = target.offsetTop - navHeight;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Filter tabs functionality
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs
+                filterTabs.forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // Here you would typically filter products
+                // For demo purposes, we'll just show the active state
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+                    entry.target.style.opacity = '1';
+                }
+            });
+        }, observerOptions);
+
+        // Observe category cards and product cards
+        document.querySelectorAll('.category-card, .product-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.animationDelay = `${index * 0.1}s`;
+            observer.observe(card);
+        });
+
+        // Parallax effect for hero gallery
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroGallery = document.querySelector('.hero-gallery');
+            if (heroGallery) {
+                heroGallery.style.transform = `translateY(${scrolled * 0.1}px)`;
+            }
+        });
+
+        // Product card hover effects
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.querySelector('.product-image').style.transform = 'scale(1.05)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.querySelector('.product-image').style.transform = 'scale(1)';
+            });
+        });
+
+        // CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            .product-image {
+                transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Gallery item hover effects
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.02)';
+                this.style.boxShadow = 'var(--hover-shadow)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+                this.style.boxShadow = 'none';
+            });
+        });
+    </script>
+</body>
+</html>

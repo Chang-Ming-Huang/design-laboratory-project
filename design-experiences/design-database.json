@@ -1,0 +1,244 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "created": "2025-09-26",
+    "description": "設計成功案例數據庫 - 記錄設計經驗文件與實際 HTML 檔案的關聯關係",
+    "totalCases": 2
+  },
+  "categories": {
+    "successful-cases": {
+      "description": "已證明成功的設計案例，具有用戶正面反饋和可復用價值",
+      "count": 2
+    },
+    "experimental-cases": {
+      "description": "實驗性設計案例，展示創新技術和設計方法",
+      "count": 0
+    },
+    "learning-cases": {
+      "description": "學習過程案例，記錄設計決策和改進過程",
+      "count": 0
+    }
+  },
+  "cases": {
+    "creative-agency-portfolio": {
+      "id": "creative-agency-portfolio",
+      "category": "successful-cases",
+      "status": "completed",
+      "success_rating": 5,
+      "user_feedback": "相當成功的頁面",
+
+      "basic_info": {
+        "name": "Creative Agency Portfolio",
+        "name_zh": "創意代理作品集",
+        "created_date": "2025-09-26",
+        "last_updated": "2025-09-26",
+        "design_type": "創意代理商作品集",
+        "color_scheme": "黑、橘、白、咖啡"
+      },
+
+      "files": {
+        "html_file": {
+          "path": "../prototypes/creative_agency_portfolio.html",
+          "absolute_path": "prototypes/creative_agency_portfolio.html",
+          "size_kb": 27,
+          "integrated_in_prototypes": true
+        },
+        "documentation": {
+          "experience_doc": "./successful-cases/creative-agency-portfolio/EXPERIENCE.md",
+          "readme": "./successful-cases/creative-agency-portfolio/README.md",
+          "reference_link": "./successful-cases/creative-agency-portfolio/reference-link.md"
+        },
+        "screenshots": "./successful-cases/creative-agency-portfolio/screenshots/"
+      },
+
+      "technical_features": {
+        "colors": ["orange", "black", "white", "coffee"],
+        "complexity": "low",
+        "concept": "creative-harmonious",
+        "key_technologies": [
+          "CSS 自定義屬性系統",
+          "色彩科學應用 (飽和度控制)",
+          "專業緩動函數 cubic-bezier",
+          "響應式 clamp() 字體",
+          "護眼色調優化"
+        ],
+        "main_colors": {
+          "primary_orange": "#d4825a",
+          "secondary_orange": "#c17854",
+          "accent_coffee": "#8d6e63",
+          "rich_black": "#1a1a1a",
+          "pure_white": "#ffffff"
+        }
+      },
+
+      "design_methodology": {
+        "approach": "用戶反饋驅動設計 (User Feedback Driven Design)",
+        "iteration_rounds": 3,
+        "key_improvements": [
+          "色彩協調性系統化",
+          "降低橘色飽和度至護眼等級",
+          "移除漸層效果",
+          "專業化處理 (移除 emoji)"
+        ],
+        "success_factors": [
+          "用戶反饋驅動迭代",
+          "色彩科學應用",
+          "技術與美學平衡"
+        ]
+      },
+
+      "learning_value": {
+        "reusable_patterns": [
+          "四色配色延伸法",
+          "版面情感節奏設計",
+          "漸進式互動模式"
+        ],
+        "design_principles": [
+          "控制下的大膽",
+          "護眼配色法則",
+          "用戶體驗優先思維"
+        ],
+        "technical_lessons": [
+          "飽和度控制在 60-70%",
+          "融入暖色調中和亮色",
+          "使用專業緩動函數",
+          "響應式極大字體實現"
+        ]
+      },
+
+      "prototypes_integration": {
+        "listed_in_index": true,
+        "category_in_prototypes": "🎨 黑、橘、白、咖啡 配色創意系列",
+        "search_tags": ["creative", "agency", "portfolio", "orange", "coffee"],
+        "browsable": true,
+        "deletion_protected": true
+      }
+    },
+
+    "modern-architecture-firm": {
+      "id": "modern-architecture-firm",
+      "category": "successful-cases",
+      "status": "completed",
+      "success_rating": 4,
+      "user_feedback": "專業建築美學展現",
+
+      "basic_info": {
+        "name": "Modern Architecture Firm",
+        "name_zh": "現代建築事務所",
+        "created_date": "2025-09-26",
+        "last_updated": "2025-09-26",
+        "design_type": "建築事務所官網",
+        "color_scheme": "黑、橘、白、咖啡"
+      },
+
+      "files": {
+        "html_file": {
+          "path": "../prototypes/modern_architecture_firm.html",
+          "absolute_path": "prototypes/modern_architecture_firm.html",
+          "size_kb": 35,
+          "integrated_in_prototypes": true
+        },
+        "documentation": {
+          "experience_doc": "./successful-cases/modern-architecture-firm/EXPERIENCE.md",
+          "readme": "./successful-cases/modern-architecture-firm/README.md",
+          "reference_link": "./successful-cases/modern-architecture-firm/reference-link.md"
+        },
+        "screenshots": "./successful-cases/modern-architecture-firm/screenshots/"
+      },
+
+      "technical_features": {
+        "colors": ["orange", "black", "white", "coffee"],
+        "complexity": "medium",
+        "concept": "professional-architectural",
+        "key_technologies": [
+          "建築網格系統設計",
+          "建築專業配色方案",
+          "建築草圖動畫效果",
+          "專業內容架構完整性",
+          "建築師工作流程視覺化"
+        ],
+        "main_colors": {
+          "pure_white": "#ffffff",
+          "rich_black": "#1a1a1a",
+          "architect_orange": "#ff6b35",
+          "warm_coffee": "#8d6e63",
+          "light_gray": "#f5f5f5"
+        }
+      },
+
+      "design_methodology": {
+        "approach": "建築美學轉譯 (Architectural Aesthetic Translation)",
+        "iteration_rounds": 2,
+        "key_improvements": [
+          "建築制圖美學網頁化轉譯",
+          "完整內容架構建立",
+          "建築專業互動效果設計",
+          "建築師視覺語彙應用"
+        ],
+        "success_factors": [
+          "專業定位精準",
+          "內容架構完整性",
+          "建築美學語言統一"
+        ]
+      },
+
+      "learning_value": {
+        "reusable_patterns": [
+          "建築專業配色延伸",
+          "建築內容結構模板",
+          "建築師互動設計模式"
+        ],
+        "design_principles": [
+          "建築美學轉譯原則",
+          "專業服務網站架構",
+          "建築配色心理學"
+        ],
+        "technical_lessons": [
+          "建築制圖網格系統",
+          "建築材質色彩應用",
+          "建築草圖動畫實現",
+          "建築專業字體系統"
+        ]
+      },
+
+      "prototypes_integration": {
+        "listed_in_index": true,
+        "category_in_prototypes": "🎨 黑、橘、白、咖啡 配色創意系列",
+        "search_tags": ["architecture", "firm", "professional", "orange", "coffee", "building"],
+        "browsable": true,
+        "deletion_protected": true
+      }
+    }
+  },
+
+  "statistics": {
+    "total_cases": 2,
+    "successful_cases": 2,
+    "experimental_cases": 0,
+    "learning_cases": 0,
+    "completion_rate": "100%",
+    "user_satisfaction_average": 4.5
+  },
+
+  "templates": {
+    "successful_case_template": {
+      "required_files": [
+        "EXPERIENCE.md - 完整設計過程和方法論",
+        "README.md - 快速概覽和重點摘要",
+        "reference-link.md - 實際檔案關聯說明"
+      ],
+      "optional_files": [
+        "screenshots/ - 視覺記錄資料夾"
+      ],
+      "naming_convention": "使用 HTML 檔案名稱作為資料夾名稱",
+      "documentation_language": "繁體中文為主"
+    }
+  },
+
+  "maintenance": {
+    "last_sync_check": "2025-09-26",
+    "broken_links": 0,
+    "integrity_status": "完整",
+    "backup_status": "已整合至 git 版本控制"
+  }
+}

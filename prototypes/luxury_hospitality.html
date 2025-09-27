@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Hospitality - 奢華酒店體驗</title>
+    <style>
+        :root {
+            --luxury-champagne: #d4af37;
+            --luxury-navy: #001f3f;
+            --luxury-pearl: #f8f8ff;
+            --luxury-platinum: #e5e4e2;
+            --luxury-obsidian: #0b1426;
+            --luxury-shadow: rgba(1, 31, 63, 0.15);
+            --luxury-glow: rgba(212, 175, 55, 0.3);
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        body {
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            background: var(--luxury-pearl);
+            color: var(--luxury-obsidian);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* 奢華紋理背景 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(1, 31, 63, 0.03) 0%, transparent 50%),
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 150px,
+                    rgba(248, 248, 255, 0.5) 150px,
+                    rgba(248, 248, 255, 0.5) 151px
+                );
+            z-index: -1;
+        }
+
+        .hospitality-container {
+            min-height: 100vh;
+        }
+
+        /* 豪華歡迎區 */
+        .luxury-welcome {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 60px;
+            position: relative;
+            background: linear-gradient(135deg, 
+                var(--luxury-pearl) 0%, 
+                var(--luxury-platinum) 100%);
+        }
+
+        .concierge-mark {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--luxury-champagne);
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            margin-bottom: 50px;
+            position: relative;
+            opacity: 0;
+            animation: luxury-appear 2s ease-out forwards 0.5s;
+        }
+
+        .concierge-mark::before,
+        .concierge-mark::after {
+            content: '◊';
+            position: absolute;
+            top: 50%;
+            color: var(--luxury-champagne);
+            transform: translateY(-50%);
+            font-size: 0.7rem;
+        }
+
+        .concierge-mark::before { left: -30px; }
+        .concierge-mark::after { right: -30px; }
+
+        .luxury-title {
+            font-size: clamp(4rem, 12vw, 10rem);
+            font-weight: 300;
+            color: var(--luxury-navy);
+            line-height: 0.9;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            opacity: 0;
+            animation: luxury-slide 2.5s ease-out forwards 1s;
+        }
+
+        .luxury-subtitle {
+            font-size: clamp(1.3rem, 3vw, 2rem);
+            font-weight: 300;
+            color: var(--luxury-champagne);
+            font-style: italic;
+            margin-bottom: 60px;
+            opacity: 0;
+            animation: luxury-appear 2s ease-out forwards 1.5s;
+        }
+
+        .welcome-description {
+            font-size: 1.2rem;
+            font-weight: 300;
+            color: var(--luxury-obsidian);
+            line-height: 1.8;
+            max-width: 700px;
+            opacity: 0;
+            animation: luxury-appear 2s ease-out forwards 2s;
+        }
+
+        /* 服務精選區 */
+        .services-excellence {
+            padding: 150px 60px;
+            background: var(--luxury-navy);
+            color: var(--luxury-pearl);
+        }
+
+        .services-title {
+            font-size: 3rem;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 100px;
+            color: var(--luxury-champagne);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .service-suite {
+            background: rgba(248, 248, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 80px 50px;
+            text-align: center;
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            overflow: hidden;
+        }
+
+        .service-suite::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                var(--luxury-champagne) 50%, 
+                transparent 100%);
+            transform: scaleX(0);
+            transition: transform 0.6s ease;
+        }
+
+        .service-suite:hover {
+            transform: translateY(-15px);
+            background: rgba(248, 248, 255, 0.08);
+            border-color: var(--luxury-champagne);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-suite:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--luxury-champagne);
+            margin-bottom: 40px;
+            display: block;
+        }
+
+        .service-name {
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: var(--luxury-pearl);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .service-description {
+            font-size: 1rem;
+            color: rgba(248, 248, 255, 0.8);
+            line-height: 1.7;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        .service-details {
+            font-size: 0.9rem;
+            color: var(--luxury-champagne);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            padding-top: 30px;
+        }
+
+        /* 貴賓體驗區 */
+        .vip-experience {
+            padding: 150px 60px;
+            background: var(--luxury-pearl);
+            position: relative;
+        }
+
+        .experience-title {
+            font-size: 3rem;
+            font-weight: 300;
+            color: var(--luxury-navy);
+            text-align: center;
+            margin-bottom: 80px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .experience-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .experience-content h3 {
+            font-size: 2.2rem;
+            font-weight: 300;
+            color: var(--luxury-navy);
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        .experience-content p {
+            font-size: 1.1rem;
+            color: var(--luxury-obsidian);
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .experience-features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .experience-features li {
+            font-size: 1rem;
+            color: var(--luxury-navy);
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 400;
+        }
+
+        .experience-features li::before {
+            content: '◊';
+            position: absolute;
+            left: 0;
+            color: var(--luxury-champagne);
+            font-size: 0.8rem;
+        }
+
+        .experience-visual {
+            background: var(--luxury-platinum);
+            height: 400px;
+            position: relative;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            overflow: hidden;
+        }
+
+        .visual-pattern {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            border: 2px solid var(--luxury-champagne);
+            opacity: 0.3;
+            animation: luxury-rotate 20s linear infinite;
+        }
+
+        .visual-pattern::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100px;
+            height: 100px;
+            border: 1px solid var(--luxury-navy);
+            transform: translate(-50%, -50%);
+            opacity: 0.5;
+        }
+
+        /* 奢華底部 */
+        .luxury-footer {
+            background: var(--luxury-obsidian);
+            color: var(--luxury-pearl);
+            padding: 100px 60px;
+            text-align: center;
+        }
+
+        .footer-motto {
+            font-size: 1.8rem;
+            font-weight: 300;
+            font-style: italic;
+            margin-bottom: 40px;
+            color: var(--luxury-champagne);
+        }
+
+        .footer-signature {
+            font-size: 1rem;
+            color: var(--luxury-platinum);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        /* 浮動奢華元素 */
+        .luxury-floating {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .floating-diamond {
+            top: 20%;
+            right: 10%;
+            width: 60px;
+            height: 60px;
+            border: 2px solid var(--luxury-champagne);
+            transform: rotate(45deg);
+            animation: luxury-drift 15s ease-in-out infinite;
+        }
+
+        .floating-circle {
+            bottom: 30%;
+            left: 8%;
+            width: 100px;
+            height: 100px;
+            border: 1px solid var(--luxury-navy);
+            border-radius: 50%;
+            animation: luxury-drift 20s ease-in-out infinite reverse;
+        }
+
+        /* 動畫定義 */
+        @keyframes luxury-appear {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes luxury-slide {
+            from { 
+                opacity: 0; 
+                transform: translateX(-50px);
+                filter: blur(2px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(0);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes luxury-rotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @keyframes luxury-drift {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(10deg); }
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .luxury-welcome,
+            .services-excellence,
+            .vip-experience,
+            .luxury-footer {
+                padding: 80px 30px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .experience-showcase {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .service-suite {
+                padding: 60px 40px;
+            }
+
+            .luxury-floating {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 浮動奢華元素 -->
+    <div class="luxury-floating floating-diamond"></div>
+    <div class="luxury-floating floating-circle"></div>
+
+    <div class="hospitality-container">
+        <!-- 豪華歡迎區 -->
+        <section class="luxury-welcome">
+            <div class="concierge-mark">Five-Star Experience</div>
+            <h1 class="luxury-title">LUXURY<br>HOSPITALITY</h1>
+            <h2 class="luxury-subtitle">奢華酒店的數位化服務藝術</h2>
+            <p class="welcome-description">
+                每一個細節都經過精心雕琢，每一次服務都是藝術品。
+                這不只是住宿體驗，而是人生中值得珍藏的奢華時刻。
+            </p>
+        </section>
+
+        <!-- 服務精選區 -->
+        <section class="services-excellence">
+            <h2 class="services-title">SIGNATURE SERVICES</h2>
+            
+            <div class="services-grid">
+                <div class="service-suite">
+                    <span class="service-icon">👑</span>
+                    <h3 class="service-name">Concierge Elite</h3>
+                    <p class="service-description">
+                        24小時專屬禮賓服務，從私人飛機安排到米其林餐廳預訂，
+                        我們的禮賓團隊讓每一個願望都成為可能。
+                    </p>
+                    <div class="service-details">24/7 Personal Assistant</div>
+                </div>
+
+                <div class="service-suite">
+                    <span class="service-icon">🥂</span>
+                    <h3 class="service-name">Culinary Journey</h3>
+                    <p class="service-description">
+                        由米其林星級主廚打造的美食體驗，
+                        每一道菜品都是味覺與視覺的雙重盛宴。
+                    </p>
+                    <div class="service-details">Michelin-Star Dining</div>
+                </div>
+
+                <div class="service-suite">
+                    <span class="service-icon">💎</span>
+                    <h3 class="service-name">Wellness Sanctuary</h3>
+                    <p class="service-description">
+                        頂級水療中心提供完全客製化的療程，
+                        結合古老智慧與現代科技的完美休憩體驗。
+                    </p>
+                    <div class="service-details">Bespoke Spa Experience</div>
+                </div>
+
+                <div class="service-suite">
+                    <span class="service-icon">🎭</span>
+                    <h3 class="service-name">Cultural Immersion</h3>
+                    <p class="service-description">
+                        獨家文化體驗活動，從私人美術館導覽到傳統工藝大師課程，
+                        深度探索當地文化精髓。
+                    </p>
+                    <div class="service-details">Exclusive Cultural Access</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 貴賓體驗區 */
+        <section class="vip-experience">
+            <h2 class="experience-title">VIP EXPERIENCE</h2>
+            
+            <div class="experience-showcase">
+                <div class="experience-content">
+                    <h3>總統套房體驗</h3>
+                    <p>
+                        佔地500平方米的頂級套房，配備私人管家、專屬廚師，
+                        以及360度城市景觀。每一個空間都展現著無與倫比的奢華品味。
+                    </p>
+                    
+                    <ul class="experience-features">
+                        <li>Private Butler Service</li>
+                        <li>Panoramic City Views</li>
+                        <li>In-Suite Dining</li>
+                        <li>Premium Amenities</li>
+                        <li>VIP Transportation</li>
+                    </ul>
+                </div>
+
+                <div class="experience-visual">
+                    <div class="visual-pattern"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 奢華底部 -->
+        <footer class="luxury-footer">
+            <p class="footer-motto">
+                「奢華不在於擁有什麼，而在於如何被款待」
+            </p>
+            <p class="footer-signature">— THE LUXURY HOSPITALITY COLLECTION</p>
+        </footer>
+    </div>
+
+    <script>
+        // 奢華酒店互動系統
+        document.addEventListener('DOMContentLoaded', () => {
+            // 服務套房動效
+            const serviceSuites = document.querySelectorAll('.service-suite');
+            
+            serviceSuites.forEach((suite, index) => {
+                suite.addEventListener('mouseenter', () => {
+                    createLuxuryAura(suite);
+                });
+
+                suite.addEventListener('click', () => {
+                    createVipEffect(suite);
+                });
+
+                // 延遲顯示動畫
+                setTimeout(() => {
+                    suite.style.opacity = '0';
+                    suite.style.transform = 'translateY(50px)';
+                    suite.style.transition = 'all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    
+                    setTimeout(() => {
+                        suite.style.opacity = '1';
+                        suite.style.transform = 'translateY(0)';
+                    }, 300 + index * 200);
+                }, 1000);
+            });
+
+            // 奢華視差效果
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const parallax = document.querySelector('.visual-pattern');
+                
+                if (parallax) {
+                    parallax.style.transform = `translate(-50%, -50%) rotate(${scrolled * 0.1}deg)`;
+                }
+            });
+
+            // 貴賓歡迎效果
+            setTimeout(createWelcomeGrandeur, 3000);
+        });
+
+        function createLuxuryAura(suite) {
+            const aura = document.createElement('div');
+            aura.style.cssText = `
+                position: absolute;
+                top: -10px;
+                left: -10px;
+                right: -10px;
+                bottom: -10px;
+                background: linear-gradient(45deg, 
+                    var(--luxury-champagne), 
+                    transparent,
+                    var(--luxury-navy),
+                    transparent,
+                    var(--luxury-champagne));
+                background-size: 400% 400%;
+                z-index: -1;
+                opacity: 0;
+                animation: luxury-aura 3s ease infinite;
+                pointer-events: none;
+            `;
+            
+            suite.appendChild(aura);
+            
+            setTimeout(() => {
+                aura.style.opacity = '0.2';
+            }, 100);
+            
+            setTimeout(() => aura.remove(), 3000);
+        }
+
+        function createVipEffect(suite) {
+            // 創建金色粒子效果
+            for (let i = 0; i < 12; i++) {
+                const particle = document.createElement('div');
+                const angle = (i / 12) * Math.PI * 2;
+                const distance = 120;
+                
+                particle.style.cssText = `
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: 6px;
+                    height: 6px;
+                    background: var(--luxury-champagne);
+                    border-radius: 50%;
+                    pointer-events: none;
+                    z-index: 20;
+                    animation: vip-burst 2s ease-out forwards;
+                    transform: translate(-50%, -50%);
+                    box-shadow: 0 0 15px var(--luxury-glow);
+                `;
+                
+                particle.style.setProperty('--burst-x', Math.cos(angle) * distance + 'px');
+                particle.style.setProperty('--burst-y', Math.sin(angle) * distance + 'px');
+                
+                suite.appendChild(particle);
+                setTimeout(() => particle.remove(), 2000);
+            }
+        }
+
+        function createWelcomeGrandeur() {
+            const grandeur = document.createElement('div');
+            grandeur.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: radial-gradient(circle at 50% 50%, 
+                    rgba(212, 175, 55, 0.1) 0%, 
+                    transparent 70%);
+                pointer-events: none;
+                z-index: 1000;
+                opacity: 0;
+                animation: welcome-grandeur 4s ease-out forwards;
+            `;
+            
+            document.body.appendChild(grandeur);
+            setTimeout(() => grandeur.remove(), 4000);
+        }
+
+        // 動態樣式
+        const luxuryStyles = document.createElement('style');
+        luxuryStyles.textContent = `
+            @keyframes luxury-aura {
+                0%, 100% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+            }
+
+            @keyframes vip-burst {
+                0% { 
+                    transform: translate(-50%, -50%) scale(1);
+                    opacity: 1;
+                }
+                100% { 
+                    transform: translate(calc(-50% + var(--burst-x)), calc(-50% + var(--burst-y))) scale(0);
+                    opacity: 0;
+                }
+            }
+
+            @keyframes welcome-grandeur {
+                0% { opacity: 0; }
+                50% { opacity: 1; }
+                100% { opacity: 0; }
+            }
+        `;
+        document.head.appendChild(luxuryStyles);
+
+        console.log('👑 Luxury Hospitality loaded - Where every moment is exceptional');
+    </script>
+</body>
+</html>

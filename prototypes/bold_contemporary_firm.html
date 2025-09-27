@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AXIOM Design - Bold Contemporary Interior Architecture</title>
+    <style>
+        :root {
+            --deep-emerald: #0D4F3C;
+            --burnt-orange: #D4722A;
+            --cream-gold: #F4E6D7;
+            --charcoal-black: #1A1A1A;
+            --warm-brass: #B8860B;
+            --sage-mint: #A8C09A;
+            --rich-burgundy: #8B0000;
+            --soft-pearl: #F8F6F0;
+            --geometric-shadow: 0 8px 32px rgba(26, 26, 26, 0.15);
+            --bold-shadow: 0 12px 48px rgba(26, 26, 26, 0.25);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Didot', 'Times New Roman', serif;
+            background: var(--soft-pearl);
+            color: var(--charcoal-black);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+        
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(20px);
+        }
+        
+        .navbar {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 25px 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 36px;
+            font-weight: bold;
+            color: var(--burnt-orange);
+            letter-spacing: 4px;
+            text-decoration: none;
+            position: relative;
+        }
+        
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50%;
+            height: 3px;
+            background: var(--warm-brass);
+            transform: skewX(-20deg);
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 50px;
+        }
+        
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--cream-gold);
+            font-weight: 500;
+            font-size: 16px;
+            letter-spacing: 1px;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        .nav-menu a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--burnt-orange);
+            transition: width 0.4s ease;
+        }
+        
+        .nav-menu a:hover::before {
+            width: 100%;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--burnt-orange);
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--deep-emerald) 0%, var(--charcoal-black) 100%);
+            overflow: hidden;
+        }
+        
+        .hero-geometric {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background: 
+                linear-gradient(45deg, transparent 40%, var(--burnt-orange) 40%, var(--burnt-orange) 60%, transparent 60%),
+                linear-gradient(-45deg, transparent 40%, var(--warm-brass) 40%, var(--warm-brass) 60%, transparent 60%);
+            background-size: 200px 200px;
+            animation: geometricShift 20s ease-in-out infinite;
+        }
+        
+        @keyframes geometricShift {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(5deg) scale(1.1); }
+        }
+        
+        .hero-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 80px;
+            z-index: 2;
+            position: relative;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 120px;
+            align-items: center;
+        }
+        
+        .hero-content {
+            color: var(--cream-gold);
+        }
+        
+        .hero-title {
+            font-size: clamp(4rem, 8vw, 8rem);
+            font-weight: bold;
+            line-height: 0.85;
+            margin-bottom: 60px;
+            position: relative;
+            letter-spacing: -3px;
+        }
+        
+        .hero-title .highlight {
+            color: var(--burnt-orange);
+            position: relative;
+        }
+        
+        .hero-title .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: var(--warm-brass);
+            transform: skewX(-15deg);
+            z-index: -1;
+        }
+        
+        .hero-subtitle {
+            font-size: 28px;
+            font-weight: 300;
+            margin-bottom: 50px;
+            line-height: 1.4;
+            font-family: 'SF Pro Display', sans-serif;
+        }
+        
+        .hero-description {
+            font-size: 20px;
+            line-height: 1.7;
+            margin-bottom: 70px;
+            color: rgba(244, 230, 215, 0.9);
+            font-family: 'SF Pro Display', sans-serif;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .cta-primary {
+            background: var(--burnt-orange);
+            color: var(--soft-pearl);
+            padding: 25px 60px;
+            border: none;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            transform: skewX(-5deg);
+        }
+        
+        .cta-primary span {
+            transform: skewX(5deg);
+            display: block;
+        }
+        
+        .cta-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.8s ease;
+        }
+        
+        .cta-primary:hover::before {
+            left: 100%;
+        }
+        
+        .cta-primary:hover {
+            transform: skewX(-5deg) translateY(-3px);
+            box-shadow: var(--bold-shadow);
+            background: var(--warm-brass);
+        }
+        
+        .cta-secondary {
+            background: transparent;
+            color: var(--cream-gold);
+            padding: 25px 60px;
+            border: 2px solid var(--cream-gold);
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+        }
+        
+        .cta-secondary:hover {
+            background: var(--cream-gold);
+            color: var(--charcoal-black);
+            transform: translateY(-3px);
+        }
+        
+        .hero-visual {
+            position: relative;
+            height: 80vh;
+            background: var(--cream-gold);
+            clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+            overflow: hidden;
+        }
+        
+        .geometric-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(45deg, transparent, transparent 20px, var(--burnt-orange) 20px, var(--burnt-orange) 40px),
+                repeating-linear-gradient(-45deg, transparent, transparent 30px, var(--deep-emerald) 30px, var(--deep-emerald) 50px);
+            opacity: 0.8;
+            mix-blend-mode: multiply;
+            animation: patternPulse 15s ease-in-out infinite;
+        }
+        
+        @keyframes patternPulse {
+            0%, 100% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.05); }
+        }
+        
+        /* Services Section */
+        .services-section {
+            padding: 200px 80px;
+            background: var(--soft-pearl);
+            position: relative;
+        }
+        
+        .services-container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: clamp(3rem, 6vw, 6rem);
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 150px;
+            color: var(--charcoal-black);
+            letter-spacing: -2px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 6px;
+            background: linear-gradient(90deg, var(--burnt-orange), var(--warm-brass));
+            clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 100%, 20px 100%);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 80px;
+        }
+        
+        .service-card {
+            background: var(--charcoal-black);
+            color: var(--cream-gold);
+            padding: 80px 60px;
+            position: relative;
+            clip-path: polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 40px 100%, 0 calc(100% - 40px));
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 80px;
+            height: 80px;
+            background: var(--burnt-orange);
+            clip-path: polygon(0 0, 100% 0, 100% 100%);
+        }
+        
+        .service-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            background: var(--deep-emerald);
+            clip-path: polygon(0 0, 0 100%, 100% 100%);
+            transition: all 0.6s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-15px) rotate(1deg);
+            box-shadow: var(--bold-shadow);
+        }
+        
+        .service-card:hover::after {
+            width: 120px;
+            height: 120px;
+        }
+        
+        .service-icon {
+            font-size: 48px;
+            margin-bottom: 40px;
+            color: var(--burnt-orange);
+        }
+        
+        .service-card h3 {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+        
+        .service-card p {
+            font-size: 18px;
+            line-height: 1.8;
+            font-family: 'SF Pro Display', sans-serif;
+            color: rgba(244, 230, 215, 0.9);
+        }
+        
+        /* Portfolio Section */
+        .portfolio-section {
+            background: var(--deep-emerald);
+            color: var(--cream-gold);
+            padding: 200px 80px;
+            position: relative;
+        }
+        
+        .portfolio-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, var(--burnt-orange) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, var(--warm-brass) 0%, transparent 50%);
+            opacity: 0.05;
+        }
+        
+        .portfolio-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .portfolio-title {
+            font-size: clamp(3rem, 6vw, 6rem);
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 150px;
+            letter-spacing: -2px;
+            color: var(--cream-gold);
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            gap: 40px;
+        }
+        
+        .portfolio-item {
+            aspect-ratio: 4/3;
+            background: var(--warm-brass);
+            position: relative;
+            clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .portfolio-item:nth-child(even) {
+            clip-path: polygon(0% 0%, 95% 0%, 100% 100%, 5% 100%);
+        }
+        
+        .portfolio-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--charcoal-black) 0%, transparent 100%);
+            opacity: 0.7;
+            transition: all 0.6s ease;
+        }
+        
+        .portfolio-item:hover::before {
+            opacity: 0.3;
+        }
+        
+        .portfolio-item:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            bottom: 60px;
+            left: 60px;
+            right: 60px;
+            color: var(--cream-gold);
+            z-index: 3;
+        }
+        
+        .portfolio-overlay h4 {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+        
+        .portfolio-overlay p {
+            font-size: 18px;
+            font-family: 'SF Pro Display', sans-serif;
+            color: rgba(244, 230, 215, 0.8);
+        }
+        
+        /* Footer */
+        .footer-section {
+            background: var(--charcoal-black);
+            color: var(--cream-gold);
+            padding: 150px 80px 80px;
+            position: relative;
+        }
+        
+        .footer-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 100px;
+        }
+        
+        .footer-brand h3 {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 40px;
+            letter-spacing: 3px;
+            color: var(--burnt-orange);
+        }
+        
+        .footer-brand p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: rgba(244, 230, 215, 0.8);
+            font-family: 'SF Pro Display', sans-serif;
+        }
+        
+        .footer-links h4 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 40px;
+            color: var(--warm-brass);
+            letter-spacing: 1px;
+        }
+        
+        .footer-links a {
+            display: block;
+            color: rgba(244, 230, 215, 0.7);
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-size: 16px;
+            font-family: 'SF Pro Display', sans-serif;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .footer-links a::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: var(--burnt-orange);
+            font-size: 12px;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--burnt-orange);
+            transform: translateX(10px);
+        }
+        
+        .footer-links a:hover::before {
+            opacity: 1;
+        }
+        
+        .footer-contact p {
+            margin-bottom: 20px;
+            font-size: 16px;
+            font-family: 'SF Pro Display', sans-serif;
+            color: rgba(244, 230, 215, 0.8);
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 1200px) {
+            .navbar {
+                padding: 20px 40px;
+            }
+            
+            .hero-container,
+            .services-section,
+            .portfolio-section,
+            .footer-section {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+            
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 80px;
+                text-align: center;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 60px;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+            
+            .nav-menu {
+                gap: 30px;
+                font-size: 14px;
+            }
+            
+            .logo {
+                font-size: 28px;
+            }
+            
+            .hero-container,
+            .services-section,
+            .portfolio-section,
+            .footer-section {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            
+            .hero-title {
+                font-size: clamp(2.5rem, 8vw, 4rem);
+            }
+            
+            .hero-subtitle {
+                font-size: 20px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            
+            .service-card {
+                padding: 60px 40px;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-container">
+        <nav class="navbar">
+            <a href="#" class="logo">AXIOM</a>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#about">Studio</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="hero-geometric"></div>
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Bold<br><span class="highlight">Contemporary</span><br>Design</h1>
+                <p class="hero-subtitle">Fearless architecture that redefines luxury living</p>
+                <p class="hero-description">We create spaces that challenge convention and embrace bold geometric forms. Our contemporary approach to interior architecture combines sculptural elements with luxurious materials to craft environments that inspire and elevate.</p>
+                <div class="cta-buttons">
+                    <a href="#portfolio" class="cta-primary"><span>EXPLORE PROJECTS</span></a>
+                    <a href="#contact" class="cta-secondary">GET CONSULTATION</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="geometric-overlay"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section" id="services">
+        <div class="services-container">
+            <h2 class="section-title">Our Expertise</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🏛️</div>
+                    <h3>Luxury Residential</h3>
+                    <p>Transformative residential experiences that merge bold contemporary design with sophisticated living. We create homes that serve as both architectural statements and intimate sanctuaries.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🏢</div>
+                    <h3>Commercial Architecture</h3>
+                    <p>Revolutionary commercial spaces that embody corporate identity through fearless design choices. Our approach creates environments that inspire productivity and reflect brand values.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎨</div>
+                    <h3>Art Direction</h3>
+                    <p>Complete creative direction for luxury brands and high-profile projects. We provide comprehensive artistic vision that ensures every detail contributes to the overall narrative.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🏨</div>
+                    <h3>Hospitality Design</h3>
+                    <p>Groundbreaking hospitality environments that create unforgettable experiences. Our designs challenge traditional notions of comfort while delivering exceptional guest experiences.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio-section" id="portfolio">
+        <div class="portfolio-container">
+            <h2 class="portfolio-title">Featured Works</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <div class="portfolio-overlay">
+                        <h4>Metropolitan Penthouse</h4>
+                        <p>Bold geometric forms meet luxury living in this Manhattan showcase</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-overlay">
+                        <h4>Art Collector's Haven</h4>
+                        <p>Contemporary gallery living designed for a world-class art collection</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-overlay">
+                        <h4>Corporate Headquarters</h4>
+                        <p>Revolutionary workspace design for a Fortune 500 technology company</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-overlay">
+                        <h4>Boutique Hotel Suite</h4>
+                        <p>Hospitality design that redefines the luxury travel experience</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-section" id="contact">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>AXIOM DESIGN</h3>
+                <p>We are architects of bold contemporary spaces that challenge conventions and elevate the human experience. Our fearless approach to design has shaped luxury environments across the globe, from private residences to corporate headquarters.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Studio</h4>
+                <a href="#services">Services</a>
+                <a href="#portfolio">Portfolio</a>
+                <a href="#about">About</a>
+                <a href="#awards">Awards</a>
+                <a href="#press">Press</a>
+                <a href="#careers">Careers</a>
+            </div>
+            <div class="footer-contact">
+                <h4 style="font-size: 24px; font-weight: bold; margin-bottom: 40px; color: #B8860B; letter-spacing: 1px;">Contact</h4>
+                <p>📍 456 Design Avenue<br>Los Angeles, CA 90210</p>
+                <p>📞 (555) 987-6543</p>
+                <p>✉️ studio@axiomdesign.com</p>
+                <p>🌐 www.axiomdesign.com</p>
+                <p>📱 @axiomdesign</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const navHeight = document.querySelector('.nav-container').offsetHeight;
+                    const targetPosition = target.offsetTop - navHeight;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Parallax effects
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroGeometric = document.querySelector('.hero-geometric');
+            const heroVisual = document.querySelector('.hero-visual');
+            
+            if (heroGeometric) {
+                heroGeometric.style.transform = `translateY(${scrolled * 0.3}px) rotate(${scrolled * 0.05}deg)`;
+            }
+            
+            if (heroVisual) {
+                heroVisual.style.transform = `translateY(${scrolled * 0.15}px)`;
+            }
+        });
+
+        // Service card animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.animation = `slideInUp 0.8s ease forwards`;
+                        entry.target.style.opacity = '1';
+                    }, index * 200);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.style.opacity = '0';
+            observer.observe(card);
+        });
+
+        // Portfolio item hover effects
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05) rotate(2deg)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1) rotate(0deg)';
+            });
+        });
+
+        // CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(50px) rotate(-5deg);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0) rotate(0deg);
+                }
+            }
+            
+            @keyframes fadeInScale {
+                from {
+                    opacity: 0;
+                    transform: scale(0.8);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Dynamic cursor effect
+        let cursor = document.createElement('div');
+        cursor.style.cssText = `
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: rgba(212, 114, 42, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: all 0.1s ease;
+            transform: translate(-50%, -50%);
+        `;
+        document.body.appendChild(cursor);
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Cursor grow on hover
+        document.querySelectorAll('a, button, .portfolio-item, .service-card').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(2)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>

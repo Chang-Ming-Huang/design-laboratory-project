@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Minimal - AI 創意作品</title>
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        :root {
+            --primary-dark: #0a0a0a;
+            --accent-gold: #d4af37;
+            --text-light: #f8f8f8;
+            --text-medium: #cccccc;
+            --text-subtle: #999999;
+            --surface: #1a1a1a;
+        }
+        
+        body {
+            background: var(--primary-dark);
+            color: var(--text-light);
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            cursor: default;
+        }
+        
+        .luxury-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 120px 60px;
+            position: relative;
+        }
+        
+        .golden-accent {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 1px;
+            height: 100vh;
+            background: linear-gradient(
+                0deg,
+                transparent 0%,
+                var(--accent-gold) 20%,
+                var(--accent-gold) 80%,
+                transparent 100%
+            );
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0.3;
+            animation: golden-pulse 8s ease-in-out infinite;
+        }
+        
+        .luxury-frame {
+            position: relative;
+            max-width: 1000px;
+            width: 100%;
+            text-align: center;
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            padding: 140px 100px;
+            animation: frame-float 12s ease-in-out infinite;
+        }
+        
+        .luxury-frame::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            right: 40px;
+            bottom: 40px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            pointer-events: none;
+            animation: inner-frame-glow 6s ease-in-out infinite;
+        }
+        
+        .luxury-title {
+            font-size: clamp(4rem, 10vw, 8rem);
+            font-weight: 300;
+            color: var(--text-light);
+            margin-bottom: 3rem;
+            letter-spacing: -0.02em;
+            line-height: 0.9;
+            position: relative;
+            animation: title-elegance 10s ease-in-out infinite;
+        }
+        
+        .luxury-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 1px;
+            background: var(--accent-gold);
+            animation: line-expand 4s ease-in-out infinite;
+        }
+        
+        .luxury-subtitle {
+            font-size: clamp(1.4rem, 3vw, 2.2rem);
+            font-weight: 200;
+            color: var(--text-medium);
+            margin-bottom: 5rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-family: 'Helvetica Neue', 'Arial', sans-serif;
+            animation: subtitle-fade 8s ease-in-out infinite;
+        }
+        
+        .luxury-description {
+            font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+            font-weight: 300;
+            color: var(--text-subtle);
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto 4rem;
+            font-style: italic;
+            animation: description-breathe 6s ease-in-out infinite;
+        }
+        
+        .luxury-signature {
+            position: absolute;
+            bottom: 60px;
+            right: 80px;
+            font-size: 0.9rem;
+            color: var(--accent-gold);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-family: 'Helvetica Neue', sans-serif;
+            font-weight: 300;
+            opacity: 0.7;
+            animation: signature-glow 12s ease-in-out infinite;
+        }
+        
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .floating-dot {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: dot-float 20s linear infinite;
+        }
+        
+        .luxury-cursor {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 100;
+            mix-blend-mode: difference;
+            transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            backdrop-filter: blur(2px);
+        }
+        
+        @keyframes golden-pulse {
+            0%, 100% { 
+                opacity: 0.2; 
+                transform: translateX(-50%) scaleY(1); 
+            }
+            50% { 
+                opacity: 0.4; 
+                transform: translateX(-50%) scaleY(0.8); 
+            }
+        }
+        
+        @keyframes frame-float {
+            0%, 100% { 
+                transform: translateY(0px); 
+            }
+            50% { 
+                transform: translateY(-8px); 
+            }
+        }
+        
+        @keyframes inner-frame-glow {
+            0%, 100% { 
+                opacity: 0.2; 
+            }
+            50% { 
+                opacity: 0.4; 
+            }
+        }
+        
+        @keyframes title-elegance {
+            0%, 100% { 
+                transform: scale(1); 
+                opacity: 1; 
+            }
+            50% { 
+                transform: scale(1.01); 
+                opacity: 0.95; 
+            }
+        }
+        
+        @keyframes line-expand {
+            0%, 100% { 
+                width: 60px; 
+                opacity: 0.6; 
+            }
+            50% { 
+                width: 120px; 
+                opacity: 1; 
+            }
+        }
+        
+        @keyframes subtitle-fade {
+            0%, 100% { 
+                opacity: 0.8; 
+            }
+            50% { 
+                opacity: 1; 
+            }
+        }
+        
+        @keyframes description-breathe {
+            0%, 100% { 
+                opacity: 0.7; 
+                transform: scale(1); 
+            }
+            50% { 
+                opacity: 0.9; 
+                transform: scale(1.005); 
+            }
+        }
+        
+        @keyframes signature-glow {
+            0%, 100% { 
+                opacity: 0.5; 
+            }
+            50% { 
+                opacity: 0.8; 
+            }
+        }
+        
+        @keyframes dot-float {
+            0% {
+                transform: translateY(100vh) translateX(-20px) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+                transform: translateY(90vh) translateX(-10px) scale(1);
+            }
+            90% {
+                opacity: 0.6;
+                transform: translateY(10vh) translateX(10px) scale(1);
+            }
+            100% {
+                transform: translateY(-10vh) translateX(20px) scale(0);
+                opacity: 0;
+            }
+        }
+        
+        /* 高級響應式設計 */
+        @media (max-width: 1024px) {
+            .luxury-container {
+                padding: 100px 40px;
+            }
+            
+            .luxury-frame {
+                padding: 100px 60px;
+            }
+            
+            .luxury-signature {
+                bottom: 40px;
+                right: 60px;
+                font-size: 0.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .luxury-container {
+                padding: 80px 20px;
+            }
+            
+            .luxury-frame {
+                padding: 80px 40px;
+            }
+            
+            .luxury-frame::before {
+                top: 20px;
+                left: 20px;
+                right: 20px;
+                bottom: 20px;
+            }
+            
+            .luxury-signature {
+                position: relative;
+                bottom: auto;
+                right: auto;
+                text-align: center;
+                margin-top: 3rem;
+            }
+        }
+        
+        /* 高級交互效果 */
+        .luxury-frame:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.1);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .luxury-frame:hover::before {
+            border-color: rgba(212, 175, 55, 0.3);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+    </style>
+</head>
+<body>
+    <div class="golden-accent"></div>
+    
+    <div class="floating-elements" id="floatingElements"></div>
+    
+    <div class="luxury-cursor" id="luxuryCursor"></div>
+    
+    <div class="luxury-container">
+        <div class="luxury-frame">
+            <h1 class="luxury-title">Luxury<br>Minimal</h1>
+            <h2 class="luxury-subtitle">Premium Aesthetic</h2>
+            <p class="luxury-description">
+                在極簡的空間中發現奢華，每一個細節都經過精心雕琢<br>
+                少即是多，質感即是一切
+            </p>
+            <div class="luxury-signature">Crafted with Excellence</div>
+        </div>
+    </div>
+
+    <script>
+        // 奢華極簡效果
+        class LuxuryMinimal {
+            constructor() {
+                this.floatingElements = document.getElementById('floatingElements');
+                this.luxuryCursor = document.getElementById('luxuryCursor');
+                this.init();
+            }
+            
+            init() {
+                this.createFloatingDots();
+                this.setupLuxuryCursor();
+                this.startLuxuryEffects();
+            }
+            
+            createFloatingDots() {
+                // 創造高級浮動點
+                for (let i = 0; i < 8; i++) {
+                    setTimeout(() => {
+                        this.createFloatingDot();
+                    }, i * 2000);
+                }
+            }
+            
+            createFloatingDot() {
+                const dot = document.createElement('div');
+                dot.className = 'floating-dot';
+                
+                dot.style.left = Math.random() * 100 + '%';
+                dot.style.animationDelay = Math.random() * 20 + 's';
+                dot.style.animationDuration = (15 + Math.random() * 10) + 's';
+                
+                // 隨機大小（保持精緻感）
+                const size = 2 + Math.random() * 4;
+                dot.style.width = size + 'px';
+                dot.style.height = size + 'px';
+                
+                this.floatingElements.appendChild(dot);
+                
+                // 20秒後移除並創造新的
+                setTimeout(() => {
+                    if (dot.parentNode) {
+                        dot.remove();
+                        this.createFloatingDot();
+                    }
+                }, 20000 + Math.random() * 5000);
+            }
+            
+            setupLuxuryCursor() {
+                // 奢華游標追蹤
+                let mouseX = 0, mouseY = 0;
+                let cursorX = 0, cursorY = 0;
+                
+                document.addEventListener('mousemove', (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                });
+                
+                const updateCursor = () => {
+                    cursorX += (mouseX - cursorX) * 0.1;
+                    cursorY += (mouseY - cursorY) * 0.1;
+                    
+                    this.luxuryCursor.style.transform = 
+                        `translate(${cursorX - 20}px, ${cursorY - 20}px)`;
+                    
+                    requestAnimationFrame(updateCursor);
+                };
+                
+                updateCursor();
+                
+                // hover 效果
+                document.addEventListener('mouseenter', () => {
+                    this.luxuryCursor.style.transform += ' scale(1.2)';
+                });
+                
+                document.addEventListener('mouseleave', () => {
+                    this.luxuryCursor.style.transform = this.luxuryCursor.style.transform.replace(' scale(1.2)', '');
+                });
+            }
+            
+            startLuxuryEffects() {
+                // 定期創造奢華光暈
+                setInterval(() => {
+                    if (Math.random() > 0.8) {
+                        this.createLuxuryGlow();
+                    }
+                }, 8000);
+                
+                // 定期創造金色波紋
+                setInterval(() => {
+                    if (Math.random() > 0.9) {
+                        this.createGoldenRipple();
+                    }
+                }, 12000);
+            }
+            
+            createLuxuryGlow() {
+                // 創造奢華光暈效果
+                const glow = document.createElement('div');
+                glow.style.position = 'fixed';
+                glow.style.left = '50%';
+                glow.style.top = '50%';
+                glow.style.width = '300px';
+                glow.style.height = '300px';
+                glow.style.background = 'radial-gradient(circle, rgba(212, 175, 55, 0.1), transparent)';
+                glow.style.borderRadius = '50%';
+                glow.style.pointerEvents = 'none';
+                glow.style.animation = 'luxury-glow 6s ease-out forwards';
+                glow.style.zIndex = '1';
+                glow.style.transform = 'translate(-50%, -50%)';
+                
+                // CSS for glow animation
+                if (!document.getElementById('luxury-glow-style')) {
+                    const style = document.createElement('style');
+                    style.id = 'luxury-glow-style';
+                    style.textContent = `
+                        @keyframes luxury-glow {
+                            0% { 
+                                transform: translate(-50%, -50%) scale(0); 
+                                opacity: 1; 
+                            }
+                            50% { 
+                                transform: translate(-50%, -50%) scale(2); 
+                                opacity: 0.6; 
+                            }
+                            100% { 
+                                transform: translate(-50%, -50%) scale(4); 
+                                opacity: 0; 
+                            }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+                
+                document.body.appendChild(glow);
+                
+                setTimeout(() => {
+                    if (glow.parentNode) {
+                        glow.remove();
+                    }
+                }, 6000);
+            }
+            
+            createGoldenRipple() {
+                // 創造金色波紋效果
+                const ripple = document.createElement('div');
+                ripple.style.position = 'fixed';
+                ripple.style.left = Math.random() * 100 + '%';
+                ripple.style.top = Math.random() * 100 + '%';
+                ripple.style.width = '2px';
+                ripple.style.height = '2px';
+                ripple.style.border = '1px solid rgba(212, 175, 55, 0.6)';
+                ripple.style.borderRadius = '50%';
+                ripple.style.pointerEvents = 'none';
+                ripple.style.animation = 'golden-ripple 4s ease-out forwards';
+                ripple.style.zIndex = '2';
+                
+                // CSS for ripple animation
+                if (!document.getElementById('golden-ripple-style')) {
+                    const style = document.createElement('style');
+                    style.id = 'golden-ripple-style';
+                    style.textContent = `
+                        @keyframes golden-ripple {
+                            0% { 
+                                transform: scale(0); 
+                                opacity: 1; 
+                            }
+                            50% { 
+                                transform: scale(50); 
+                                opacity: 0.4; 
+                            }
+                            100% { 
+                                transform: scale(100); 
+                                opacity: 0; 
+                            }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+                
+                document.body.appendChild(ripple);
+                
+                setTimeout(() => {
+                    if (ripple.parentNode) {
+                        ripple.remove();
+                    }
+                }, 4000);
+            }
+        }
+        
+        // 啟動奢華極簡
+        document.addEventListener('DOMContentLoaded', () => {
+            new LuxuryMinimal();
+        });
+        
+        // 防止文字選取
+        document.addEventListener('selectstart', e => e.preventDefault());
+        
+        // 高級鍵盤交互
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                // 創造金色閃爍效果
+                document.body.style.filter = 'brightness(1.1) sepia(0.1)';
+                setTimeout(() => {
+                    document.body.style.filter = 'none';
+                }, 200);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎨 AI 創意自由實驗室</title>
+    <style>
+        :root {
+            --primary-white: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --text-subtle: #999999;
+            --accent-blue: #2563eb;
+            --accent-blue-hover: #1d4ed8;
+            --surface-light: #f8fafc;
+            --border-light: #e2e8f0;
+            --shadow-subtle: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --shadow-medium: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --danger-red: #dc2626;
+            --danger-red-hover: #b91c1c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--primary-white);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .header {
+            padding: 80px 0 50px 0;
+            text-align: center;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .title {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 300;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.025em;
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-weight: 300;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+        }
+
+        .status-local {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .status-github {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #bfdbfe;
+        }
+
+        .main-content {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 3rem;
+            text-align: center;
+            letter-spacing: -0.015em;
+        }
+
+        .gallery {
+            background: var(--surface-light);
+            border-radius: 24px;
+            padding: 4rem 3rem;
+            border: 1px solid var(--border-light);
+            margin-bottom: 4rem;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 4rem;
+            color: var(--text-secondary);
+        }
+
+        .file-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .file-card {
+            background: var(--primary-white);
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .file-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.05);
+            border-color: var(--accent-blue);
+        }
+
+        .file-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .file-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .card-buttons {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            border: none;
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--accent-blue);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-blue-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-danger {
+            background: var(--danger-red);
+            color: white;
+        }
+
+        .btn-danger:hover:not(.disabled) {
+            background: var(--danger-red-hover);
+        }
+
+        .btn.disabled {
+            background: var(--text-subtle);
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .footer {
+            border-top: 1px solid var(--border-light);
+            padding: 4rem 0;
+            text-align: center;
+            background: var(--surface-light);
+        }
+
+        .footer p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .footer a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Modal 樣式 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .modal-message {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .modal-buttons .btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 0.75rem 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 60px 0 40px 0;
+            }
+
+            .gallery {
+                padding: 3rem 2rem;
+            }
+
+            .main-content {
+                padding: 60px 0;
+            }
+
+            .card-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="title">🎨 AI 創意自由實驗室</h1>
+            <p class="subtitle">無框架限制 · 純粹創意表達 · 獨立 HTML 藝術作品</p>
+            <div id="statusIndicator" class="status-indicator">
+                <span id="statusText">檢測運行環境中...</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <section class="gallery">
+                <h2 class="section-title">創意風格作品集</h2>
+
+                <div id="loadingIndicator" class="loading">
+                    <p>🔄 載入風格作品中...</p>
+                </div>
+
+                <div id="fileGrid" class="file-grid" style="display: none;">
+                    <!-- 動態載入檔案卡片 -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>探索更多創意可能性</p>
+            <p>
+                <a href="#" id="repoLink" target="_blank">
+                    📁 下載完整版到本機 (支援檔案管理功能)
+                </a>
+            </p>
+            <p style="font-size: 0.9rem; color: var(--text-subtle); margin-top: 1rem;">
+                目前共 <span id="fileCount">載入中...</span> 個創意風格 ·
+                <span id="envStatus">檢測環境中...</span>
+            </p>
+        </footer>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h3 id="modalTitle" class="modal-title"></h3>
+            <p id="modalMessage" class="modal-message"></p>
+            <div class="modal-buttons">
+                <button id="modalCancel" class="btn btn-primary" onclick="closeModal()">關閉</button>
+                <button id="modalConfirm" class="btn btn-danger" style="display: none;">確認</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class DesignLaboratory {
+            constructor() {
+                this.isLocal = this.detectEnvironment();
+                this.files = [];
+                this.init();
+            }
+
+            detectEnvironment() {
+                const hostname = window.location.hostname;
+                return hostname === 'localhost' ||
+                       hostname === '127.0.0.1' ||
+                       hostname.includes('192.168.') ||
+                       window.location.protocol === 'file:';
+            }
+
+            async init() {
+                this.updateStatusIndicator();
+                this.updateRepositoryLink();
+                await this.loadFiles();
+                this.renderFiles();
+                this.updateFooterStats();
+            }
+
+            updateStatusIndicator() {
+                const indicator = document.getElementById('statusIndicator');
+                const statusText = document.getElementById('statusText');
+
+                if (this.isLocal) {
+                    indicator.className = 'status-indicator status-local';
+                    statusText.textContent = '🏠 本機模式 - 支援完整檔案管理功能';
+                } else {
+                    indicator.className = 'status-indicator status-github';
+                    statusText.textContent = '🌐 網頁模式 - 僅支援預覽功能';
+                }
+            }
+
+            updateRepositoryLink() {
+                const repoLink = document.getElementById('repoLink');
+                // 動態設定 repository 連結 - 用戶可以在這裡替換成自己的 GitHub repo
+                const repoUrl = 'https://github.com/Chang-Ming-Huang/design-laboratory-project';
+                repoLink.href = repoUrl;
+            }
+
+            updateFooterStats() {
+                const fileCountEl = document.getElementById('fileCount');
+                const envStatusEl = document.getElementById('envStatus');
+
+                fileCountEl.textContent = this.files.length;
+                envStatusEl.textContent = this.isLocal ? '本機模式' : '網頁模式';
+            }
+
+            async loadFiles() {
+                try {
+                    if (this.isLocal) {
+                        // 從後端 API 載入檔案列表
+                        const response = await fetch('/api/files');
+                        if (response.ok) {
+                            this.files = await response.json();
+                        } else {
+                            throw new Error('無法連接到本機服務器');
+                        }
+                    } else {
+                        // 從預生成的 manifest 載入檔案列表
+                        const response = await fetch('./files-manifest.json');
+                        if (response.ok) {
+                            const manifest = await response.json();
+                            this.files = manifest.files || [];
+                        } else {
+                            // 如果沒有 manifest，使用備用清單
+                            this.files = await this.getFallbackFileList();
+                        }
+                    }
+                } catch (error) {
+                    console.error('載入檔案列表失敗:', error);
+                    this.files = await this.getFallbackFileList();
+                }
+            }
+
+            async getFallbackFileList() {
+                // 備用的檔案列表，基於已知的檔案
+                return [
+                    {
+                        name: 'modern_architecture_firm.html',
+                        title: 'Modern Architecture Firm',
+                        description: '🏗️ 現代建築事務所 - 專業極簡美學，動態建築線條與藍圖網格'
+                    },
+                    {
+                        name: 'creative_agency_portfolio.html',
+                        title: 'Creative Agency Portfolio',
+                        description: '🎯 創意代理作品集 - 協調配色系統，橘色漸層與咖啡色調的專業創意美學'
+                    },
+                    {
+                        name: 'experimental_typography_lab.html',
+                        title: 'Experimental Typography Lab',
+                        description: '🔤 實驗性字體實驗室 - 2025巨字體革命，戲劇性排版與互動字體設計'
+                    }
+                ];
+            }
+
+            renderFiles() {
+                const loadingIndicator = document.getElementById('loadingIndicator');
+                const fileGrid = document.getElementById('fileGrid');
+
+                loadingIndicator.style.display = 'none';
+                fileGrid.style.display = 'grid';
+
+                if (this.files.length === 0) {
+                    fileGrid.innerHTML = `
+                        <div style="grid-column: 1 / -1; text-align: center; padding: 2rem;">
+                            <p style="color: var(--text-secondary);">尚未發現任何風格檔案</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                fileGrid.innerHTML = this.files.map(file => this.createFileCard(file)).join('');
+
+                // 更新底部統計資訊
+                this.updateFooterStats();
+            }
+
+            createFileCard(file) {
+                const deleteButton = this.isLocal
+                    ? `<button class="btn btn-danger" onclick="laboratory.confirmDelete('${file.name}')">刪除</button>`
+                    : `<button class="btn btn-danger disabled" onclick="laboratory.showDeleteRestriction()" title="網頁版無法刪除檔案">🔒 刪除</button>`;
+
+                return `
+                    <div class="file-card">
+                        <h3>${file.title || this.extractTitle(file.name)}</h3>
+                        <p>${file.description || '獨立 HTML 藝術作品'}</p>
+                        <div class="card-buttons">
+                            <a href="./prototypes/${file.name}" target="_blank" class="btn btn-primary">預覽</a>
+                            ${deleteButton}
+                        </div>
+                    </div>
+                `;
+            }
+
+            extractTitle(filename) {
+                return filename
+                    .replace('.html', '')
+                    .replace(/_/g, ' ')
+                    .replace(/\b\w/g, l => l.toUpperCase());
+            }
+
+            async confirmDelete(filename) {
+                this.showModal(
+                    '確認刪除檔案',
+                    `您確定要刪除「${filename}」嗎？\n\n此操作無法復原。`,
+                    () => this.deleteFile(filename)
+                );
+            }
+
+            async deleteFile(filename) {
+                try {
+                    const response = await fetch(`/api/files/${filename}`, {
+                        method: 'DELETE'
+                    });
+
+                    if (response.ok) {
+                        this.showModal('刪除成功', `已成功刪除「${filename}」`);
+                        // 重新載入檔案列表
+                        await this.loadFiles();
+                        this.renderFiles();
+                    } else {
+                        throw new Error('刪除失敗');
+                    }
+                } catch (error) {
+                    this.showModal('刪除失敗', `無法刪除「${filename}」\n\n錯誤: ${error.message}`);
+                }
+            }
+
+            showDeleteRestriction() {
+                const repoUrl = 'https://github.com/Chang-Ming-Huang/design-laboratory-project';
+                this.showModal(
+                    '功能限制',
+                    '網頁版無法刪除檔案。\n\n請下載完整版到本機以使用全部功能。',
+                    null,
+                    '下載完整版',
+                    () => window.open(repoUrl, '_blank')
+                );
+            }
+
+            showModal(title, message, onConfirm = null, confirmText = '確認', onConfirmCallback = null) {
+                document.getElementById('modalTitle').textContent = title;
+                document.getElementById('modalMessage').textContent = message;
+
+                const confirmBtn = document.getElementById('modalConfirm');
+                if (onConfirm || onConfirmCallback) {
+                    confirmBtn.style.display = 'block';
+                    confirmBtn.textContent = confirmText;
+                    confirmBtn.onclick = () => {
+                        closeModal();
+                        if (onConfirm) onConfirm();
+                        if (onConfirmCallback) onConfirmCallback();
+                    };
+                } else {
+                    confirmBtn.style.display = 'none';
+                }
+
+                document.getElementById('modal').classList.add('active');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        // 初始化應用程式
+        let laboratory;
+        document.addEventListener('DOMContentLoaded', () => {
+            laboratory = new DesignLaboratory();
+        });
+
+        // 點擊 modal 背景關閉
+        document.getElementById('modal').addEventListener('click', (e) => {
+            if (e.target.id === 'modal') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

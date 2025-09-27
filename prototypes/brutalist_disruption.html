@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brutalist Disruption - 破壞式極簡主義</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brutal-void: #0a0a0a;
+            --brutal-concrete: #d4d4d4;
+            --brutal-shock: #ff3333;
+            --brutal-warning: #ffff00;
+            --brutal-text: #f5f5f5;
+            --brutal-accent: #ffffff;
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        body {
+            font-family: 'Space Grotesk', monospace;
+            background: var(--brutal-void);
+            color: var(--brutal-text);
+            overflow-x: hidden;
+            line-height: 1.2;
+            cursor: crosshair;
+            position: relative;
+        }
+
+        /* 工業噪音背景 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255, 255, 255, 0.02) 2px,
+                    rgba(255, 255, 255, 0.02) 4px
+                );
+            z-index: -2;
+            animation: static-noise 3s linear infinite;
+        }
+
+        @keyframes static-noise {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 0.6; }
+        }
+
+        /* 破壞式網格系統 */
+        .brutalist-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, var(--brutal-concrete) 1px, transparent 1px),
+                linear-gradient(0deg, var(--brutal-concrete) 1px, transparent 1px);
+            background-size: 120px 120px;
+            opacity: 0.05;
+            z-index: -1;
+            transform: skew(-0.5deg);
+        }
+
+        /* 主容器 - 破壞對稱性 */
+        .disruption-container {
+            min-height: 100vh;
+            padding: 0;
+            position: relative;
+        }
+
+        /* 暴力標題區域 */
+        .brutal-hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0 60px;
+            position: relative;
+            border-left: 8px solid var(--brutal-shock);
+        }
+
+        .disruption-title {
+            font-size: clamp(4rem, 12vw, 12rem);
+            font-weight: 700;
+            color: var(--brutal-accent);
+            line-height: 0.8;
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            margin-bottom: 60px;
+            position: relative;
+            text-shadow: 
+                8px 8px 0px var(--brutal-shock),
+                16px 16px 0px rgba(255, 51, 51, 0.3);
+            transform: skew(-2deg);
+            animation: glitch-title 4s infinite;
+        }
+
+        @keyframes glitch-title {
+            0%, 90%, 100% {
+                transform: skew(-2deg);
+                filter: hue-rotate(0deg);
+            }
+            95% {
+                transform: skew(-2deg) translateX(-5px);
+                filter: hue-rotate(90deg);
+            }
+            97% {
+                transform: skew(-2deg) translateX(5px);
+                filter: hue-rotate(-90deg);
+            }
+        }
+
+        .title-fragment {
+            display: block;
+            position: relative;
+        }
+
+        .title-fragment:nth-child(2) {
+            color: var(--brutal-shock);
+            text-shadow: none;
+            margin-left: 80px;
+            animation: fragment-drift 6s ease-in-out infinite;
+        }
+
+        @keyframes fragment-drift {
+            0%, 100% { transform: translateX(0) rotate(0deg); }
+            50% { transform: translateX(-20px) rotate(-1deg); }
+        }
+
+        .title-fragment:nth-child(3) {
+            color: var(--brutal-warning);
+            text-shadow: 
+                -4px -4px 0px var(--brutal-void),
+                4px 4px 0px rgba(255, 255, 0, 0.5);
+            margin-left: 160px;
+            transform: skew(3deg);
+        }
+
+        /* 反設計宣言 */
+        .anti-design-manifesto {
+            background: var(--brutal-shock);
+            color: var(--brutal-void);
+            padding: 80px 60px;
+            margin: 0 -60px;
+            transform: rotate(-0.5deg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .anti-design-manifesto::before {
+            content: 'NO RULES';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            font-size: 20rem;
+            font-weight: 900;
+            opacity: 0.03;
+            transform: translate(-50%, -50%) rotate(45deg);
+            z-index: 1;
+        }
+
+        .manifesto-text {
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            font-weight: 500;
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .manifesto-highlight {
+            background: var(--brutal-warning);
+            color: var(--brutal-void);
+            padding: 0 10px;
+            margin: 0 5px;
+            transform: rotate(-1deg);
+            display: inline-block;
+        }
+
+        /* 破碎內容區域 */
+        .fragmented-content {
+            padding: 120px 60px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 80px;
+            align-items: start;
+        }
+
+        .brutal-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            border: 4px solid var(--brutal-concrete);
+            padding: 60px 40px;
+            position: relative;
+            transform: rotate(-1deg);
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+        }
+
+        .brutal-card:hover {
+            transform: rotate(0deg) scale(1.05);
+            border-color: var(--brutal-shock);
+            background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
+        }
+
+        .brutal-card:nth-child(even) {
+            transform: rotate(1deg);
+            border-color: var(--brutal-warning);
+        }
+
+        .brutal-card:nth-child(even):hover {
+            transform: rotate(0deg) scale(1.05);
+            border-color: var(--brutal-warning);
+        }
+
+        .card-title {
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            font-weight: 700;
+            color: var(--brutal-accent);
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .card-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--brutal-shock);
+            transform: skew(-10deg);
+        }
+
+        .card-content {
+            font-size: 1.1rem;
+            line-height: 1.4;
+            color: var(--brutal-concrete);
+            font-weight: 400;
+        }
+
+        /* 工業化引用區塊 */
+        .industrial-quote {
+            margin: 160px -60px;
+            background: var(--brutal-warning);
+            color: var(--brutal-void);
+            padding: 100px 60px;
+            position: relative;
+            transform: skew(-1deg);
+            overflow: hidden;
+        }
+
+        .industrial-quote::before {
+            content: '"';
+            position: absolute;
+            top: -50px;
+            left: 60px;
+            font-size: 20rem;
+            font-weight: 900;
+            opacity: 0.1;
+            line-height: 1;
+        }
+
+        .quote-text {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 600;
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+        }
+
+        .quote-author {
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-top: 40px;
+            text-transform: none;
+            letter-spacing: 0.1em;
+            opacity: 0.8;
+        }
+
+        /* 混亂按鈕系統 */
+        .chaos-buttons {
+            display: flex;
+            gap: 30px;
+            margin-top: 80px;
+            flex-wrap: wrap;
+        }
+
+        .brutal-button {
+            background: transparent;
+            border: 3px solid var(--brutal-accent);
+            color: var(--brutal-accent);
+            padding: 20px 40px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transform: skew(-5deg);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .brutal-button:hover {
+            transform: skew(-5deg) translateY(-5px);
+            border-color: var(--brutal-shock);
+            color: var(--brutal-shock);
+            text-shadow: 0 0 20px var(--brutal-shock);
+        }
+
+        .brutal-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: var(--brutal-shock);
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+        .brutal-button:hover::before {
+            width: 120%;
+            height: 120%;
+        }
+
+        .brutal-button:hover {
+            color: var(--brutal-void);
+        }
+
+        /* 底部混沌區域 */
+        .chaos-footer {
+            background: 
+                linear-gradient(45deg, var(--brutal-void) 25%, transparent 25%),
+                linear-gradient(-45deg, var(--brutal-void) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, var(--brutal-shock) 75%),
+                linear-gradient(-45deg, transparent 75%, var(--brutal-shock) 75%);
+            background-size: 40px 40px;
+            background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
+            padding: 80px 60px;
+            text-align: center;
+            position: relative;
+        }
+
+        .chaos-title {
+            font-size: clamp(2rem, 6vw, 5rem);
+            font-weight: 900;
+            color: var(--brutal-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            animation: chaos-pulse 2s infinite;
+        }
+
+        @keyframes chaos-pulse {
+            0%, 100% { 
+                text-shadow: 
+                    0 0 20px var(--brutal-shock),
+                    0 0 40px var(--brutal-shock),
+                    0 0 60px var(--brutal-shock);
+            }
+            50% { 
+                text-shadow: 
+                    0 0 10px var(--brutal-warning),
+                    0 0 20px var(--brutal-warning),
+                    0 0 30px var(--brutal-warning);
+            }
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .brutal-hero {
+                padding: 0 30px;
+                border-left-width: 4px;
+            }
+
+            .disruption-title {
+                font-size: clamp(2.5rem, 15vw, 8rem);
+                text-shadow: 
+                    4px 4px 0px var(--brutal-shock),
+                    8px 8px 0px rgba(255, 51, 51, 0.3);
+            }
+
+            .title-fragment:nth-child(2) {
+                margin-left: 40px;
+            }
+
+            .title-fragment:nth-child(3) {
+                margin-left: 80px;
+            }
+
+            .anti-design-manifesto,
+            .industrial-quote {
+                margin: 80px -30px;
+                padding: 60px 30px;
+            }
+
+            .fragmented-content {
+                padding: 80px 30px;
+                gap: 60px;
+                grid-template-columns: 1fr;
+            }
+
+            .brutal-card {
+                padding: 40px 30px;
+            }
+
+            .chaos-buttons {
+                gap: 20px;
+                justify-content: center;
+            }
+
+            .brutal-button {
+                padding: 15px 30px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* 創新滾動效果 */
+        @media (prefers-reduced-motion: no-preference) {
+            .brutal-card {
+                animation: float-chaos 6s ease-in-out infinite;
+            }
+
+            .brutal-card:nth-child(even) {
+                animation-delay: -2s;
+                animation-duration: 8s;
+            }
+
+            .brutal-card:nth-child(3n) {
+                animation-delay: -4s;
+                animation-duration: 7s;
+            }
+        }
+
+        @keyframes float-chaos {
+            0%, 100% { transform: rotate(-1deg) translateY(0px); }
+            25% { transform: rotate(-1.5deg) translateY(-10px); }
+            50% { transform: rotate(-0.5deg) translateY(-5px); }
+            75% { transform: rotate(-1.2deg) translateY(-15px); }
+        }
+
+        /* 禁用選擇以增加工業感 */
+        ::selection {
+            background: var(--brutal-shock);
+            color: var(--brutal-void);
+        }
+
+        /* 自定義滾動條 */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--brutal-void);
+            border: 2px solid var(--brutal-concrete);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--brutal-shock);
+            border: 1px solid var(--brutal-void);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--brutal-warning);
+        }
+    </style>
+</head>
+<body>
+    <div class="brutalist-grid"></div>
+    
+    <div class="disruption-container">
+        <div class="brutal-hero">
+            <h1 class="disruption-title">
+                <span class="title-fragment">破壞</span>
+                <span class="title-fragment">規則</span>
+                <span class="title-fragment">創造</span>
+            </h1>
+            
+            <div class="chaos-buttons">
+                <button class="brutal-button">反叛設計</button>
+                <button class="brutal-button">混亂美學</button>
+                <button class="brutal-button">破壞創新</button>
+            </div>
+        </div>
+
+        <div class="anti-design-manifesto">
+            <div class="manifesto-text">
+                設計不需要<span class="manifesto-highlight">美麗</span>
+                但需要<span class="manifesto-highlight">真實</span>
+                拒絕完美主義的<span class="manifesto-highlight">偽善</span>
+            </div>
+        </div>
+
+        <div class="fragmented-content">
+            <div class="brutal-card">
+                <h3 class="card-title">🔥 原始力量</h3>
+                <div class="card-content">
+                    擺脫精緻設計的束縛，回歸最原始的視覺衝擊。每個元素都是故意的不完美，每個角度都是刻意的反叛。這不是錯誤，這是選擇。
+                </div>
+            </div>
+
+            <div class="brutal-card">
+                <h3 class="card-title">⚡ 混沌理論</h3>
+                <div class="card-content">
+                    在看似無序的設計中隱藏著精心計算的比例。混沌不是隨機，而是另一種形式的秩序。破壞對稱性來創造新的平衡。
+                </div>
+            </div>
+
+            <div class="brutal-card">
+                <h3 class="card-title">🚫 反設計宣言</h3>
+                <div class="card-content">
+                    拒絕圓角，拒絕漸層，拒絕一切「討喜」的設計元素。真正的設計應該引起反思，而不是舒適。美不是目的，溝通才是。
+                </div>
+            </div>
+
+            <div class="brutal-card">
+                <h3 class="card-title">💀 數位朋克</h3>
+                <div class="card-content">
+                    工業時代的美學復興，混凝土的質感，鋼鐵的冷酷，霓虹的刺激。這是數位時代的朋克運動，用代碼創造的視覺革命。
+                </div>
+            </div>
+        </div>
+
+        <div class="industrial-quote">
+            <div class="quote-text">
+                "好的設計應該讓人不舒服，因為舒適就是停滯"
+            </div>
+            <div class="quote-author">— 數位野獸主義先驅</div>
+        </div>
+
+        <div class="chaos-footer">
+            <h2 class="chaos-title">混沌即秩序</h2>
+        </div>
+    </div>
+</body>
+</html>

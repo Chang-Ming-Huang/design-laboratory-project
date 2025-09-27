@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organic Maximalism Laboratory - AI Creative Laboratory</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@100;200;300;400;500;600;700;800;900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Crimson+Text:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --organic-cream: #fefcf7;
+            --organic-terracotta: #d2691e;
+            --organic-forest: #2d5a27;
+            --organic-rust: #b7410e;
+            --organic-sage: #87a96b;
+            --organic-charcoal: #2c2c2c;
+            --organic-gold: #daa520;
+            --organic-paper: #f8f6f0;
+            --organic-shadow: rgba(44, 44, 44, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--organic-cream);
+            color: var(--organic-charcoal);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Organic Background Pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, var(--organic-sage) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, var(--organic-terracotta) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, var(--organic-rust) 0%, transparent 50%);
+            opacity: 0.03;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Floating Organic Shapes */
+        .organic-shape {
+            position: fixed;
+            border-radius: 50%;
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 200px;
+            background: var(--organic-forest);
+            top: 10%;
+            left: 10%;
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            animation: organicFloat 15s ease-in-out infinite;
+        }
+
+        .shape-2 {
+            width: 250px;
+            height: 300px;
+            background: var(--organic-terracotta);
+            top: 60%;
+            right: 15%;
+            border-radius: 30% 60% 70% 40% / 40% 60% 30% 70%;
+            animation: organicFloat 20s ease-in-out infinite reverse;
+        }
+
+        .shape-3 {
+            width: 180px;
+            height: 240px;
+            background: var(--organic-sage);
+            bottom: 20%;
+            left: 30%;
+            border-radius: 70% 30% 50% 60% / 30% 70% 40% 60%;
+            animation: organicFloat 18s ease-in-out infinite;
+            animation-delay: -5s;
+        }
+
+        @keyframes organicFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(30px, -20px) rotate(5deg); }
+            50% { transform: translate(-20px, 30px) rotate(-3deg); }
+            75% { transform: translate(20px, 10px) rotate(2deg); }
+        }
+
+        /* Header */
+        .header {
+            padding: 40px 0;
+            background: rgba(254, 252, 247, 0.95);
+            backdrop-filter: saturate(180%);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--organic-gold);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--organic-forest);
+            text-decoration: none;
+            position: relative;
+        }
+
+        .nav-title::after {
+            content: '🌿';
+            position: absolute;
+            top: -10px;
+            right: -30px;
+            font-size: 1.2rem;
+            animation: leafSway 3s ease-in-out infinite;
+        }
+
+        @keyframes leafSway {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        .nav-link {
+            color: var(--organic-charcoal);
+            text-decoration: none;
+            padding: 15px 30px;
+            border: 2px solid transparent;
+            border-radius: 30px;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--organic-sage), transparent);
+            transition: left 0.5s;
+            opacity: 0.3;
+        }
+
+        .nav-link:hover::before {
+            left: 100%;
+        }
+
+        .nav-link:hover {
+            border-color: var(--organic-sage);
+            color: var(--organic-forest);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--organic-shadow);
+        }
+
+        /* Hero Section - Maximalist Approach */
+        .hero {
+            padding: 120px 40px;
+            position: relative;
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--organic-gold);
+            color: var(--organic-cream);
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3);
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3.5rem, 10vw, 8rem);
+            font-weight: 300;
+            line-height: 0.9;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, var(--organic-forest), var(--organic-terracotta), var(--organic-rust));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 300% 300%;
+            animation: organicGradient 8s ease-in-out infinite;
+        }
+
+        @keyframes organicGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-subtitle {
+            font-family: 'Crimson Text', serif;
+            font-size: clamp(1.3rem, 4vw, 2.2rem);
+            font-weight: 400;
+            color: var(--organic-charcoal);
+            margin-bottom: 60px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            font-style: italic;
+        }
+
+        .hero-description {
+            background: var(--organic-paper);
+            border: 3px solid var(--organic-sage);
+            border-radius: 25px;
+            padding: 50px;
+            margin: 0 auto 60px;
+            max-width: 800px;
+            box-shadow: 0 10px 40px var(--organic-shadow);
+            position: relative;
+        }
+
+        .hero-description::before {
+            content: '🌱';
+            position: absolute;
+            top: -15px;
+            left: 30px;
+            background: var(--organic-paper);
+            padding: 0 15px;
+            font-size: 1.5rem;
+        }
+
+        /* Maximalist Content Grid */
+        .content-mosaic {
+            padding: 100px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .mosaic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .mosaic-tile {
+            background: var(--organic-paper);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 8px 30px var(--organic-shadow);
+        }
+
+        .mosaic-tile:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(44, 44, 44, 0.15);
+        }
+
+        .tile-header {
+            background: linear-gradient(135deg, var(--organic-terracotta), var(--organic-rust));
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tile-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .tile-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .tile-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--organic-cream);
+            margin-bottom: 10px;
+        }
+
+        .tile-subtitle {
+            color: rgba(254, 252, 247, 0.8);
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        .tile-content {
+            padding: 40px 30px;
+        }
+
+        .tile-text {
+            color: var(--organic-charcoal);
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        /* Rich Visual Elements */
+        .visual-feast {
+            display: grid;
+            grid-template-columns: 2fr 1fr 2fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .feast-column {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .feast-item {
+            background: var(--organic-paper);
+            border: 2px solid var(--organic-sage);
+            border-radius: 15px;
+            padding: 30px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .feast-item:hover {
+            border-color: var(--organic-gold);
+            transform: scale(1.03);
+        }
+
+        .feast-number {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: var(--organic-gold);
+            color: var(--organic-cream);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        /* Typography Showcase */
+        .typography-lab {
+            background: var(--organic-forest);
+            color: var(--organic-cream);
+            padding: 100px 40px;
+            margin-top: 100px;
+            position: relative;
+        }
+
+        .typography-lab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.02)"/><circle cx="75" cy="75" r="1.5" fill="rgba(255,255,255,0.03)"/><circle cx="50" cy="80" r="0.8" fill="rgba(255,255,255,0.02)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>') repeat;
+            opacity: 0.3;
+        }
+
+        .typography-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .type-samples {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-top: 60px;
+        }
+
+        .type-sample {
+            text-align: left;
+        }
+
+        .sample-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: var(--organic-gold);
+        }
+
+        .sample-body {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: rgba(254, 252, 247, 0.9);
+        }
+
+        /* Data Visualization */
+        .data-garden {
+            padding: 100px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .garden-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            text-align: center;
+            margin-bottom: 80px;
+            color: var(--organic-forest);
+        }
+
+        .metrics-grove {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .metric-tree {
+            background: linear-gradient(135deg, var(--organic-sage), var(--organic-forest));
+            color: var(--organic-cream);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .metric-tree:hover {
+            transform: scale(1.05) rotate(1deg);
+        }
+
+        .metric-tree::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            border-radius: 50%;
+            animation: shimmer 4s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: scale(0.8) rotate(0deg); }
+            50% { transform: scale(1.2) rotate(180deg); }
+        }
+
+        .metric-value {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .metric-label {
+            font-size: 1rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--organic-charcoal);
+            color: var(--organic-cream);
+            padding: 100px 40px;
+            margin-top: 100px;
+            position: relative;
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 300;
+            margin-bottom: 30px;
+            color: var(--organic-gold);
+        }
+
+        .footer-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .footer-decoration {
+            margin: 40px 0;
+            font-size: 2rem;
+            opacity: 0.6;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mosaic-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .visual-feast {
+                grid-template-columns: 1fr;
+            }
+            
+            .type-samples {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .nav-container {
+                padding: 0 20px;
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .hero {
+                padding: 80px 20px;
+            }
+        }
+
+        /* Rich Interaction States */
+        .interactive-element {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .interactive-element:hover {
+            transform: translateY(-2px);
+        }
+
+        .interactive-element:active {
+            transform: translateY(0);
+        }
+
+        /* Organic Loading Animation */
+        .organic-loader {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: conic-gradient(var(--organic-terracotta), var(--organic-sage), var(--organic-gold), var(--organic-terracotta));
+            animation: organicSpin 2s linear infinite;
+            margin: 40px auto;
+        }
+
+        @keyframes organicSpin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="organic-shape shape-1"></div>
+    <div class="organic-shape shape-2"></div>
+    <div class="organic-shape shape-3"></div>
+
+    <header class="header">
+        <nav class="nav-container">
+            <a href="#" class="nav-title">Organic Maximalism Lab</a>
+            <a href="../index.html" class="nav-link">← LABORATORY</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-badge">Experimental Maximalism 2025</div>
+        <h1 class="hero-title">
+            ORGANIC<br>
+            MAXIMALISM<br>
+            LABORATORY
+        </h1>
+        <p class="hero-subtitle">
+            在有序的複雜中找到美學的新可能
+        </p>
+        <div class="hero-description">
+            <p>
+                這不是混亂的堆疊，而是有機的豐富。每個元素都有其存在的理由，
+                每個色彩都與整體產生共鳴。我們相信真正的最大主義不是「更多」，
+                而是「更深層的連結」。
+            </p>
+        </div>
+    </section>
+
+    <section class="content-mosaic">
+        <div class="mosaic-grid">
+            <div class="mosaic-tile interactive-element">
+                <div class="tile-header">
+                    <span class="tile-icon">🌿</span>
+                    <h3 class="tile-title">有機色彩理論</h3>
+                    <p class="tile-subtitle">自然啟發的配色系統</p>
+                </div>
+                <div class="tile-content">
+                    <p class="tile-text">
+                        從森林的綠到陶土的橙，從古書的黃到炭火的黑。
+                        每個色彩都來自自然的觀察，不是數位的冷漠，
+                        而是生命的溫度。色彩不只是裝飾，是情感的載體。
+                    </p>
+                </div>
+            </div>
+
+            <div class="mosaic-tile interactive-element">
+                <div class="tile-header">
+                    <span class="tile-icon">🎨</span>
+                    <h3 class="tile-title">層次豐富設計</h3>
+                    <p class="tile-subtitle">複雜而不混亂的平衡</p>
+                </div>
+                <div class="tile-content">
+                    <p class="tile-text">
+                        真正的最大主義不是元素的堆積，而是層次的藝術。
+                        每個圖層都有其深度，每個元素都在對話。
+                        在豐富中保持清晰，在複雜中創造和諧。
+                    </p>
+                </div>
+            </div>
+
+            <div class="mosaic-tile interactive-element">
+                <div class="tile-header">
+                    <span class="tile-icon">📐</span>
+                    <h3 class="tile-title">有序的混沌</h3>
+                    <p class="tile-subtitle">結構中的自由表達</p>
+                </div>
+                <div class="tile-content">
+                    <p class="tile-text">
+                        最美的花園不是修剪整齊的，而是在規劃中允許自然生長。
+                        我們創造框架，但讓內容自由呼吸。
+                        規則是為了打破，但打破也需要智慧。
+                    </p>
+                </div>
+            </div>
+
+            <div class="mosaic-tile interactive-element">
+                <div class="tile-header">
+                    <span class="tile-icon">✨</span>
+                    <h3 class="tile-title">感官體驗</h3>
+                    <p class="tile-subtitle">多維度的視覺享受</p>
+                </div>
+                <div class="tile-content">
+                    <p class="tile-text">
+                        設計不只用眼睛看，更要用心感受。
+                        觸感透過視覺傳達，溫度透過色彩表達。
+                        每個元素都是感官的邀請，每個互動都是情感的交流。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="visual-feast">
+            <div class="feast-column">
+                <div class="feast-item">
+                    <div class="feast-number">1</div>
+                    <h4 style="font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 15px; color: var(--organic-forest);">
+                        自然紋理融合
+                    </h4>
+                    <p>木紋的溫暖、石頭的堅實、水流的動感——所有自然元素都在數位空間中找到新的表達方式。</p>
+                </div>
+                
+                <div class="feast-item">
+                    <div class="feast-number">3</div>
+                    <h4 style="font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 15px; color: var(--organic-forest);">
+                        動態平衡美學
+                    </h4>
+                    <p>靜態中有動感，動感中有秩序。每個動畫都有生命的節奏，不是機械的重複。</p>
+                </div>
+            </div>
+
+            <div class="feast-column">
+                <div class="organic-loader"></div>
+                <div style="background: var(--organic-gold); border-radius: 50%; width: 100px; height: 100px; margin: 20px auto; opacity: 0.8;"></div>
+                <div style="background: var(--organic-sage); border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; width: 80px; height: 120px; margin: 20px auto; opacity: 0.6;"></div>
+            </div>
+
+            <div class="feast-column">
+                <div class="feast-item">
+                    <div class="feast-number">2</div>
+                    <h4 style="font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 15px; color: var(--organic-forest);">
+                        情感色彩語言
+                    </h4>
+                    <p>每種色彩都承載著情感的重量。暖橙色的興奮、深綠的沉靜、金黃的希望。</p>
+                </div>
+                
+                <div class="feast-item">
+                    <div class="feast-number">4</div>
+                    <h4 style="font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 15px; color: var(--organic-forest);">
+                        手工質感數位化
+                    </h4>
+                    <p>完美的不完美才是真正的美。機械精確中加入人性溫度，冷漠螢幕上展現手工溫暖。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="typography-lab">
+        <div class="typography-container">
+            <h2 style="font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 4rem); text-align: center; margin-bottom: 20px; color: var(--organic-gold);">
+                字體的詩意表達
+            </h2>
+            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 60px; opacity: 0.9;">
+                文字不只是資訊的載體，更是美感的表達
+            </p>
+            
+            <div class="type-samples">
+                <div class="type-sample">
+                    <h3 class="sample-heading">優雅襯線</h3>
+                    <p class="sample-body">
+                        Playfair Display 帶來古典的優雅，每個字母都是精心雕琢的藝術品。
+                        在數位時代重新定義傳統之美，讓屏幕也能有書頁的溫度。
+                    </p>
+                </div>
+                
+                <div class="type-sample">
+                    <h3 class="sample-heading" style="font-family: 'Inter', sans-serif; font-weight: 300;">現代無襯線</h3>
+                    <p class="sample-body" style="font-family: 'Inter', sans-serif;">
+                        Inter 提供清晰的現代感，在複雜的最大主義設計中保持可讀性。
+                        簡潔而不簡單，現代而不冷漠。
+                    </p>
+                </div>
+                
+                <div class="type-sample">
+                    <h3 class="sample-heading" style="font-family: 'Crimson Text', serif; font-style: italic;">詩意斜體</h3>
+                    <p class="sample-body">
+                        Crimson Text 的斜體為設計注入詩意，
+                        讓理性的介面也能有感性的表達。
+                        文字成為情感的載體，設計成為心靈的對話。
+                    </p>
+                </div>
+                
+                <div class="type-sample">
+                    <h3 class="sample-heading" style="font-size: clamp(3rem, 7vw, 5rem); font-weight: 100; color: var(--organic-terracotta);">巨大輕盈</h3>
+                    <p class="sample-body">
+                        極大的字體配上極輕的重量，創造視覺的矛盾美感。
+                        在最大主義的豐富中，也要有留白的智慧。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="data-garden">
+        <h2 class="garden-title">數據的有機生長</h2>
+        
+        <div class="metrics-grove">
+            <div class="metric-tree">
+                <div class="metric-value">4</div>
+                <div class="metric-label">核心色彩</div>
+            </div>
+            
+            <div class="metric-tree">
+                <div class="metric-value">12</div>
+                <div class="metric-label">設計層次</div>
+            </div>
+            
+            <div class="metric-tree">
+                <div class="metric-value">∞</div>
+                <div class="metric-label">創意可能</div>
+            </div>
+            
+            <div class="metric-tree">
+                <div class="metric-value">3</div>
+                <div class="metric-label">字體家族</div>
+            </div>
+            
+            <div class="metric-tree">
+                <div class="metric-value">100%</div>
+                <div class="metric-label">有機美感</div>
+            </div>
+            
+            <div class="metric-tree">
+                <div class="metric-value">2025</div>
+                <div class="metric-label">未來視野</div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <h3 class="footer-title">豐富即美</h3>
+            <div class="footer-decoration">🌿 ✨ 🎨 ✨ 🌿</div>
+            <p class="footer-text">
+                在簡約主義統治的時代，我們選擇豐富。<br>
+                在冷漠數位的世界，我們選擇溫暖。<br>
+                在機械完美的標準，我們選擇有機不完美。<br><br>
+                <strong>這是最大主義的新定義：不是更多，而是更深。</strong>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Organic animations and interactions
+        
+        // Random organic movements for floating shapes
+        function animateOrganicShapes() {
+            const shapes = document.querySelectorAll('.organic-shape');
+            shapes.forEach((shape, index) => {
+                const randomX = (Math.random() - 0.5) * 50;
+                const randomY = (Math.random() - 0.5) * 50;
+                const randomRotate = (Math.random() - 0.5) * 10;
+                
+                shape.style.transform = `translate(${randomX}px, ${randomY}px) rotate(${randomRotate}deg)`;
+            });
+        }
+
+        // Trigger organic movements every 8 seconds
+        setInterval(animateOrganicShapes, 8000);
+
+        // Parallax effect for background elements
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const shapes = document.querySelectorAll('.organic-shape');
+            
+            shapes.forEach((shape, index) => {
+                const speed = 0.2 + (index * 0.1);
+                const yPos = -(scrolled * speed);
+                shape.style.transform = `translate3d(0, ${yPos}px, 0)`;
+            });
+        });
+
+        // Interactive hover effects for tiles
+        const tiles = document.querySelectorAll('.mosaic-tile');
+        tiles.forEach(tile => {
+            tile.addEventListener('mouseenter', () => {
+                tile.style.transform = 'translateY(-10px) scale(1.02)';
+                tile.style.filter = 'saturate(1.2)';
+            });
+            
+            tile.addEventListener('mouseleave', () => {
+                tile.style.transform = 'translateY(0) scale(1)';
+                tile.style.filter = 'saturate(1)';
+            });
+        });
+
+        // Dynamic color shifts for gradient text
+        function shiftColors() {
+            const gradientText = document.querySelector('.hero-title');
+            const colors = [
+                'linear-gradient(135deg, var(--organic-forest), var(--organic-terracotta), var(--organic-rust))',
+                'linear-gradient(135deg, var(--organic-sage), var(--organic-gold), var(--organic-terracotta))',
+                'linear-gradient(135deg, var(--organic-rust), var(--organic-forest), var(--organic-sage))'
+            ];
+            
+            let colorIndex = 0;
+            setInterval(() => {
+                gradientText.style.background = colors[colorIndex % colors.length];
+                gradientText.style.backgroundClip = 'text';
+                gradientText.style.webkitBackgroundClip = 'text';
+                colorIndex++;
+            }, 6000);
+        }
+
+        shiftColors();
+
+        // Organic metric counter animation
+        function animateMetrics() {
+            const metrics = document.querySelectorAll('.metric-value');
+            metrics.forEach(metric => {
+                const finalValue = metric.textContent;
+                if (!isNaN(finalValue) && finalValue !== '∞') {
+                    let currentValue = 0;
+                    const increment = finalValue / 50;
+                    const timer = setInterval(() => {
+                        currentValue += increment;
+                        if (currentValue >= finalValue) {
+                            metric.textContent = finalValue;
+                            clearInterval(timer);
+                        } else {
+                            metric.textContent = Math.floor(currentValue);
+                        }
+                    }, 30);
+                }
+            });
+        }
+
+        // Trigger metric animation when section is visible
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateMetrics();
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        const dataGarden = document.querySelector('.data-garden');
+        if (dataGarden) {
+            observer.observe(dataGarden);
+        }
+
+        // Responsive layout adjustments
+        function adjustLayout() {
+            const visualFeast = document.querySelector('.visual-feast');
+            if (window.innerWidth <= 768) {
+                visualFeast.style.gridTemplateColumns = '1fr';
+            } else {
+                visualFeast.style.gridTemplateColumns = '2fr 1fr 2fr';
+            }
+        }
+
+        window.addEventListener('resize', adjustLayout);
+        adjustLayout();
+
+        // Rich text selection styling
+        document.addEventListener('selectstart', (e) => {
+            const selection = window.getSelection();
+            if (selection.rangeCount > 0) {
+                // Add custom styling to selection if needed
+            }
+        });
+
+        console.log('🌿 Organic Maximalism Laboratory loaded');
+        console.log('🎨 Rich visual experience activated');
+        console.log('✨ Sensory design elements initialized');
+    </script>
+</body>
+</html>

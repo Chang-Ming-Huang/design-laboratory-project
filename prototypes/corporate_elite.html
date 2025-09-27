@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corporate Elite - 企業精英美學</title>
+    <style>
+        :root {
+            --corporate-navy: #1a365d;
+            --corporate-gold: #d69e2e;
+            --corporate-white: #ffffff;
+            --corporate-light: #f7fafc;
+            --text-primary: #2d3748;
+            --text-light: #718096;
+            --accent-blue: #2c5aa0;
+            --premium-shadow: rgba(26, 54, 93, 0.15);
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        body {
+            font-family: 'Times New Roman', 'Playfair Display', serif;
+            background: var(--corporate-light);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+            letter-spacing: 0.01em;
+        }
+
+        /* 企業網格背景 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, rgba(26, 54, 93, 0.02) 1px, transparent 1px),
+                linear-gradient(0deg, rgba(26, 54, 93, 0.02) 1px, transparent 1px);
+            background-size: 100px 100px;
+            z-index: -2;
+        }
+
+        /* 企業容器 */
+        .corporate-container {
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* 執行長辦公室風格標題區 */
+        .executive-header {
+            background: var(--corporate-navy);
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 企業紋理背景 */
+        .corporate-texture {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 100px,
+                    rgba(214, 158, 46, 0.03) 100px,
+                    rgba(214, 158, 46, 0.03) 101px
+                );
+        }
+
+        /* 金色裝飾線條 */
+        .gold-accent-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .gold-line-top {
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            width: 200px;
+            height: 2px;
+            background: var(--corporate-gold);
+            transform: translateX(-50%);
+            animation: corporate-glow 4s ease-in-out infinite;
+        }
+
+        .gold-line-bottom {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            width: 300px;
+            height: 2px;
+            background: var(--corporate-gold);
+            transform: translateX(-50%);
+            animation: corporate-glow 4s ease-in-out infinite reverse;
+        }
+
+        .corporate-title {
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            font-weight: 300;
+            color: var(--corporate-white);
+            margin-bottom: 30px;
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            position: relative;
+            z-index: 2;
+            animation: executive-entrance 2s ease-out forwards;
+            opacity: 0;
+        }
+
+        .corporate-tagline {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            font-weight: 400;
+            color: var(--corporate-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            position: relative;
+            z-index: 2;
+            animation: executive-entrance 2s ease-out forwards 0.5s;
+            opacity: 0;
+        }
+
+        /* 企業價值區塊 */
+        .corporate-values {
+            padding: 120px 60px;
+            background: var(--corporate-white);
+            position: relative;
+        }
+
+        .values-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 400;
+            color: var(--corporate-navy);
+            text-align: center;
+            margin-bottom: 80px;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .value-card {
+            background: var(--corporate-white);
+            border: 2px solid var(--corporate-light);
+            border-radius: 0;
+            padding: 50px 40px;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 8px 25px var(--premium-shadow);
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--corporate-gold);
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.4s ease;
+        }
+
+        .value-card:hover::before {
+            transform: scaleY(1);
+            transform-origin: top;
+        }
+
+        .value-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px var(--premium-shadow);
+            border-color: var(--corporate-gold);
+        }
+
+        .value-number {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            width: 50px;
+            height: 50px;
+            background: var(--corporate-navy);
+            color: var(--corporate-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            clip-path: polygon(0 0, 100% 0, 100% 70%, 85% 100%, 0 100%);
+        }
+
+        .value-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--corporate-navy);
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .value-content {
+            font-size: 1rem;
+            color: var(--text-light);
+            line-height: 1.7;
+            font-style: italic;
+        }
+
+        /* 領導力展示區 */
+        .leadership-section {
+            background: 
+                linear-gradient(135deg, 
+                    var(--corporate-navy) 0%, 
+                    var(--accent-blue) 100%);
+            padding: 100px 60px;
+            position: relative;
+        }
+
+        .leadership-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 300;
+            color: var(--corporate-white);
+            text-align: center;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .leadership-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .leadership-pillar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .leadership-pillar:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .pillar-icon {
+            font-size: 3rem;
+            color: var(--corporate-gold);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .pillar-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--corporate-white);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .pillar-description {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        /* 浮動企業元素 */
+        .corporate-floating {
+            position: fixed;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .floating-logo {
+            top: 15%;
+            right: 8%;
+            width: 120px;
+            height: 120px;
+            background: var(--corporate-gold);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            animation: corporate-float 12s ease-in-out infinite;
+        }
+
+        .floating-seal {
+            bottom: 20%;
+            left: 5%;
+            width: 100px;
+            height: 100px;
+            border: 8px solid var(--corporate-navy);
+            border-radius: 50%;
+            position: relative;
+            animation: corporate-float 15s ease-in-out infinite reverse;
+        }
+
+        .floating-seal::after {
+            content: '★';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            color: var(--corporate-navy);
+        }
+
+        /* 動畫定義 */
+        @keyframes executive-entrance {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+                filter: blur(3px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes corporate-glow {
+            0%, 100% {
+                opacity: 0.8;
+                box-shadow: 0 0 10px var(--corporate-gold);
+            }
+            50% {
+                opacity: 1;
+                box-shadow: 0 0 20px var(--corporate-gold);
+            }
+        }
+
+        @keyframes corporate-float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .executive-header {
+                min-height: 70vh;
+                padding: 40px 20px;
+            }
+
+            .corporate-values {
+                padding: 80px 30px;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .value-card {
+                padding: 40px 30px;
+            }
+
+            .leadership-section {
+                padding: 80px 30px;
+            }
+
+            .leadership-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .corporate-floating {
+                display: none;
+            }
+        }
+
+        /* 企業專業互動 */
+        .professional-highlight {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .professional-highlight::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(214, 158, 46, 0.1) 50%, 
+                transparent 100%);
+            transition: left 0.6s ease;
+        }
+
+        .professional-highlight:hover::after {
+            left: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- 浮動企業元素 -->
+    <div class="corporate-floating floating-logo"></div>
+    <div class="corporate-floating floating-seal"></div>
+
+    <div class="corporate-container">
+        <!-- 執行長辦公室風格標題區 -->
+        <header class="executive-header">
+            <div class="corporate-texture"></div>
+            <div class="gold-accent-lines">
+                <div class="gold-line-top"></div>
+                <div class="gold-line-bottom"></div>
+            </div>
+            <h1 class="corporate-title">CORPORATE<br>ELITE</h1>
+            <p class="corporate-tagline">EXCELLENCE · INTEGRITY · LEADERSHIP</p>
+        </header>
+
+        <!-- 企業價值區塊 -->
+        <section class="corporate-values">
+            <h2 class="values-title">CORE VALUES</h2>
+            <div class="values-grid">
+                <div class="value-card professional-highlight">
+                    <div class="value-number">01</div>
+                    <h3 class="value-title">Strategic Excellence</h3>
+                    <p class="value-content">
+                        我們追求的不僅是商業成功，更是戰略思維的卓越。每一個決策都經過深思熟慮，每一個行動都服務於長遠的願景。這是真正領導者的標誌。
+                    </p>
+                </div>
+
+                <div class="value-card professional-highlight">
+                    <div class="value-number">02</div>
+                    <h3 class="value-title">Uncompromising Integrity</h3>
+                    <p class="value-content">
+                        誠信不是選項，而是我們的根本。在複雜的商業環境中，我們始終堅持最高的道德標準。這種堅持為我們贏得了無價的信任和尊重。
+                    </p>
+                </div>
+
+                <div class="value-card professional-highlight">
+                    <div class="value-number">03</div>
+                    <h3 class="value-title">Innovation Leadership</h3>
+                    <p class="value-content">
+                        創新不是跟隨趨勢，而是創造未來。我們投資於前沿技術，培養創新文化，始終站在行業變革的最前沿。這是我們持續成功的關鍵。
+                    </p>
+                </div>
+
+                <div class="value-card professional-highlight">
+                    <div class="value-number">04</div>
+                    <h3 class="value-title">Global Excellence</h3>
+                    <p class="value-content">
+                        我們的視野超越國界，我們的標準符合全球最高水準。在國際舞台上，我們代表的不僅是公司，更是專業精神和卓越品質的象徵。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 領導力展示區 -->
+        <section class="leadership-section">
+            <h2 class="leadership-title">LEADERSHIP PILLARS</h2>
+            <div class="leadership-grid">
+                <div class="leadership-pillar">
+                    <span class="pillar-icon">👑</span>
+                    <h3 class="pillar-title">VISIONARY</h3>
+                    <p class="pillar-description">
+                        真正的領導者能夠看到別人看不到的機會，預見未來的挑戰，並制定相應的戰略。
+                    </p>
+                </div>
+
+                <div class="leadership-pillar">
+                    <span class="pillar-icon">🏆</span>
+                    <h3 class="pillar-title">DECISIVE</h3>
+                    <p class="pillar-description">
+                        在不確定性中做出正確決策的能力，是區分卓越領導者與一般管理者的關鍵因素。
+                    </p>
+                </div>
+
+                <div class="leadership-pillar">
+                    <span class="pillar-icon">🤝</span>
+                    <h3 class="pillar-title">COLLABORATIVE</h3>
+                    <p class="pillar-description">
+                        最優秀的成果來自於團隊的力量。領導者的作用是激發每個人的最佳表現。
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // 企業級互動系統
+        document.addEventListener('DOMContentLoaded', () => {
+            // 企業價值卡片的專業動效
+            const valueCards = document.querySelectorAll('.value-card');
+            valueCards.forEach((card, index) => {
+                card.addEventListener('mouseenter', () => {
+                    createProfessionalGlow(card);
+                });
+
+                // 延遲載入動畫
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(30px)';
+                    card.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 200 + index * 150);
+                }, 500);
+            });
+
+            // 領導力支柱的互動
+            const leadershipPillars = document.querySelectorAll('.leadership-pillar');
+            leadershipPillars.forEach(pillar => {
+                pillar.addEventListener('click', () => {
+                    createLeadershipImpact(pillar);
+                });
+            });
+
+            // 企業級滾動效果
+            let lastScrollY = 0;
+            window.addEventListener('scroll', () => {
+                const currentScrollY = window.scrollY;
+                const scrollDelta = currentScrollY - lastScrollY;
+                
+                // 頂部裝飾線的動態效果
+                const goldLines = document.querySelectorAll('.gold-line-top, .gold-line-bottom');
+                goldLines.forEach((line, index) => {
+                    const movement = scrollDelta * (index === 0 ? 0.1 : -0.1);
+                    line.style.transform = `translateX(calc(-50% + ${movement}px))`;
+                });
+                
+                lastScrollY = currentScrollY;
+            });
+
+            // 專業化點擊反饋
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('.value-card, .leadership-pillar')) {
+                    createExecutiveFeedback(e.clientX, e.clientY);
+                }
+            });
+        });
+
+        function createProfessionalGlow(card) {
+            const glow = document.createElement('div');
+            glow.style.cssText = `
+                position: absolute;
+                top: -2px;
+                left: -2px;
+                right: -2px;
+                bottom: -2px;
+                background: linear-gradient(45deg, 
+                    var(--corporate-gold), 
+                    var(--corporate-navy),
+                    var(--corporate-gold));
+                background-size: 400% 400%;
+                z-index: -1;
+                border-radius: inherit;
+                animation: professional-gradient 2s ease infinite;
+                opacity: 0.3;
+            `;
+            
+            card.style.position = 'relative';
+            card.appendChild(glow);
+            
+            setTimeout(() => glow.remove(), 2000);
+        }
+
+        function createLeadershipImpact(pillar) {
+            const impact = document.createElement('div');
+            impact.style.cssText = `
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 20px;
+                height: 20px;
+                background: radial-gradient(circle, var(--corporate-gold) 0%, transparent 70%);
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+                pointer-events: none;
+                z-index: 10;
+                animation: leadership-impact 1.5s ease-out forwards;
+            `;
+            
+            pillar.appendChild(impact);
+            setTimeout(() => impact.remove(), 1500);
+        }
+
+        function createExecutiveFeedback(x, y) {
+            const feedback = document.createElement('div');
+            feedback.style.cssText = `
+                position: fixed;
+                left: ${x}px;
+                top: ${y}px;
+                width: 6px;
+                height: 6px;
+                background: var(--corporate-gold);
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+                pointer-events: none;
+                z-index: 1000;
+                animation: executive-ripple 1s ease-out forwards;
+            `;
+            
+            document.body.appendChild(feedback);
+            setTimeout(() => feedback.remove(), 1000);
+        }
+
+        // 動態樣式
+        const dynamicStyles = document.createElement('style');
+        dynamicStyles.textContent = `
+            @keyframes professional-gradient {
+                0%, 100% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+            }
+
+            @keyframes leadership-impact {
+                0% { 
+                    width: 20px; 
+                    height: 20px; 
+                    opacity: 1; 
+                }
+                100% { 
+                    width: 200px; 
+                    height: 200px; 
+                    opacity: 0; 
+                }
+            }
+
+            @keyframes executive-ripple {
+                0% { 
+                    width: 6px; 
+                    height: 6px; 
+                    opacity: 1; 
+                }
+                100% { 
+                    width: 50px; 
+                    height: 50px; 
+                    opacity: 0; 
+                    border: 2px solid var(--corporate-gold);
+                    background: transparent;
+                }
+            }
+        `;
+        document.head.appendChild(dynamicStyles);
+
+        console.log('👔 Corporate Elite loaded - Excellence in leadership');
+    </script>
+</body>
+</html>

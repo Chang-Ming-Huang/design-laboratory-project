@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nordic Zen - 北歐禪意美學</title>
+    <style>
+        :root {
+            --zen-white: #ffffff;
+            --zen-charcoal: #2c2c2c;
+            --zen-forest: #4a6741;
+            --zen-mist: #f8f8f8;
+            --zen-sage: #9caa96;
+            --zen-stone: #e8e8e8;
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Avenir Next', sans-serif;
+            background: var(--zen-white);
+            color: var(--zen-charcoal);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* 禪意呼吸空間 */
+        .zen-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 80px;
+        }
+
+        /* 靜謐標題區域 */
+        .zen-header {
+            padding: 120px 0 180px;
+            position: relative;
+        }
+
+        .zen-logo {
+            position: absolute;
+            top: 60px;
+            left: 0;
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--zen-forest);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: zen-appear 2s ease-out forwards 0.5s;
+        }
+
+        .zen-title {
+            font-size: clamp(4rem, 12vw, 12rem);
+            font-weight: 100;
+            color: var(--zen-charcoal);
+            line-height: 0.85;
+            letter-spacing: -0.03em;
+            margin-bottom: 60px;
+            opacity: 0;
+            animation: zen-appear 2s ease-out forwards 1s;
+        }
+
+        .zen-subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-weight: 200;
+            color: var(--zen-forest);
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: zen-appear 2s ease-out forwards 1.5s;
+        }
+
+        .zen-philosophy {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: var(--zen-sage);
+            line-height: 1.8;
+            max-width: 600px;
+            opacity: 0;
+            animation: zen-appear 2s ease-out forwards 2s;
+        }
+
+        /* 禪意分隔線 */
+        .zen-divider {
+            width: 100px;
+            height: 1px;
+            background: var(--zen-forest);
+            margin: 100px 0;
+            opacity: 0;
+            animation: zen-grow 1.5s ease-out forwards 2.5s;
+        }
+
+        /* 平衡內容區域 */
+        .zen-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 120px;
+            margin-bottom: 160px;
+        }
+
+        .zen-principle {
+            opacity: 0;
+            animation: zen-appear 1.8s ease-out forwards;
+        }
+
+        .zen-principle:nth-child(1) { animation-delay: 3s; }
+        .zen-principle:nth-child(2) { animation-delay: 3.3s; }
+
+        .principle-number {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--zen-sage);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .principle-title {
+            font-size: 2.5rem;
+            font-weight: 200;
+            color: var(--zen-charcoal);
+            line-height: 1.1;
+            margin-bottom: 40px;
+            letter-spacing: -0.01em;
+        }
+
+        .principle-text {
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--zen-charcoal);
+            line-height: 1.8;
+            margin-bottom: 50px;
+        }
+
+        /* 禪意卡片系統 */
+        .zen-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 80px;
+            margin-bottom: 200px;
+        }
+
+        .zen-card {
+            background: var(--zen-mist);
+            padding: 80px 60px;
+            position: relative;
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid transparent;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: zen-card-appear 1.5s ease-out forwards;
+        }
+
+        .zen-card:nth-child(1) { animation-delay: 3.5s; }
+        .zen-card:nth-child(2) { animation-delay: 3.8s; }
+        .zen-card:nth-child(3) { animation-delay: 4.1s; }
+
+        .zen-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--zen-forest);
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.6s ease;
+        }
+
+        .zen-card:hover {
+            background: var(--zen-white);
+            transform: translateY(-10px);
+            box-shadow: 0 40px 80px rgba(44, 44, 44, 0.08);
+            border-color: var(--zen-stone);
+        }
+
+        .zen-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--zen-forest);
+            margin-bottom: 40px;
+            display: block;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--zen-charcoal);
+            margin-bottom: 30px;
+            line-height: 1.3;
+        }
+
+        .card-description {
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--zen-sage);
+            line-height: 1.7;
+        }
+
+        /* 自然裝飾元素 */
+        .zen-decoration {
+            position: absolute;
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .decoration-circle {
+            top: 20%;
+            right: 10%;
+            width: 200px;
+            height: 200px;
+            border: 1px solid var(--zen-forest);
+            border-radius: 50%;
+            animation: zen-float 20s ease-in-out infinite;
+        }
+
+        .decoration-line {
+            bottom: 30%;
+            left: 5%;
+            width: 150px;
+            height: 1px;
+            background: var(--zen-forest);
+            transform: rotate(45deg);
+            animation: zen-float 15s ease-in-out infinite reverse;
+        }
+
+        /* 禪意底部 */
+        .zen-footer {
+            padding: 80px 0;
+            text-align: center;
+            border-top: 1px solid var(--zen-stone);
+        }
+
+        .zen-mantra {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: var(--zen-sage);
+            letter-spacing: 0.1em;
+            opacity: 0;
+            animation: zen-appear 2s ease-out forwards 4.5s;
+        }
+
+        /* 動畫定義 */
+        @keyframes zen-appear {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes zen-grow {
+            from {
+                opacity: 0;
+                width: 0;
+            }
+            to {
+                opacity: 1;
+                width: 100px;
+            }
+        }
+
+        @keyframes zen-card-appear {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes zen-float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 968px) {
+            .zen-container {
+                padding: 0 40px;
+            }
+
+            .zen-content {
+                grid-template-columns: 1fr;
+                gap: 80px;
+            }
+
+            .zen-cards {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .zen-card {
+                padding: 60px 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .zen-container {
+                padding: 0 30px;
+            }
+
+            .zen-header {
+                padding: 80px 0 120px;
+            }
+
+            .zen-decoration {
+                display: none;
+            }
+        }
+
+        /* 微交互增強 */
+        .zen-interactive {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .zen-interactive::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(74, 103, 65, 0.05) 50%, 
+                transparent 100%);
+            transition: left 0.8s ease;
+        }
+
+        .zen-interactive:hover::after {
+            left: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- 自然裝飾元素 -->
+    <div class="zen-decoration decoration-circle"></div>
+    <div class="zen-decoration decoration-line"></div>
+
+    <div class="zen-container">
+        <!-- 靜謐標題區域 -->
+        <header class="zen-header">
+            <div class="zen-logo">Nordic Zen</div>
+            <h1 class="zen-title">
+                北歐<br>
+                禪意
+            </h1>
+            <h2 class="zen-subtitle">簡約中的深刻智慧</h2>
+            <p class="zen-philosophy">
+                在北歐的純淨與東方的禪意之間，我們找到了設計的真諦。
+                這不只是風格的融合，而是生活哲學的體現。
+            </p>
+        </header>
+
+        <!-- 禪意分隔線 -->
+        <div class="zen-divider"></div>
+
+        <!-- 平衡內容區域 -->
+        <section class="zen-content">
+            <div class="zen-principle">
+                <div class="principle-number">01 — Simplicity</div>
+                <h3 class="principle-title">純粹的力量</h3>
+                <p class="principle-text">
+                    真正的美不在於添加什麼，而在於去除不必要的元素。
+                    北歐設計教會我們，簡潔是最高級的複雜。
+                    每一個保留下來的元素，都有其存在的深刻理由。
+                </p>
+            </div>
+
+            <div class="zen-principle">
+                <div class="principle-number">02 — Mindfulness</div>
+                <h3 class="principle-title">覺知的設計</h3>
+                <p class="principle-text">
+                    設計不應該分散注意力，而應該幫助人們專注於最重要的事情。
+                    就像禪宗的冥想，好的設計能夠創造內心的平靜空間。
+                </p>
+            </div>
+        </section>
+
+        <!-- 禪意卡片系統 -->
+        <section class="zen-cards">
+            <div class="zen-card zen-interactive">
+                <span class="card-icon">🌲</span>
+                <h4 class="card-title">自然的韻律</h4>
+                <p class="card-description">
+                    從斯堪的納維亞森林中汲取靈感，讓有機的形狀和自然的紋理
+                    成為設計語言的一部分。這是人與自然和諧共處的視覺表達。
+                </p>
+            </div>
+
+            <div class="zen-card zen-interactive">
+                <span class="card-icon">🕯️</span>
+                <h4 class="card-title">溫暖的光影</h4>
+                <p class="card-description">
+                    Hygge文化中的舒適感與禪意中的靜謐相結合，
+                    創造出既溫暖又寧靜的空間氛圍。光不僅僅是照明，更是情感的載體。
+                </p>
+            </div>
+
+            <div class="zen-card zen-interactive">
+                <span class="card-icon">⚖️</span>
+                <h4 class="card-title">完美的平衡</h4>
+                <p class="card-description">
+                    功能性與美感的平衡，理性與感性的統一。
+                    這種平衡不是妥協，而是更高層次的和諧統一。
+                </p>
+            </div>
+        </section>
+
+        <!-- 禪意底部 -->
+        <footer class="zen-footer">
+            <p class="zen-mantra">— 在簡單中尋找深刻，在靜謐中發現力量 —</p>
+        </footer>
+    </div>
+
+    <script>
+        // 禪意互動系統
+        document.addEventListener('DOMContentLoaded', () => {
+            // 緩慢顯現效果
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '50px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            }, observerOptions);
+
+            // 觀察所有動畫元素
+            document.querySelectorAll('[class*="zen-"]').forEach(el => {
+                observer.observe(el);
+            });
+
+            // 禪意滾動效果
+            let lastScrollY = 0;
+            window.addEventListener('scroll', () => {
+                const currentScrollY = window.scrollY;
+                const scrollDelta = currentScrollY - lastScrollY;
+                
+                // 標題視差效果
+                const title = document.querySelector('.zen-title');
+                if (title) {
+                    const parallaxOffset = scrollDelta * 0.1;
+                    title.style.transform = `translateY(${parallaxOffset}px)`;
+                }
+                
+                lastScrollY = currentScrollY;
+            });
+
+            // 卡片微互動
+            const cards = document.querySelectorAll('.zen-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    createZenRipple(card);
+                });
+            });
+
+            // 平靜點擊反饋
+            document.addEventListener('click', (e) => {
+                createZenMoment(e.clientX, e.clientY);
+            });
+        });
+
+        function createZenRipple(card) {
+            const ripple = document.createElement('div');
+            ripple.style.cssText = `
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 10px;
+                height: 10px;
+                background: radial-gradient(circle, var(--zen-forest) 0%, transparent 70%);
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+                pointer-events: none;
+                z-index: 1;
+                animation: zen-ripple 2s ease-out forwards;
+                opacity: 0.3;
+            `;
+            
+            card.style.position = 'relative';
+            card.appendChild(ripple);
+            
+            setTimeout(() => ripple.remove(), 2000);
+        }
+
+        function createZenMoment(x, y) {
+            const moment = document.createElement('div');
+            moment.style.cssText = `
+                position: fixed;
+                left: ${x}px;
+                top: ${y}px;
+                width: 4px;
+                height: 4px;
+                background: var(--zen-forest);
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+                pointer-events: none;
+                z-index: 1000;
+                animation: zen-moment 1.2s ease-out forwards;
+            `;
+            
+            document.body.appendChild(moment);
+            setTimeout(() => moment.remove(), 1200);
+        }
+
+        // 動態樣式
+        const zenStyles = document.createElement('style');
+        zenStyles.textContent = `
+            @keyframes zen-ripple {
+                0% { 
+                    width: 10px; 
+                    height: 10px; 
+                    opacity: 0.3; 
+                }
+                100% { 
+                    width: 100px; 
+                    height: 100px; 
+                    opacity: 0; 
+                }
+            }
+
+            @keyframes zen-moment {
+                0% { 
+                    width: 4px; 
+                    height: 4px; 
+                    opacity: 0.6;
+                    transform: translate(-50%, -50%) scale(1);
+                }
+                100% { 
+                    width: 30px; 
+                    height: 30px; 
+                    opacity: 0;
+                    transform: translate(-50%, -50%) scale(1.5);
+                    border: 1px solid var(--zen-forest);
+                    background: transparent;
+                }
+            }
+        `;
+        document.head.appendChild(zenStyles);
+
+        console.log('🌲 Nordic Zen loaded - Simplicity meets mindfulness');
+    </script>
+</body>
+</html>

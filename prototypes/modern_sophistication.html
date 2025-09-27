@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Sophistication - AI 創意作品</title>
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        :root {
+            --primary-dark: #0f0f0f;
+            --surface-glass: rgba(255, 255, 255, 0.05);
+            --accent-blue: #007aff;
+            --accent-purple: #5856d6;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1a6;
+            --text-tertiary: #636366;
+            --border-subtle: rgba(255, 255, 255, 0.1);
+        }
+        
+        body {
+            background: var(--primary-dark);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+            line-height: 1.5;
+            overflow-x: hidden;
+            cursor: none;
+            font-weight: 300;
+        }
+        
+        .modern-viewport {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 100px 60px;
+            position: relative;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 122, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(88, 86, 214, 0.08) 0%, transparent 50%);
+        }
+        
+        .glass-container {
+            position: relative;
+            max-width: 900px;
+            width: 100%;
+            background: var(--surface-glass);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 24px;
+            padding: 120px 80px;
+            text-align: center;
+            box-shadow: 
+                0 0 0 1px rgba(255, 255, 255, 0.05),
+                0 16px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            animation: container-float 15s ease-in-out infinite;
+        }
+        
+        .glass-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.1) 0%,
+                transparent 50%,
+                rgba(0, 122, 255, 0.05) 100%
+            );
+            border-radius: 24px;
+            opacity: 0;
+            animation: glass-shimmer 10s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        .modern-title {
+            font-size: clamp(4rem, 12vw, 9rem);
+            font-weight: 200;
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+            letter-spacing: -0.04em;
+            line-height: 0.85;
+            background: linear-gradient(
+                135deg,
+                #ffffff 0%,
+                #a1a1a6 50%,
+                #007aff 100%
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: title-gradient 12s ease-in-out infinite;
+        }
+        
+        .modern-subtitle {
+            font-size: clamp(1.3rem, 2.8vw, 2rem);
+            font-weight: 300;
+            color: var(--text-secondary);
+            margin-bottom: 4rem;
+            letter-spacing: 0.02em;
+            animation: subtitle-glow 8s ease-in-out infinite;
+        }
+        
+        .modern-description {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            font-weight: 300;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            animation: description-fade 10s ease-in-out infinite;
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+            animation: grid-emerge 12s ease-in-out infinite;
+        }
+        
+        .tech-item {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            animation: item-pulse 8s ease-in-out infinite;
+        }
+        
+        .tech-item:nth-child(1) { animation-delay: 0s; }
+        .tech-item:nth-child(2) { animation-delay: 0.5s; }
+        .tech-item:nth-child(3) { animation-delay: 1s; }
+        
+        .tech-item:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(0, 122, 255, 0.3);
+            box-shadow: 0 16px 32px rgba(0, 122, 255, 0.1);
+        }
+        
+        .tech-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent-blue);
+            animation: icon-rotate 20s linear infinite;
+        }
+        
+        .tech-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .tech-desc {
+            font-size: 0.9rem;
+            color: var(--text-tertiary);
+            font-weight: 300;
+        }
+        
+        .ambient-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: particle-drift 25s linear infinite;
+        }
+        
+        .modern-cursor {
+            position: fixed;
+            width: 32px;
+            height: 32px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        @keyframes container-float {
+            0%, 100% { 
+                transform: translateY(0px); 
+            }
+            50% { 
+                transform: translateY(-12px); 
+            }
+        }
+        
+        @keyframes glass-shimmer {
+            0%, 100% { 
+                opacity: 0; 
+            }
+            50% { 
+                opacity: 1; 
+            }
+        }
+        
+        @keyframes title-gradient {
+            0%, 100% { 
+                background-position: 0% 50%; 
+            }
+            50% { 
+                background-position: 100% 50%; 
+            }
+        }
+        
+        @keyframes subtitle-glow {
+            0%, 100% { 
+                opacity: 0.8; 
+                text-shadow: none; 
+            }
+            50% { 
+                opacity: 1; 
+                text-shadow: 0 0 20px rgba(0, 122, 255, 0.3); 
+            }
+        }
+        
+        @keyframes description-fade {
+            0%, 100% { 
+                opacity: 0.8; 
+            }
+            50% { 
+                opacity: 1; 
+            }
+        }
+        
+        @keyframes grid-emerge {
+            0%, 100% { 
+                opacity: 0.9; 
+                transform: scale(1); 
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1.01); 
+            }
+        }
+        
+        @keyframes item-pulse {
+            0%, 100% { 
+                opacity: 0.8; 
+                transform: scale(1); 
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1.02); 
+            }
+        }
+        
+        @keyframes icon-rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes particle-drift {
+            0% {
+                transform: translateY(100vh) translateX(-50px) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+                transform: translateY(90vh) translateX(-30px) scale(1);
+            }
+            90% {
+                opacity: 0.6;
+                transform: translateY(10vh) translateX(30px) scale(1);
+            }
+            100% {
+                transform: translateY(-10vh) translateX(50px) scale(0);
+                opacity: 0;
+            }
+        }
+        
+        /* 高級響應式設計 */
+        @media (max-width: 768px) {
+            .modern-viewport {
+                padding: 60px 20px;
+            }
+            
+            .glass-container {
+                padding: 80px 40px;
+                border-radius: 20px;
+            }
+            
+            .tech-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                margin-top: 3rem;
+            }
+            
+            .tech-item {
+                padding: 1.5rem 1rem;
+                border-radius: 12px;
+            }
+        }
+        
+        /* 高級交互效果 */
+        .glass-container:hover {
+            border-color: rgba(0, 122, 255, 0.2);
+            box-shadow: 
+                0 0 0 1px rgba(0, 122, 255, 0.1),
+                0 24px 48px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .glass-container:hover::before {
+            opacity: 0.6;
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-particles" id="ambientParticles"></div>
+    
+    <div class="modern-cursor" id="modernCursor"></div>
+    
+    <div class="modern-viewport">
+        <div class="glass-container">
+            <h1 class="modern-title">Modern<br>Sophistication</h1>
+            <h2 class="modern-subtitle">Next-Generation Design</h2>
+            
+            <p class="modern-description">
+                融合先進技術與優雅美學，打造超越時代的數位體驗。<br>
+                每一個細節都體現了對未來的精準預見與無限可能的探索。
+            </p>
+            
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <div class="tech-icon">⚡</div>
+                    <div class="tech-title">Performance</div>
+                    <div class="tech-desc">極致優化的渲染效能</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🔮</div>
+                    <div class="tech-title">Innovation</div>
+                    <div class="tech-desc">突破性的交互設計</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">✨</div>
+                    <div class="tech-title">Elegance</div>
+                    <div class="tech-desc">精緻入微的視覺語言</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 現代精緻效果
+        class ModernSophistication {
+            constructor() {
+                this.ambientParticles = document.getElementById('ambientParticles');
+                this.modernCursor = document.getElementById('modernCursor');
+                this.init();
+            }
+            
+            init() {
+                this.createAmbientParticles();
+                this.setupModernCursor();
+                this.startSophisticatedEffects();
+            }
+            
+            createAmbientParticles() {
+                // 創造環境粒子
+                for (let i = 0; i < 12; i++) {
+                    setTimeout(() => {
+                        this.createParticle();
+                    }, i * 1000);
+                }
+            }
+            
+            createParticle() {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 25 + 's';
+                particle.style.animationDuration = (20 + Math.random() * 10) + 's';
+                
+                // 隨機顏色和大小
+                const colors = [
+                    'var(--accent-blue)',
+                    'var(--accent-purple)',
+                    'rgba(255, 255, 255, 0.6)',
+                    'rgba(161, 161, 166, 0.4)'
+                ];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                const size = 1 + Math.random() * 3;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                this.ambientParticles.appendChild(particle);
+                
+                // 25秒後移除並創造新的
+                setTimeout(() => {
+                    if (particle.parentNode) {
+                        particle.remove();
+                        this.createParticle();
+                    }
+                }, 25000 + Math.random() * 5000);
+            }
+            
+            setupModernCursor() {
+                // 現代精緻游標
+                let mouseX = 0, mouseY = 0;
+                let cursorX = 0, cursorY = 0;
+                
+                document.addEventListener('mousemove', (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                });
+                
+                const updateCursor = () => {
+                    cursorX += (mouseX - cursorX) * 0.1;
+                    cursorY += (mouseY - cursorY) * 0.1;
+                    
+                    this.modernCursor.style.transform = 
+                        `translate(${cursorX - 16}px, ${cursorY - 16}px)`;
+                    
+                    requestAnimationFrame(updateCursor);
+                };
+                
+                updateCursor();
+                
+                // hover 效果
+                const interactiveElements = document.querySelectorAll('.glass-container, .tech-item');
+                interactiveElements.forEach(element => {
+                    element.addEventListener('mouseenter', () => {
+                        this.modernCursor.style.width = '48px';
+                        this.modernCursor.style.height = '48px';
+                        this.modernCursor.style.borderColor = 'rgba(0, 122, 255, 0.6)';
+                        this.modernCursor.style.background = 'rgba(0, 122, 255, 0.1)';
+                    });
+                    
+                    element.addEventListener('mouseleave', () => {
+                        this.modernCursor.style.width = '32px';
+                        this.modernCursor.style.height = '32px';
+                        this.modernCursor.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                        this.modernCursor.style.background = 'rgba(255, 255, 255, 0.05)';
+                    });
+                });
+            }
+            
+            startSophisticatedEffects() {
+                // 定期創造科技波動
+                setInterval(() => {
+                    if (Math.random() > 0.8) {
+                        this.createTechPulse();
+                    }
+                }, 6000);
+                
+                // 定期創造玻璃反光
+                setInterval(() => {
+                    if (Math.random() > 0.9) {
+                        this.createGlassReflection();
+                    }
+                }, 8000);
+                
+                // 定期創造藍色光暈
+                setInterval(() => {
+                    if (Math.random() > 0.85) {
+                        this.createBlueAura();
+                    }
+                }, 10000);
+            }
+            
+            createTechPulse() {
+                // 創造科技脈搏效果
+                const pulse = document.createElement('div');
+                pulse.style.position = 'fixed';
+                pulse.style.left = '50%';
+                pulse.style.top = '50%';
+                pulse.style.width = '4px';
+                pulse.style.height = '4px';
+                pulse.style.background = 'var(--accent-blue)';
+                pulse.style.borderRadius = '50%';
+                pulse.style.pointerEvents = 'none';
+                pulse.style.animation = 'tech-pulse 4s ease-out forwards';
+                pulse.style.zIndex = '10';
+                pulse.style.transform = 'translate(-50%, -50%)';
+                
+                // CSS for pulse animation
+                if (!document.getElementById('tech-pulse-style')) {
+                    const style = document.createElement('style');
+                    style.id = 'tech-pulse-style';
+                    style.textContent = `
+                        @keyframes tech-pulse {
+                            0% { 
+                                transform: translate(-50%, -50%) scale(0); 
+                                opacity: 1; 
+                                box-shadow: 0 0 0 0 rgba(0, 122, 255, 0.7);
+                            }
+                            50% { 
+                                transform: translate(-50%, -50%) scale(20); 
+                                opacity: 0.6; 
+                                box-shadow: 0 0 0 20px rgba(0, 122, 255, 0.3);
+                            }
+                            100% { 
+                                transform: translate(-50%, -50%) scale(40); 
+                                opacity: 0; 
+                                box-shadow: 0 0 0 40px rgba(0, 122, 255, 0);
+                            }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+                
+                document.body.appendChild(pulse);
+                
+                setTimeout(() => {
+                    if (pulse.parentNode) {
+                        pulse.remove();
+                    }
+                }, 4000);
+            }
+            
+            createGlassReflection() {
+                // 創造玻璃反光效果
+                const reflection = document.createElement('div');
+                reflection.style.position = 'fixed';
+                reflection.style.top = '0';
+                reflection.style.left = '-100px';
+                reflection.style.width = '100px';
+                reflection.style.height = '100vh';
+                reflection.style.background = 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent)';
+                reflection.style.pointerEvents = 'none';
+                reflection.style.animation = 'glass-reflection 3s ease-out forwards';
+                reflection.style.zIndex = '5';
+                reflection.style.transform = 'skewX(-20deg)';
+                
+                // CSS for reflection animation
+                if (!document.getElementById('glass-reflection-style')) {
+                    const style = document.createElement('style');
+                    style.id = 'glass-reflection-style';
+                    style.textContent = `
+                        @keyframes glass-reflection {
+                            0% { 
+                                left: -100px; 
+                                opacity: 0; 
+                            }
+                            50% { 
+                                opacity: 1; 
+                            }
+                            100% { 
+                                left: calc(100vw + 100px); 
+                                opacity: 0; 
+                            }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+                
+                document.body.appendChild(reflection);
+                
+                setTimeout(() => {
+                    if (reflection.parentNode) {
+                        reflection.remove();
+                    }
+                }, 3000);
+            }
+            
+            createBlueAura() {
+                // 創造藍色光暈效果
+                const aura = document.createElement('div');
+                aura.style.position = 'fixed';
+                aura.style.left = Math.random() * 100 + '%';
+                aura.style.top = Math.random() * 100 + '%';
+                aura.style.width = '200px';
+                aura.style.height = '200px';
+                aura.style.background = 'radial-gradient(circle, rgba(0, 122, 255, 0.2), transparent)';
+                aura.style.borderRadius = '50%';
+                aura.style.pointerEvents = 'none';
+                aura.style.animation = 'blue-aura 6s ease-out forwards';
+                aura.style.zIndex = '1';
+                aura.style.transform = 'translate(-50%, -50%)';
+                
+                // CSS for aura animation
+                if (!document.getElementById('blue-aura-style')) {
+                    const style = document.createElement('style');
+                    style.id = 'blue-aura-style';
+                    style.textContent = `
+                        @keyframes blue-aura {
+                            0% { 
+                                transform: translate(-50%, -50%) scale(0); 
+                                opacity: 1; 
+                            }
+                            50% { 
+                                transform: translate(-50%, -50%) scale(2); 
+                                opacity: 0.6; 
+                            }
+                            100% { 
+                                transform: translate(-50%, -50%) scale(4); 
+                                opacity: 0; 
+                            }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+                
+                document.body.appendChild(aura);
+                
+                setTimeout(() => {
+                    if (aura.parentNode) {
+                        aura.remove();
+                    }
+                }, 6000);
+            }
+        }
+        
+        // 啟動現代精緻
+        document.addEventListener('DOMContentLoaded', () => {
+            new ModernSophistication();
+        });
+        
+        // 高級鍵盤交互
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                // 創造藍色脈搏效果
+                document.body.style.filter = 'brightness(1.1) hue-rotate(10deg)';
+                setTimeout(() => {
+                    document.body.style.filter = 'none';
+                }, 300);
+            }
+        });
+        
+        // 高級滾動效果
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            document.body.style.filter = 'blur(1px)';
+            
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                document.body.style.filter = 'none';
+            }, 100);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desert Modernism - 沙漠現代主義</title>
+    <style>
+        :root {
+            --desert-sand: #f5e6d3;
+            --desert-terracotta: #c7522a;
+            --desert-brown: #8b4513;
+            --desert-cream: #faf7f2;
+            --desert-stone: #a0856b;
+            --desert-shadow: rgba(139, 69, 19, 0.15);
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        body {
+            font-family: 'Helvetica Neue', 'Arial', sans-serif;
+            background: var(--desert-sand);
+            color: var(--desert-brown);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* 沙漠紋理背景 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(199, 82, 42, 0.03) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(160, 133, 107, 0.02) 0%, transparent 40%),
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 100px,
+                    rgba(245, 230, 211, 0.3) 100px,
+                    rgba(245, 230, 211, 0.3) 101px
+                );
+            z-index: -1;
+        }
+
+        /* 現代主義容器 */
+        .modernism-container {
+            min-height: 100vh;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* 建築級標題區 */
+        .modernism-header {
+            padding: 100px 80px 140px;
+            position: relative;
+            background: linear-gradient(135deg, 
+                var(--desert-cream) 0%, 
+                var(--desert-sand) 100%);
+        }
+
+        .architect-mark {
+            position: absolute;
+            top: 50px;
+            right: 80px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--desert-terracotta);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            opacity: 0;
+            animation: modernism-fade 2s ease-out forwards 0.5s;
+        }
+
+        .modernism-title {
+            font-size: clamp(4.5rem, 12vw, 12rem);
+            font-weight: 100;
+            color: var(--desert-brown);
+            line-height: 0.9;
+            letter-spacing: -0.04em;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            position: relative;
+            opacity: 0;
+            animation: modernism-slide 2.5s ease-out forwards 1s;
+        }
+
+        .modernism-subtitle {
+            font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+            font-weight: 300;
+            color: var(--desert-terracotta);
+            margin-bottom: 50px;
+            opacity: 0;
+            animation: modernism-fade 2s ease-out forwards 1.5s;
+        }
+
+        .modernism-description {
+            font-size: 1.2rem;
+            font-weight: 300;
+            color: var(--desert-stone);
+            line-height: 1.7;
+            max-width: 700px;
+            opacity: 0;
+            animation: modernism-fade 2s ease-out forwards 2s;
+        }
+
+        /* 幾何分隔系統 */
+        .geometric-separator {
+            height: 8px;
+            background: linear-gradient(90deg, 
+                var(--desert-terracotta) 0%, 
+                var(--desert-brown) 50%,
+                var(--desert-terracotta) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .geometric-separator::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.3) 50%, 
+                transparent 100%);
+            animation: geometric-sweep 3s ease-in-out infinite;
+        }
+
+        /* 建築網格內容 */
+        .modernism-content {
+            padding: 120px 80px;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 120px;
+            align-items: start;
+        }
+
+        .content-sidebar {
+            position: sticky;
+            top: 120px;
+        }
+
+        .sidebar-title {
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: var(--desert-brown);
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .sidebar-text {
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--desert-stone);
+            line-height: 1.8;
+            margin-bottom: 50px;
+        }
+
+        /* 建築原則卡片 */
+        .architecture-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 80px;
+        }
+
+        .architecture-principle {
+            background: var(--desert-cream);
+            padding: 80px 60px;
+            position: relative;
+            border-left: 6px solid var(--desert-terracotta);
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 20px 40px var(--desert-shadow);
+            opacity: 0;
+            transform: translateX(50px);
+            animation: modernism-reveal 1.5s ease-out forwards;
+        }
+
+        .architecture-principle:nth-child(1) { animation-delay: 2.5s; }
+        .architecture-principle:nth-child(2) { animation-delay: 2.8s; }
+        .architecture-principle:nth-child(3) { animation-delay: 3.1s; }
+        .architecture-principle:nth-child(4) { animation-delay: 3.4s; }
+
+        .architecture-principle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 100%;
+            background: var(--desert-terracotta);
+            transition: width 0.6s ease;
+            opacity: 0.1;
+        }
+
+        .architecture-principle:hover {
+            transform: translateX(-10px);
+            box-shadow: 0 30px 60px var(--desert-shadow);
+        }
+
+        .architecture-principle:hover::before {
+            width: 4px;
+        }
+
+        .principle-number {
+            position: absolute;
+            top: -20px;
+            left: -30px;
+            width: 60px;
+            height: 60px;
+            background: var(--desert-brown);
+            color: var(--desert-cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+        }
+
+        .principle-title {
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--desert-brown);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .principle-content {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: var(--desert-stone);
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        .principle-detail {
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: var(--desert-terracotta);
+            font-style: italic;
+            border-left: 3px solid var(--desert-terracotta);
+            padding-left: 20px;
+        }
+
+        /* 沙漠裝飾元素 */
+        .desert-elements {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .desert-circle {
+            top: 15%;
+            right: 8%;
+            width: 150px;
+            height: 150px;
+            border: 2px solid var(--desert-terracotta);
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: desert-drift 25s linear infinite;
+        }
+
+        .desert-square {
+            bottom: 20%;
+            left: 5%;
+            width: 80px;
+            height: 80px;
+            background: var(--desert-stone);
+            opacity: 0.05;
+            transform: rotate(45deg);
+            animation: desert-drift 20s linear infinite reverse;
+        }
+
+        /* 現代主義底部 */
+        .modernism-footer {
+            background: var(--desert-brown);
+            color: var(--desert-cream);
+            padding: 80px;
+            text-align: center;
+            position: relative;
+        }
+
+        .footer-quote {
+            font-size: 1.4rem;
+            font-weight: 300;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-style: italic;
+            opacity: 0;
+            animation: modernism-fade 2s ease-out forwards 4s;
+        }
+
+        .footer-attribution {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--desert-terracotta);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0;
+            animation: modernism-fade 2s ease-out forwards 4.5s;
+        }
+
+        /* 動畫定義 */
+        @keyframes modernism-fade {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes modernism-slide {
+            from { 
+                opacity: 0; 
+                transform: translateX(-100px);
+                filter: blur(3px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(0);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes modernism-reveal {
+            from { 
+                opacity: 0; 
+                transform: translateX(50px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes geometric-sweep {
+            0%, 100% { left: -100%; }
+            50% { left: 100%; }
+        }
+
+        @keyframes desert-drift {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.1;
+            }
+            50% { 
+                transform: translateY(-30px) rotate(10deg);
+                opacity: 0.05;
+            }
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 1200px) {
+            .modernism-content {
+                grid-template-columns: 1fr;
+                gap: 80px;
+            }
+
+            .content-sidebar {
+                position: static;
+                margin-bottom: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .modernism-header,
+            .modernism-content,
+            .modernism-footer {
+                padding: 60px 40px;
+            }
+
+            .architecture-principle {
+                padding: 60px 40px;
+            }
+
+            .desert-elements {
+                display: none;
+            }
+        }
+
+        /* 高級互動系統 */
+        .interactive-glow {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .interactive-glow::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(199, 82, 42, 0.1) 50%, 
+                transparent 100%);
+            transition: left 0.8s ease;
+        }
+
+        .interactive-glow:hover::after {
+            left: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- 沙漠裝飾元素 -->
+    <div class="desert-elements desert-circle"></div>
+    <div class="desert-elements desert-square"></div>
+
+    <div class="modernism-container">
+        <!-- 建築級標題區 -->
+        <header class="modernism-header">
+            <div class="architect-mark">Mid-Century Design</div>
+            <h1 class="modernism-title">Desert<br>Modernism</h1>
+            <h2 class="modernism-subtitle">中世紀現代建築的沙漠詩篇</h2>
+            <p class="modernism-description">
+                在加州沙漠中誕生的建築革命，將功能主義與自然環境完美融合。
+                這是人類智慧與沙漠之美的永恆對話，創造出超越時代的設計語言。
+            </p>
+        </header>
+
+        <!-- 幾何分隔系統 -->
+        <div class="geometric-separator"></div>
+
+        <!-- 建築網格內容 -->
+        <main class="modernism-content">
+            <aside class="content-sidebar">
+                <h3 class="sidebar-title">設計哲學</h3>
+                <p class="sidebar-text">
+                    沙漠現代主義不僅是一種建築風格，更是一種生活方式。
+                    它教導我們如何在極簡中尋找豐富，在功能中發現美感。
+                </p>
+                <p class="sidebar-text">
+                    從 Richard Neutra 到 John Lautner，這些建築大師們
+                    在沙漠中創造了永恆的藝術品，影響了整整一代的設計思維。
+                </p>
+            </aside>
+
+            <section class="architecture-grid">
+                <div class="architecture-principle interactive-glow">
+                    <div class="principle-number">01</div>
+                    <h4 class="principle-title">Indoor-Outdoor Living</h4>
+                    <p class="principle-content">
+                        打破室內外的界限，讓建築與自然環境無縫融合。
+                        大面積的玻璃窗、開放式平面圖，創造出與沙漠景觀對話的生活空間。
+                    </p>
+                    <p class="principle-detail">
+                        "The house should be of the desert, not just in the desert."
+                    </p>
+                </div>
+
+                <div class="architecture-principle interactive-glow">
+                    <div class="principle-number">02</div>
+                    <h4 class="principle-title">Horizontal Lines</h4>
+                    <p class="principle-content">
+                        水平線條呼應沙漠地平線的延展感，創造視覺上的寧靜與平衡。
+                        平頂屋、長窗帶、延伸的檐口，都在強調這種橫向的流動性。
+                    </p>
+                    <p class="principle-detail">
+                        建築應該像沙漠中的岩層一樣，自然地嵌入環境。
+                    </p>
+                </div>
+
+                <div class="architecture-principle interactive-glow">
+                    <div class="principle-number">03</div>
+                    <h4 class="principle-title">Natural Materials</h4>
+                    <p class="principle-content">
+                        石材、木材、鋼鐵—這些材料在沙漠氣候中展現出原始的美感。
+                        材料的選擇不僅考慮美觀，更要適應極端的氣候條件。
+                    </p>
+                    <p class="principle-detail">
+                        讓材料呈現本來的面貌，這是對自然最深的敬意。
+                    </p>
+                </div>
+
+                <div class="architecture-principle interactive-glow">
+                    <div class="principle-number">04</div>
+                    <h4 class="principle-title">Climate Response</h4>
+                    <p class="principle-content">
+                        建築必須回應氣候—深檐口抵禦烈日，天井帶來涼風，
+                        水景提供蒸發冷卻。這是智慧與美學的完美結合。
+                    </p>
+                    <p class="principle-detail">
+                        好的建築是氣候的詩歌，是環境的音樂。
+                    </p>
+                </div>
+            </section>
+        </main>
+
+        <!-- 現代主義底部 -->
+        <footer class="modernism-footer">
+            <p class="footer-quote">
+                「建築應該屬於它所在的時代和地方，但渴望永恆。」
+            </p>
+            <p class="footer-attribution">— Frank Lloyd Wright</p>
+        </footer>
+    </div>
+
+    <script>
+        // 沙漠現代主義互動系統
+        document.addEventListener('DOMContentLoaded', () => {
+            // 建築原則的視差效果
+            const principles = document.querySelectorAll('.architecture-principle');
+            
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.pageYOffset;
+                
+                principles.forEach((principle, index) => {
+                    const rect = principle.getBoundingClientRect();
+                    if (rect.top < window.innerHeight && rect.bottom > 0) {
+                        const parallax = scrollTop * (0.1 + index * 0.05);
+                        principle.style.transform = `translateY(${parallax}px)`;
+                    }
+                });
+            });
+
+            // 幾何元素互動
+            principles.forEach(principle => {
+                principle.addEventListener('mouseenter', () => {
+                    createDesertGlow(principle);
+                });
+                
+                principle.addEventListener('click', () => {
+                    createArchitecturalResponse(principle);
+                });
+            });
+
+            // 沙漠微風效果
+            let windDirection = 1;
+            setInterval(() => {
+                const elements = document.querySelectorAll('.desert-elements');
+                elements.forEach(element => {
+                    const currentTransform = element.style.transform || '';
+                    const windEffect = windDirection * 2;
+                    element.style.transform = currentTransform + ` translateX(${windEffect}px)`;
+                });
+                windDirection *= -1;
+            }, 3000);
+
+            // 標題字體響應
+            const title = document.querySelector('.modernism-title');
+            title.addEventListener('mouseenter', () => {
+                title.style.letterSpacing = '-0.06em';
+                title.style.transition = 'letter-spacing 0.6s ease';
+            });
+            
+            title.addEventListener('mouseleave', () => {
+                title.style.letterSpacing = '-0.04em';
+            });
+        });
+
+        function createDesertGlow(element) {
+            const glow = document.createElement('div');
+            glow.style.cssText = `
+                position: absolute;
+                top: -5px;
+                left: -5px;
+                right: -5px;
+                bottom: -5px;
+                background: linear-gradient(45deg, 
+                    var(--desert-terracotta), 
+                    transparent,
+                    var(--desert-brown));
+                background-size: 400% 400%;
+                z-index: -1;
+                opacity: 0;
+                animation: desert-glow-pulse 2s ease infinite;
+                pointer-events: none;
+            `;
+            
+            element.style.position = 'relative';
+            element.appendChild(glow);
+            
+            setTimeout(() => {
+                glow.style.opacity = '0.1';
+            }, 100);
+            
+            setTimeout(() => glow.remove(), 2000);
+        }
+
+        function createArchitecturalResponse(element) {
+            const response = document.createElement('div');
+            response.style.cssText = `
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 20px;
+                height: 20px;
+                border: 2px solid var(--desert-terracotta);
+                transform: translate(-50%, -50%) rotate(45deg);
+                pointer-events: none;
+                z-index: 10;
+                animation: architectural-expand 1.5s ease-out forwards;
+                opacity: 0.8;
+            `;
+            
+            element.appendChild(response);
+            setTimeout(() => response.remove(), 1500);
+        }
+
+        // 動態樣式擴展
+        const modernismStyles = document.createElement('style');
+        modernismStyles.textContent = `
+            @keyframes desert-glow-pulse {
+                0%, 100% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+            }
+
+            @keyframes architectural-expand {
+                0% { 
+                    width: 20px; 
+                    height: 20px; 
+                    opacity: 0.8;
+                    transform: translate(-50%, -50%) rotate(45deg);
+                }
+                100% { 
+                    width: 120px; 
+                    height: 120px; 
+                    opacity: 0;
+                    transform: translate(-50%, -50%) rotate(135deg);
+                }
+            }
+        `;
+        document.head.appendChild(modernismStyles);
+
+        console.log('🏜️ Desert Modernism loaded - Where function meets the infinite horizon');
+    </script>
+</body>
+</html>

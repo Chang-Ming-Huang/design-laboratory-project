@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Service - 奢華服務美學</title>
+    <style>
+        :root {
+            --luxury-brown: #3c2415;
+            --luxury-gold: #c9984a;
+            --luxury-copper: #b87333;
+            --luxury-cream: #f5f2ed;
+            --luxury-white: #ffffff;
+            --text-primary: #2c1810;
+            --text-light: #8b6f47;
+            --velvet-shadow: rgba(60, 36, 21, 0.3);
+            --gold-shimmer: rgba(201, 152, 74, 0.4);
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        body {
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            background: var(--luxury-cream);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+            letter-spacing: 0.01em;
+        }
+
+        /* 奢華紋理背景 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(201, 152, 74, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(184, 115, 51, 0.02) 0%, transparent 50%),
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 200px,
+                    rgba(60, 36, 21, 0.01) 200px,
+                    rgba(60, 36, 21, 0.01) 201px
+                );
+            z-index: -2;
+        }
+
+        /* 奢華服務容器 */
+        .luxury-container {
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* 奢華酒店大廳風格標題區 */
+        .luxury-lobby {
+            min-height: 90vh;
+            background: 
+                linear-gradient(135deg, 
+                    rgba(60, 36, 21, 0.9) 0%, 
+                    rgba(184, 115, 51, 0.8) 100%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23f5f2ed"/><circle cx="20" cy="20" r="1" fill="%23c9984a" opacity="0.1"/><circle cx="80" cy="80" r="1" fill="%23b87333" opacity="0.1"/></svg>');
+            background-size: 100px 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 金箔裝飾框架 */
+        .gold-frame {
+            position: absolute;
+            top: 60px;
+            left: 60px;
+            right: 60px;
+            bottom: 60px;
+            border: 3px solid var(--luxury-gold);
+            border-image: linear-gradient(45deg, 
+                var(--luxury-gold) 0%, 
+                var(--luxury-copper) 50%, 
+                var(--luxury-gold) 100%) 1;
+            animation: gold-shimmer 8s ease-in-out infinite;
+        }
+
+        .gold-frame::before,
+        .gold-frame::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--luxury-gold);
+        }
+
+        .gold-frame::before {
+            top: -20px;
+            left: -20px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .gold-frame::after {
+            bottom: -20px;
+            right: -20px;
+            border-left: none;
+            border-top: none;
+        }
+
+        .luxury-title {
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            font-weight: 300;
+            color: var(--luxury-cream);
+            margin-bottom: 30px;
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            position: relative;
+            z-index: 2;
+            text-shadow: 2px 2px 4px rgba(60, 36, 21, 0.5);
+            animation: luxury-entrance 2.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .luxury-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+            font-weight: 400;
+            color: var(--luxury-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            position: relative;
+            z-index: 2;
+            font-style: italic;
+            animation: luxury-entrance 2.5s ease-out forwards 0.5s;
+            opacity: 0;
+        }
+
+        /* 精品服務區域 */
+        .luxury-services {
+            padding: 120px 60px;
+            background: var(--luxury-white);
+            position: relative;
+        }
+
+        .services-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 300;
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: 80px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            position: relative;
+        }
+
+        .services-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                var(--luxury-gold) 50%, 
+                transparent 100%);
+            transform: translateX(-50%);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: var(--luxury-white);
+            border: 1px solid rgba(201, 152, 74, 0.2);
+            border-radius: 0;
+            padding: 50px 40px;
+            position: relative;
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 8px 30px var(--velvet-shadow);
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                var(--luxury-copper) 0%, 
+                var(--luxury-gold) 50%, 
+                var(--luxury-copper) 100%);
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.6s ease;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px var(--velvet-shadow);
+            border-color: var(--luxury-gold);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--luxury-gold), var(--luxury-copper));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--luxury-white);
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(201, 152, 74, 0.3);
+            position: relative;
+        }
+
+        .service-icon::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            background: conic-gradient(from 45deg, var(--luxury-gold), var(--luxury-copper), var(--luxury-gold));
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .service-card:hover .service-icon::after {
+            opacity: 1;
+            animation: luxury-rotate 2s linear infinite;
+        }
+
+        .service-title {
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .service-description {
+            font-size: 1rem;
+            color: var(--text-light);
+            line-height: 1.8;
+            font-style: italic;
+            margin-bottom: 25px;
+        }
+
+        .service-features {
+            list-style: none;
+        }
+
+        .service-features li {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .service-features li::before {
+            content: '◆';
+            position: absolute;
+            left: 0;
+            color: var(--luxury-gold);
+            font-size: 0.8rem;
+        }
+
+        /* 奢華體驗展示區 */
+        .luxury-experience {
+            background: 
+                linear-gradient(135deg, 
+                    var(--luxury-brown) 0%, 
+                    #5d3a1a 100%);
+            padding: 120px 60px;
+            position: relative;
+        }
+
+        .experience-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 300;
+            color: var(--luxury-cream);
+            text-align: center;
+            margin-bottom: 80px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .experience-item {
+            background: rgba(245, 242, 237, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(201, 152, 74, 0.3);
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            transition: all 0.5s ease;
+        }
+
+        .experience-item:hover {
+            transform: scale(1.05);
+            background: rgba(245, 242, 237, 0.15);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .experience-number {
+            font-size: 3rem;
+            font-weight: 200;
+            color: var(--luxury-gold);
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .experience-label {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: var(--luxury-cream);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 15px;
+        }
+
+        .experience-desc {
+            font-size: 0.9rem;
+            color: rgba(245, 242, 237, 0.8);
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        /* 浮動奢華元素 */
+        .luxury-floating {
+            position: fixed;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .floating-ornament {
+            top: 15%;
+            right: 8%;
+            width: 100px;
+            height: 100px;
+            background: 
+                radial-gradient(circle at 30% 30%, var(--luxury-gold) 2px, transparent 2px),
+                radial-gradient(circle at 70% 70%, var(--luxury-copper) 1px, transparent 1px);
+            background-size: 20px 20px, 15px 15px;
+            border-radius: 50%;
+            animation: luxury-float 15s ease-in-out infinite;
+        }
+
+        .floating-crystal {
+            bottom: 20%;
+            left: 5%;
+            width: 80px;
+            height: 120px;
+            background: linear-gradient(45deg, 
+                transparent 30%, 
+                var(--luxury-gold) 30%, 
+                var(--luxury-gold) 70%, 
+                transparent 70%);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            animation: luxury-float 20s ease-in-out infinite reverse;
+        }
+
+        /* 動畫定義 */
+        @keyframes luxury-entrance {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+                filter: blur(3px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes gold-shimmer {
+            0%, 100% {
+                filter: brightness(1) saturate(1);
+                box-shadow: inset 0 0 20px rgba(201, 152, 74, 0.2);
+            }
+            50% {
+                filter: brightness(1.2) saturate(1.3);
+                box-shadow: inset 0 0 30px rgba(201, 152, 74, 0.4);
+            }
+        }
+
+        @keyframes luxury-rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes luxury-float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-25px) rotate(10deg);
+            }
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .luxury-lobby {
+                min-height: 80vh;
+                padding: 40px 20px;
+            }
+
+            .gold-frame {
+                top: 40px;
+                left: 20px;
+                right: 20px;
+                bottom: 40px;
+            }
+
+            .luxury-services {
+                padding: 80px 30px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .service-card {
+                padding: 40px 30px;
+            }
+
+            .luxury-experience {
+                padding: 80px 30px;
+            }
+
+            .experience-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .luxury-floating {
+                display: none;
+            }
+        }
+
+        /* 奢華質感特效 */
+        .velvet-texture {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .velvet-texture::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle, rgba(201, 152, 74, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: velvet-shimmer 10s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes velvet-shimmer {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(30px) translateY(30px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- 浮動奢華元素 -->
+    <div class="luxury-floating floating-ornament"></div>
+    <div class="luxury-floating floating-crystal"></div>
+
+    <div class="luxury-container">
+        <!-- 奢華酒店大廳風格標題區 -->
+        <header class="luxury-lobby velvet-texture">
+            <div class="gold-frame"></div>
+            <h1 class="luxury-title">LUXURY<br>SERVICE</h1>
+            <p class="luxury-subtitle">BESPOKE · REFINED · EXTRAORDINARY</p>
+        </header>
+
+        <!-- 精品服務區域 -->
+        <section class="luxury-services">
+            <h2 class="services-title">EXCLUSIVE SERVICES</h2>
+            <div class="services-grid">
+                <div class="service-card velvet-texture">
+                    <div class="service-icon">🏆</div>
+                    <h3 class="service-title">Concierge Excellence</h3>
+                    <p class="service-description">
+                        我們的禮賓服務團隊以無與倫比的專業精神，為每一位尊貴的客戶提供量身定制的專屬體驗。無論您的需求多麼獨特，我們都能完美實現。
+                    </p>
+                    <ul class="service-features">
+                        <li>24小時專屬禮賓服務</li>
+                        <li>全球頂級資源整合</li>
+                        <li>私人訂製行程規劃</li>
+                        <li>VIP通道與特權服務</li>
+                    </ul>
+                </div>
+
+                <div class="service-card velvet-texture">
+                    <div class="service-icon">💎</div>
+                    <h3 class="service-title">Private Consultation</h3>
+                    <p class="service-description">
+                        享受一對一的私人顧問服務，我們的專家團隊將深入了解您的需求，提供最專業的建議和最個性化的解決方案。
+                    </p>
+                    <ul class="service-features">
+                        <li>資深專家一對一諮詢</li>
+                        <li>個性化解決方案設計</li>
+                        <li>隱私保護至上服務</li>
+                        <li>長期關係維護管理</li>
+                    </ul>
+                </div>
+
+                <div class="service-card velvet-texture">
+                    <div class="service-icon">🌟</div>
+                    <h3 class="service-title">Lifestyle Curation</h3>
+                    <p class="service-description">
+                        從藝術品收藏到生活方式設計，我們的策展團隊將為您打造獨一無二的品味生活，每一個細節都體現您的非凡品格。
+                    </p>
+                    <ul class="service-features">
+                        <li>專業藝術品策展服務</li>
+                        <li>高端生活方式設計</li>
+                        <li>獨家藏品採購渠道</li>
+                        <li>品味提升顧問服務</li>
+                    </ul>
+                </div>
+
+                <div class="service-card velvet-texture">
+                    <div class="service-icon">🎭</div>
+                    <h3 class="service-title">Cultural Access</h3>
+                    <p class="service-description">
+                        開啟通往世界頂級文化體驗的專屬大門，從私人博物館參觀到獨家藝術活動，讓您領略文化的無限魅力。
+                    </p>
+                    <ul class="service-features">
+                        <li>博物館私人導覽服務</li>
+                        <li>獨家文化活動邀請</li>
+                        <li>藝術家私人會面機會</li>
+                        <li>文化深度體驗之旅</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 奢華體驗展示區 -->
+        <section class="luxury-experience">
+            <h2 class="experience-title">BY THE NUMBERS</h2>
+            <div class="experience-grid">
+                <div class="experience-item">
+                    <div class="experience-number">98%</div>
+                    <div class="experience-label">Client Satisfaction</div>
+                    <div class="experience-desc">客戶滿意度持續保持業界最高水準</div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-number">24/7</div>
+                    <div class="experience-label">Available Service</div>
+                    <div class="experience-desc">全天候專屬服務，隨時回應您的需求</div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-number">50+</div>
+                    <div class="experience-label">Global Partners</div>
+                    <div class="experience-desc">遍佈全球的頂級合作夥伴網絡</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // 奢華服務互動系統
+        document.addEventListener('DOMContentLoaded', () => {
+            // 服務卡片的奢華動效
+            const serviceCards = document.querySelectorAll('.service-card');
+            serviceCards.forEach((card, index) => {
+                card.addEventListener('mouseenter', () => {
+                    createLuxurySparkle(card);
+                });
+
+                card.addEventListener('click', () => {
+                    createGoldenRipple(card);
+                });
+
+                // 延遲優雅登場
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(50px)';
+                    card.style.transition = 'all 1s cubic-bezier(0.23, 1, 0.320, 1)';
+                    
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 200);
+                }, index * 300 + 800);
+            });
+
+            // 體驗項目的高端效果
+            const experienceItems = document.querySelectorAll('.experience-item');
+            experienceItems.forEach((item, index) => {
+                // 數字動畫
+                const number = item.querySelector('.experience-number');
+                const finalValue = number.textContent;
+                
+                setTimeout(() => {
+                    animateNumber(number, finalValue);
+                }, index * 500 + 1500);
+
+                item.addEventListener('mouseenter', () => {
+                    createPremiumGlow(item);
+                });
+            });
+
+            // 奢華滾動效果
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const goldFrame = document.querySelector('.gold-frame');
+                
+                // 金框的視差效果
+                goldFrame.style.transform = `translateY(${scrolled * 0.1}px)`;
+                
+                // 浮動元素的緩慢移動
+                const floatingElements = document.querySelectorAll('.luxury-floating');
+                floatingElements.forEach((element, index) => {
+                    const speed = (index + 1) * 0.05;
+                    element.style.transform = `translateY(${-scrolled * speed}px)`;
+                });
+            });
+
+            // 奢華粒子效果
+            createLuxuryParticles();
+        });
+
+        function createLuxurySparkle(card) {
+            // 創造多個金色閃光
+            for (let i = 0; i < 6; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.style.cssText = `
+                    position: absolute;
+                    top: ${Math.random() * 100}%;
+                    left: ${Math.random() * 100}%;
+                    width: 4px;
+                    height: 4px;
+                    background: var(--luxury-gold);
+                    border-radius: 50%;
+                    pointer-events: none;
+                    z-index: 10;
+                    animation: luxury-sparkle ${1 + Math.random()}s ease-out forwards;
+                `;
+                
+                card.appendChild(sparkle);
+                setTimeout(() => sparkle.remove(), 1500);
+            }
+        }
+
+        function createGoldenRipple(card) {
+            const ripple = document.createElement('div');
+            ripple.style.cssText = `
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 20px;
+                height: 20px;
+                background: radial-gradient(circle, var(--luxury-gold) 0%, transparent 70%);
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+                pointer-events: none;
+                z-index: 5;
+                animation: golden-ripple 1.5s ease-out forwards;
+            `;
+            
+            card.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 1500);
+        }
+
+        function createPremiumGlow(item) {
+            const glow = document.createElement('div');
+            glow.style.cssText = `
+                position: absolute;
+                inset: -5px;
+                background: linear-gradient(45deg, 
+                    transparent 30%, 
+                    rgba(201, 152, 74, 0.2) 50%, 
+                    transparent 70%);
+                border-radius: inherit;
+                pointer-events: none;
+                z-index: -1;
+                animation: premium-glow 2s ease-in-out infinite;
+            `;
+            
+            item.appendChild(glow);
+            setTimeout(() => glow.remove(), 4000);
+        }
+
+        function animateNumber(element, finalValue) {
+            const isPercentage = finalValue.includes('%');
+            const isTime = finalValue.includes('/');
+            const hasPlus = finalValue.includes('+');
+            
+            let targetNum = parseInt(finalValue.replace(/[%+/]/g, ''));
+            let currentNum = 0;
+            
+            const increment = targetNum / 50;
+            const timer = setInterval(() => {
+                currentNum += increment;
+                
+                if (currentNum >= targetNum) {
+                    currentNum = targetNum;
+                    clearInterval(timer);
+                }
+                
+                let displayValue = Math.floor(currentNum);
+                if (isPercentage) displayValue += '%';
+                if (isTime) displayValue = '24/7';
+                if (hasPlus) displayValue += '+';
+                
+                element.textContent = displayValue;
+                element.style.color = 'var(--luxury-gold)';
+                
+                if (currentNum >= targetNum) {
+                    setTimeout(() => {
+                        element.style.color = 'var(--luxury-gold)';
+                    }, 500);
+                }
+            }, 100);
+        }
+
+        function createLuxuryParticles() {
+            setInterval(() => {
+                if (Math.random() < 0.3) {
+                    const particle = document.createElement('div');
+                    particle.style.cssText = `
+                        position: fixed;
+                        top: ${Math.random() * 100}vh;
+                        left: ${Math.random() * 100}vw;
+                        width: 3px;
+                        height: 3px;
+                        background: var(--luxury-gold);
+                        border-radius: 50%;
+                        pointer-events: none;
+                        z-index: -1;
+                        opacity: 0.3;
+                        animation: luxury-particle-float ${8 + Math.random() * 4}s linear infinite;
+                    `;
+                    
+                    document.body.appendChild(particle);
+                    setTimeout(() => particle.remove(), 12000);
+                }
+            }, 2000);
+        }
+
+        // 動態樣式
+        const dynamicStyles = document.createElement('style');
+        dynamicStyles.textContent = `
+            @keyframes luxury-sparkle {
+                0% { 
+                    opacity: 0; 
+                    transform: scale(0) rotate(0deg); 
+                }
+                50% { 
+                    opacity: 1; 
+                    transform: scale(1.5) rotate(180deg); 
+                }
+                100% { 
+                    opacity: 0; 
+                    transform: scale(0) rotate(360deg); 
+                }
+            }
+
+            @keyframes golden-ripple {
+                0% { 
+                    width: 20px; 
+                    height: 20px; 
+                    opacity: 0.8; 
+                }
+                100% { 
+                    width: 300px; 
+                    height: 300px; 
+                    opacity: 0; 
+                }
+            }
+
+            @keyframes premium-glow {
+                0%, 100% { 
+                    opacity: 0.3; 
+                    transform: rotate(0deg); 
+                }
+                50% { 
+                    opacity: 0.6; 
+                    transform: rotate(180deg); 
+                }
+            }
+
+            @keyframes luxury-particle-float {
+                0% { 
+                    transform: translateY(0) translateX(0) rotate(0deg); 
+                    opacity: 0.3; 
+                }
+                50% { 
+                    opacity: 0.1; 
+                }
+                100% { 
+                    transform: translateY(-100vh) translateX(50px) rotate(360deg); 
+                    opacity: 0; 
+                }
+            }
+        `;
+        document.head.appendChild(dynamicStyles);
+
+        console.log('👑 Luxury Service loaded - Excellence in hospitality');
+    </script>
+</body>
+</html>

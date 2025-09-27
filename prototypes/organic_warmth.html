@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organic Warmth - 有機溫暖美學</title>
+    <style>
+        :root {
+            --warm-cream: #f7f3ed;
+            --terracotta: #d4906b;
+            --sage-green: #a3b88c;
+            --warm-brown: #6b4e3d;
+            --soft-ivory: #faf8f5;
+            --muted-coral: #e09f7d;
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: var(--warm-cream);
+            color: var(--warm-brown);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* 有機形狀背景 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -10%;
+            right: -10%;
+            width: 40%;
+            height: 60%;
+            background: var(--sage-green);
+            opacity: 0.06;
+            border-radius: 60% 40% 70% 30% / 40% 50% 60% 30%;
+            z-index: -1;
+            animation: organic-morph 25s ease-in-out infinite;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -15%;
+            left: -5%;
+            width: 35%;
+            height: 50%;
+            background: var(--terracotta);
+            opacity: 0.04;
+            border-radius: 70% 30% 50% 50% / 60% 40% 30% 70%;
+            z-index: -1;
+            animation: organic-morph 20s ease-in-out infinite reverse;
+        }
+
+        /* 主容器 */
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 80px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* 標題設計 */
+        .header-section {
+            text-align: center;
+            margin-bottom: 120px;
+            opacity: 0;
+            animation: warm-fade-up 1.2s ease forwards 0.3s;
+        }
+
+        .main-title {
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            font-weight: 300;
+            color: var(--warm-brown);
+            margin-bottom: 30px;
+            line-height: 1;
+            position: relative;
+        }
+
+        .main-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--terracotta), transparent);
+            border-radius: 2px;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2.2vw, 1.4rem);
+            color: var(--sage-green);
+            font-style: italic;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        /* 內容卡片系統 */
+        .wisdom-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 60px;
+            width: 100%;
+            margin-bottom: 100px;
+        }
+
+        .wisdom-card {
+            background: var(--soft-ivory);
+            padding: 50px 40px;
+            border-radius: 25px;
+            position: relative;
+            box-shadow: 0 8px 32px rgba(107, 78, 61, 0.08);
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: warm-fade-up 1s ease forwards;
+        }
+
+        .wisdom-card:nth-child(1) { animation-delay: 0.6s; }
+        .wisdom-card:nth-child(2) { animation-delay: 0.9s; }
+        .wisdom-card:nth-child(3) { animation-delay: 1.2s; }
+
+        .wisdom-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                var(--sage-green) 0%, 
+                var(--terracotta) 50%, 
+                var(--muted-coral) 100%);
+            border-radius: 27px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .wisdom-card:hover::before {
+            opacity: 0.15;
+        }
+
+        .wisdom-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(107, 78, 61, 0.15);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            display: block;
+            text-align: center;
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            color: var(--warm-brown);
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 400;
+        }
+
+        .card-content {
+            font-size: 1rem;
+            color: var(--warm-brown);
+            line-height: 1.8;
+            opacity: 0.85;
+            text-align: center;
+        }
+
+        /* 引言區域 */
+        .quote-section {
+            text-align: center;
+            max-width: 800px;
+            opacity: 0;
+            animation: warm-fade-up 1.2s ease forwards 1.5s;
+        }
+
+        .quote-text {
+            font-size: clamp(1.3rem, 3vw, 2.2rem);
+            color: var(--terracotta);
+            font-style: italic;
+            font-weight: 300;
+            line-height: 1.4;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .quote-text::before,
+        .quote-text::after {
+            content: '"';
+            font-size: 4rem;
+            color: var(--sage-green);
+            opacity: 0.3;
+            position: absolute;
+        }
+
+        .quote-text::before {
+            top: -20px;
+            left: -40px;
+        }
+
+        .quote-text::after {
+            bottom: -40px;
+            right: -40px;
+        }
+
+        .quote-author {
+            font-size: 1rem;
+            color: var(--sage-green);
+            font-style: normal;
+            letter-spacing: 0.1em;
+        }
+
+        /* 裝飾性元素 */
+        .floating-leaf {
+            position: fixed;
+            font-size: 1.5rem;
+            color: var(--sage-green);
+            opacity: 0.1;
+            z-index: -1;
+            animation: gentle-sway 15s ease-in-out infinite;
+        }
+
+        .floating-leaf:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-leaf:nth-child(2) {
+            top: 70%;
+            right: 15%;
+            animation-delay: 5s;
+        }
+
+        .floating-leaf:nth-child(3) {
+            top: 45%;
+            left: 85%;
+            animation-delay: 10s;
+        }
+
+        /* 動畫定義 */
+        @keyframes warm-fade-up {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes organic-morph {
+            0%, 100% {
+                border-radius: 60% 40% 70% 30% / 40% 50% 60% 30%;
+                transform: rotate(0deg);
+            }
+            33% {
+                border-radius: 70% 30% 50% 50% / 60% 40% 30% 70%;
+                transform: rotate(2deg);
+            }
+            66% {
+                border-radius: 50% 50% 80% 20% / 30% 70% 40% 60%;
+                transform: rotate(-1deg);
+            }
+        }
+
+        @keyframes gentle-sway {
+            0%, 100% {
+                transform: translateX(0) translateY(0) rotate(0deg);
+                opacity: 0.1;
+            }
+            25% {
+                transform: translateX(10px) translateY(-5px) rotate(2deg);
+                opacity: 0.15;
+            }
+            50% {
+                transform: translateX(-5px) translateY(10px) rotate(-1deg);
+                opacity: 0.08;
+            }
+            75% {
+                transform: translateX(-8px) translateY(-3px) rotate(1deg);
+                opacity: 0.12;
+            }
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 60px 30px;
+            }
+
+            .wisdom-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .wisdom-card {
+                padding: 40px 30px;
+            }
+
+            .quote-text::before,
+            .quote-text::after {
+                font-size: 3rem;
+            }
+
+            .quote-text::before {
+                top: -15px;
+                left: -25px;
+            }
+
+            .quote-text::after {
+                bottom: -30px;
+                right: -25px;
+            }
+        }
+
+        /* 紋理疊加 */
+        .texture-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(163, 184, 140, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(212, 144, 107, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(224, 159, 125, 0.02) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -2;
+        }
+    </style>
+</head>
+<body>
+    <!-- 紋理疊加 -->
+    <div class="texture-overlay"></div>
+
+    <!-- 裝飾性元素 -->
+    <div class="floating-leaf">🌿</div>
+    <div class="floating-leaf">🍃</div>
+    <div class="floating-leaf">🌱</div>
+
+    <div class="container">
+        <!-- 標題區域 -->
+        <header class="header-section">
+            <h1 class="main-title">有機溫暖</h1>
+            <p class="subtitle">Organic Warmth in Digital Space</p>
+        </header>
+
+        <!-- 智慧卡片 -->
+        <section class="wisdom-grid">
+            <article class="wisdom-card">
+                <span class="card-icon">🌾</span>
+                <h2 class="card-title">自然韻律</h2>
+                <p class="card-content">
+                    設計如同自然一樣，遵循著有機的韻律。沒有強迫的幾何，只有流動的曲線。每一個元素都像是從大地中生長出來，帶著泥土的溫暖和植物的生命力。
+                </p>
+            </article>
+
+            <article class="wisdom-card">
+                <span class="card-icon">☕</span>
+                <h2 class="card-title">溫暖懷抱</h2>
+                <p class="card-content">
+                    真正的溫暖不來自於鮮豔的色彩，而來自於那些大地的顏色—陶土的橙、苔蘚的綠、老木的棕。這些顏色像是秋天的擁抱，給予心靈最深的慰藉。
+                </p>
+            </article>
+
+            <article class="wisdom-card">
+                <span class="card-icon">🏺</span>
+                <h2 class="card-title">手作質感</h2>
+                <p class="card-content">
+                    在這個數位時代，我們渴望觸感。雖然無法真正觸摸，但透過視覺語言，我們創造了手作的溫度。每一個圓角都像是被愛心打磨過的陶器。
+                </p>
+            </article>
+        </section>
+
+        <!-- 引言區域 -->
+        <section class="quote-section">
+            <p class="quote-text">
+                設計不應該冰冷，而應該像家一樣溫暖。
+            </p>
+            <p class="quote-author">— 有機美學理念 —</p>
+        </section>
+    </div>
+
+    <script>
+        // 鼠標跟隨的有機粒子效果
+        document.addEventListener('mousemove', createOrganicTrail);
+
+        let trailTimeout;
+
+        function createOrganicTrail(e) {
+            // 限制粒子生成頻率，避免過度複雜的動畫
+            clearTimeout(trailTimeout);
+            trailTimeout = setTimeout(() => {
+                if (Math.random() < 0.3) { // 30% 機率生成粒子
+                    createParticle(e.clientX, e.clientY);
+                }
+            }, 100);
+        }
+
+        function createParticle(x, y) {
+            const particles = ['🌿', '🍃', '☘️', '🌱'];
+            const particle = document.createElement('div');
+            
+            particle.textContent = particles[Math.floor(Math.random() * particles.length)];
+            particle.style.cssText = `
+                position: fixed;
+                left: ${x}px;
+                top: ${y}px;
+                font-size: ${12 + Math.random() * 8}px;
+                pointer-events: none;
+                z-index: 1000;
+                opacity: 0.6;
+                transform: translate(-50%, -50%);
+                animation: organic-float ${2 + Math.random() * 2}s ease-out forwards;
+            `;
+            
+            document.body.appendChild(particle);
+            
+            // 清理粒子
+            setTimeout(() => {
+                if (particle.parentNode) {
+                    particle.parentNode.removeChild(particle);
+                }
+            }, 4000);
+        }
+
+        // 添加動畫樣式
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes organic-float {
+                0% {
+                    opacity: 0.6;
+                    transform: translate(-50%, -50%) rotate(0deg) scale(1);
+                }
+                50% {
+                    opacity: 0.3;
+                    transform: translate(-50%, -70px) rotate(${Math.random() * 60 - 30}deg) scale(1.2);
+                }
+                100% {
+                    opacity: 0;
+                    transform: translate(-50%, -100px) rotate(${Math.random() * 90 - 45}deg) scale(0.8);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // 卡片的呼吸效果
+        const cards = document.querySelectorAll('.wisdom-card');
+        cards.forEach((card, index) => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // 隨機的溫暖光點效果（偶爾出現）
+        function createWarmGlow() {
+            const glowColors = ['var(--terracotta)', 'var(--sage-green)', 'var(--muted-coral)'];
+            const glow = document.createElement('div');
+            
+            glow.style.cssText = `
+                position: fixed;
+                width: ${20 + Math.random() * 30}px;
+                height: ${20 + Math.random() * 30}px;
+                background: radial-gradient(circle, ${glowColors[Math.floor(Math.random() * glowColors.length)]}, transparent);
+                top: ${Math.random() * 100}vh;
+                left: ${Math.random() * 100}vw;
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: -1;
+                opacity: 0;
+                animation: warm-glow-pulse ${5 + Math.random() * 3}s ease-in-out;
+            `;
+            
+            document.body.appendChild(glow);
+            
+            setTimeout(() => glow.remove(), 8000);
+        }
+
+        // 每15-25秒創建一個溫暖光點
+        setInterval(createWarmGlow, 15000 + Math.random() * 10000);
+
+        // 添加光點動畫
+        const glowStyle = document.createElement('style');
+        glowStyle.textContent = `
+            @keyframes warm-glow-pulse {
+                0%, 100% { opacity: 0; transform: scale(0.5); }
+                50% { opacity: 0.1; transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(glowStyle);
+
+        console.log('🌿 Organic Warmth loaded - A space of natural comfort');
+    </script>
+</body>
+</html>

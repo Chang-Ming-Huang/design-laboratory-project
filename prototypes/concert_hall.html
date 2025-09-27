@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concert Hall - 音樂廳演出空間</title>
+    <style>
+        :root {
+            --velvet-black: #0a0a0a;        /* 劇院絲絨深黑 */
+            --gold-accent: #d4af37;         /* 典雅金色裝飾 */
+            --warm-ivory: #faf8f5;          /* 溫暖象牙白 */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            background: var(--velvet-black);
+            color: var(--warm-ivory);
+            line-height: 1.7;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* 音樂廳專用游標 */
+        .concert-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--gold-accent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.15s ease;
+            transform: translate(-50%, -50%);
+            background: rgba(212, 175, 55, 0.15);
+            backdrop-filter: blur(3px);
+        }
+
+        .concert-cursor.hover {
+            width: 40px;
+            height: 40px;
+            background: rgba(212, 175, 55, 0.25);
+            border-width: 3px;
+        }
+
+        /* 音樂廳級別的光效背景 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 50% 30%, rgba(212, 175, 55, 0.08) 0%, transparent 70%),
+                radial-gradient(ellipse at 20% 80%, rgba(250, 248, 245, 0.03) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 80%);
+            pointer-events: none;
+            z-index: -1;
+            animation: concertLight 20s ease-in-out infinite;
+        }
+
+        @keyframes concertLight {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* 導航列 */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 0 80px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .logo {
+            font-size: 30px;
+            font-weight: 700;
+            color: var(--gold-accent);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '🎼';
+            margin-left: 18px;
+            font-size: 26px;
+            animation: noteFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes noteFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-6px) rotate(5deg); }
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 60px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--warm-ivory);
+            font-weight: 500;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            padding: 8px 0;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold-accent);
+            transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        /* 主要內容區 */
+        main {
+            margin-top: 100px;
+        }
+
+        /* Hero 區塊 */
+        .hero {
+            padding: 120px 80px;
+            text-align: center;
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            width: 300px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--gold-accent), transparent);
+            transform: translateX(-50%);
+            animation: stageSpot 8s ease-in-out infinite;
+        }
+
+        @keyframes stageSpot {
+            0%, 100% { opacity: 0.4; transform: translateX(-50%) scaleX(1); }
+            50% { opacity: 1; transform: translateX(-50%) scaleX(1.5); }
+        }
+
+        .hero-badge {
+            background: linear-gradient(135deg, var(--gold-accent), rgba(212, 175, 55, 0.8));
+            color: var(--velvet-black);
+            padding: 18px 50px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 60px;
+            border: 1px solid var(--gold-accent);
+            position: relative;
+            animation: curtainRise 5s ease-in-out infinite;
+        }
+
+        @keyframes curtainRise {
+            0%, 100% { 
+                box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 50px rgba(212, 175, 55, 0.5);
+                transform: scale(1.05);
+            }
+        }
+
+        .hero-title {
+            font-size: clamp(3.5rem, 9vw, 9rem);
+            font-weight: 400;
+            line-height: 0.85;
+            margin-bottom: 60px;
+            color: var(--warm-ivory);
+            text-transform: uppercase;
+            letter-spacing: -4px;
+            position: relative;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.4rem, 3vw, 2.6rem);
+            font-weight: 300;
+            margin-bottom: 70px;
+            color: var(--gold-accent);
+            font-style: italic;
+            max-width: 950px;
+        }
+
+        .hero-description {
+            font-size: 22px;
+            line-height: 1.8;
+            margin-bottom: 80px;
+            color: var(--warm-ivory);
+            max-width: 850px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 45px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 25px 60px;
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: none;
+            cursor: none;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--gold-accent);
+            color: var(--velvet-black);
+            border: 2px solid var(--gold-accent);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--gold-accent);
+            border: 2px solid var(--gold-accent);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(250, 248, 245, 0.15);
+            border-radius: 50%;
+            transition: all 0.4s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .btn:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3);
+        }
+
+        /* 演出節目區 */
+        .performances {
+            padding: 120px 80px;
+            background: rgba(212, 175, 55, 0.05);
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 100px;
+        }
+
+        .section-title {
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 400;
+            color: var(--warm-ivory);
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+        }
+
+        .section-subtitle {
+            font-size: 26px;
+            color: var(--gold-accent);
+            font-style: italic;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .performances-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 80px;
+            margin-top: 100px;
+        }
+
+        .performance-card {
+            background: rgba(10, 10, 10, 0.8);
+            padding: 80px 60px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: none;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .performance-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--gold-accent), var(--warm-ivory));
+            transform: scaleX(0);
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform-origin: left;
+        }
+
+        .performance-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .performance-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 40px 80px rgba(212, 175, 55, 0.2);
+            border-color: var(--gold-accent);
+        }
+
+        .performance-icon {
+            font-size: 60px;
+            margin-bottom: 40px;
+            display: block;
+            animation: performanceFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes performanceFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(3deg); }
+        }
+
+        .performance-card h3 {
+            font-size: 32px;
+            font-weight: 400;
+            color: var(--warm-ivory);
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .performance-card p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--warm-ivory);
+            opacity: 0.85;
+            font-weight: 300;
+        }
+
+        /* 音樂體驗區 */
+        .experience {
+            padding: 120px 80px;
+            background: var(--velvet-black);
+        }
+
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 80px;
+            margin-top: 100px;
+        }
+
+        .experience-item {
+            text-align: center;
+            position: relative;
+            padding: 60px 30px;
+        }
+
+        .experience-item::after {
+            content: '♪';
+            position: absolute;
+            top: 50%;
+            right: -40px;
+            font-size: 32px;
+            color: var(--gold-accent);
+            opacity: 0.4;
+            animation: musicNote 4s ease-in-out infinite;
+        }
+
+        .experience-item:last-child::after {
+            display: none;
+        }
+
+        @keyframes musicNote {
+            0%, 100% { opacity: 0.4; transform: translateY(0px) rotate(0deg); }
+            50% { opacity: 0.8; transform: translateY(-8px) rotate(15deg); }
+        }
+
+        .experience-number {
+            width: 120px;
+            height: 120px;
+            border: 4px solid var(--gold-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--gold-accent);
+            margin: 0 auto 40px;
+            position: relative;
+            background: rgba(10, 10, 10, 0.8);
+            animation: experienceRing 12s linear infinite;
+        }
+
+        @keyframes experienceRing {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .experience-item h4 {
+            font-size: 26px;
+            font-weight: 400;
+            color: var(--warm-ivory);
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .experience-item p {
+            font-size: 16px;
+            color: var(--warm-ivory);
+            opacity: 0.8;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* 音樂廳資訊區 */
+        .hall-info {
+            padding: 120px 80px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(10, 10, 10, 0.9) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hall-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(212, 175, 55, 0.08) 2px, transparent 2px),
+                radial-gradient(circle at 75% 75%, rgba(250, 248, 245, 0.05) 1px, transparent 1px);
+            background-size: 160px 160px, 220px 220px;
+            animation: hallPattern 30s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes hallPattern {
+            0% { background-position: 0 0, 0 0; }
+            100% { background-position: 160px 160px, -220px 220px; }
+        }
+
+        .hall-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hall-title {
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 400;
+            margin-bottom: 50px;
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            color: var(--warm-ivory);
+        }
+
+        .hall-text {
+            font-size: 24px;
+            line-height: 1.8;
+            margin-bottom: 70px;
+            opacity: 0.95;
+            font-style: italic;
+            font-weight: 300;
+            color: var(--warm-ivory);
+        }
+
+        .hall-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 70px;
+        }
+
+        .feature-item {
+            background: rgba(10, 10, 10, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 40px 30px;
+            backdrop-filter: blur(15px);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .feature-item:hover {
+            transform: translateY(-6px);
+            border-color: var(--gold-accent);
+            background: rgba(10, 10, 10, 0.8);
+        }
+
+        .feature-item h4 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--gold-accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .feature-item p {
+            font-size: 16px;
+            opacity: 0.85;
+            font-weight: 300;
+            color: var(--warm-ivory);
+        }
+
+        /* 頁腳 */
+        footer {
+            background: var(--velvet-black);
+            color: var(--warm-ivory);
+            padding: 80px 80px 40px;
+            text-align: center;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .footer-content {
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .footer-title {
+            font-size: 36px;
+            font-weight: 400;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--gold-accent);
+        }
+
+        .footer-text {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 50px;
+            opacity: 0.85;
+            font-weight: 300;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-links a {
+            color: var(--warm-ivory);
+            text-decoration: none;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold-accent);
+        }
+
+        .footer-copyright {
+            font-size: 14px;
+            opacity: 0.6;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            padding-top: 40px;
+            font-weight: 300;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            nav {
+                padding: 0 20px;
+                height: 80px;
+            }
+
+            .nav-menu {
+                gap: 30px;
+            }
+
+            .hero, .performances, .experience, .hall-info, footer {
+                padding: 80px 20px;
+            }
+
+            .performances-grid {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .experience-grid {
+                grid-template-columns: 1fr;
+                gap: 80px;
+            }
+
+            .experience-item::after {
+                display: none;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 25px;
+            }
+
+            .hall-features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .performances-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .performance-card {
+                padding: 60px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 音樂廳游標 -->
+    <div class="concert-cursor" id="concertCursor"></div>
+
+    <!-- 導航列 -->
+    <nav>
+        <div class="logo">Concert Hall</div>
+        <ul class="nav-menu">
+            <li><a href="../index.html">首頁</a></li>
+            <li><a href="#performances">演出</a></li>
+            <li><a href="#experience">體驗</a></li>
+            <li><a href="#hall">音樂廳</a></li>
+        </ul>
+    </nav>
+
+    <!-- 主要內容 -->
+    <main>
+        <!-- Hero 區塊 -->
+        <section class="hero">
+            <div class="hero-badge">音樂 • 藝術 • 靈魂</div>
+            <h1 class="hero-title">Concert<br>Hall</h1>
+            <p class="hero-subtitle">每一個音符都是靈魂的呼喚，每一場演出都是心靈的盛宴</p>
+            <p class="hero-description">
+                世界級的音響設備，完美的音樂廳設計，為每位觀眾創造最純粹的音樂體驗。
+                從古典交響樂到現代爵士，從室內樂到大型歌劇，
+                在這個神聖的音樂殿堂裡，讓音樂洗滌心靈，讓藝術觸動靈魂。
+            </p>
+            <div class="hero-buttons">
+                <a href="#performances" class="btn btn-primary">探索演出</a>
+                <a href="#experience" class="btn btn-secondary">音樂體驗</a>
+            </div>
+        </section>
+
+        <!-- 演出節目區 -->
+        <section class="performances" id="performances">
+            <div class="section-header">
+                <h2 class="section-title">精選演出</h2>
+                <p class="section-subtitle">世界級藝術家的精彩演出，為您呈現最高水準的音樂盛宴</p>
+            </div>
+            <div class="performances-grid">
+                <div class="performance-card">
+                    <span class="performance-icon">🎻</span>
+                    <h3>古典音樂</h3>
+                    <p>邀請國際知名交響樂團與獨奏家，演出巴哈、貝多芬、莫札特等大師經典作品。在最佳音響環境中，感受古典音樂的永恆魅力與深邃內涵。</p>
+                </div>
+                <div class="performance-card">
+                    <span class="performance-icon">🎷</span>
+                    <h3>爵士樂夜</h3>
+                    <p>頂級爵士音樂家帶來即興演奏的精彩夜晚，從傳統爵士到現代fusion風格。在充滿藝術氛圍的空間中，體驗爵士樂的自由靈魂與創新精神。</p>
+                </div>
+                <div class="performance-card">
+                    <span class="performance-icon">🎭</span>
+                    <h3>歌劇表演</h3>
+                    <p>世界經典歌劇作品的完整呈現，結合一流聲樂家、樂團與舞台設計。讓觀眾在視覺與聽覺的雙重震撼中，體驗歌劇藝術的宏偉與感動。</p>
+                </div>
+                <div class="performance-card">
+                    <span class="performance-icon">🎹</span>
+                    <h3>鋼琴獨奏</h3>
+                    <p>國際鋼琴大師的獨奏會，在史坦威演奏級鋼琴上演繹蕭邦、李斯特等浪漫派作品。純淨的音色與完美的技巧，創造最直接的音樂對話。</p>
+                </div>
+                <div class="performance-card">
+                    <span class="performance-icon">🎪</span>
+                    <h3>室內樂</h3>
+                    <p>精緻的小型樂團演出，弦樂四重奏、木管五重奏等經典編制。在親密的空間中，體驗音樂家之間的默契與音樂最純粹的表達形式。</p>
+                </div>
+                <div class="performance-card">
+                    <span class="performance-icon">🌟</span>
+                    <h3>跨界音樂</h3>
+                    <p>融合古典與現代元素的創新演出，電子音樂與交響樂的完美結合。開創性的音樂實驗，為觀眾帶來全新的聽覺體驗與藝術感受。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 音樂體驗區 -->
+        <section class="experience" id="experience">
+            <div class="section-header">
+                <h2 class="section-title">音樂體驗</h2>
+                <p class="section-subtitle">三個層次的完整音樂旅程，從感受到理解再到昇華</p>
+            </div>
+            <div class="experience-grid">
+                <div class="experience-item">
+                    <div class="experience-number">♫</div>
+                    <h4>聽覺盛宴</h4>
+                    <p>世界頂級音響系統營造的完美聽覺環境，每個座位都能享受到最佳音質。專業聲學設計確保音樂的每個細節都能清晰傳達到觀眾耳中。</p>
+                </div>
+                <div class="experience-item">
+                    <div class="experience-number">♬</div>
+                    <h4>視覺享受</h4>
+                    <p>精心設計的舞台燈光與建築美學，為音樂增添視覺層次。優雅的空間設計讓觀眾在視覺享受中更深入地沉浸於音樂藝術的世界。</p>
+                </div>
+                <div class="experience-item">
+                    <div class="experience-number">♪</div>
+                    <h4>心靈共鳴</h4>
+                    <p>在這個神聖的音樂殿堂中，音樂不僅是聽覺享受，更是心靈的洗滌與昇華。讓音樂觸動內心深處，創造永恆的藝術回憶。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 音樂廳資訊區 */
+        <section class="hall-info" id="hall">
+            <div class="hall-content">
+                <h2 class="hall-title">音樂廳資訊</h2>
+                <p class="hall-text">
+                    我們的音樂廳採用世界最先進的聲學設計，
+                    每一個細節都經過精心規劃，只為創造最完美的音樂體驗。
+                    從音響設備到座椅設計，一切都以音樂與觀眾為中心。
+                </p>
+                <div class="hall-features">
+                    <div class="feature-item">
+                        <h4>專業音響</h4>
+                        <p>採用世界頂級音響系統<br>確保完美音質體驗<br>專業聲學調校</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>舒適座椅</h4>
+                        <p>人體工學設計座椅<br>最佳視聽角度規劃<br>1200個優質座位</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>建築美學</h4>
+                        <p>古典與現代結合設計<br>優雅的空間氛圍<br>完美的聲學結構</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>服務設施</h4>
+                        <p>專業服務團隊<br>無障礙友善設計<br>音樂廳導覽服務</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 頁腳 -->
+    <footer>
+        <div class="footer-content">
+            <h3 class="footer-title">Concert Hall</h3>
+            <p class="footer-text">音樂的殿堂，心靈的歸宿</p>
+            <div class="footer-links">
+                <a href="#performances">演出資訊</a>
+                <a href="#experience">音樂體驗</a>
+                <a href="#hall">音樂廳介紹</a>
+                <a href="../index.html">返回首頁</a>
+            </div>
+            <div class="footer-copyright">
+                © 2024 Concert Hall. 音樂與藝術的永恆聖殿.
+            </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        // 音樂廳游標追踪系統
+        const concertCursor = document.getElementById('concertCursor');
+        const interactiveElements = document.querySelectorAll('a, .btn, .performance-card, .feature-item, nav ul li');
+
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function updateCursor() {
+            cursorX += (mouseX - cursorX) * 0.1;
+            cursorY += (mouseY - cursorY) * 0.1;
+            
+            concertCursor.style.left = cursorX + 'px';
+            concertCursor.style.top = cursorY + 'px';
+            
+            requestAnimationFrame(updateCursor);
+        }
+
+        updateCursor();
+
+        // 互動元素懸停效果
+        interactiveElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                concertCursor.classList.add('hover');
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                concertCursor.classList.remove('hover');
+            });
+        });
+
+        // 演出卡片入場動畫
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const performanceCards = document.querySelectorAll('.performance-card');
+        const experienceItems = document.querySelectorAll('.experience-item');
+
+        const animateOnScroll = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 150);
+                }
+            });
+        }, observerOptions);
+
+        // 設置初始狀態並開始觀察
+        [...performanceCards, ...experienceItems].forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(40px)';
+            element.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            animateOnScroll.observe(element);
+        });
+
+        // 平滑滾動導航
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 音樂廳特效：音符粒子
+        function createMusicParticle() {
+            const particle = document.createElement('div');
+            const notes = ['♪', '♫', '♬', '♩', '♮'];
+            particle.textContent = notes[Math.floor(Math.random() * notes.length)];
+            particle.style.cssText = `
+                position: fixed;
+                left: ${Math.random() * 100}vw;
+                top: 100vh;
+                color: rgba(212, 175, 55, 0.6);
+                font-size: ${Math.random() * 20 + 15}px;
+                pointer-events: none;
+                z-index: 10;
+                animation: floatUp 8s linear forwards;
+            `;
+            document.body.appendChild(particle);
+            
+            setTimeout(() => particle.remove(), 8000);
+        }
+
+        // 添加音符粒子動畫
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes floatUp {
+                to {
+                    transform: translateY(-120vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // 定期創建音樂粒子
+        setInterval(createMusicParticle, 3000);
+
+        // 載入確認
+        console.log('🎼 Concert Hall - 音樂廳演出空間風格已載入');
+        console.log('✨ 特色：音樂廳氛圍、優雅金色、演出空間、藝術體驗');
+    </script>
+</body>
+</html>

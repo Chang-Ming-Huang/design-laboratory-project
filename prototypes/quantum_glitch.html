@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Glitch - AI 創意作品</title>
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body {
+            background: #000011;
+            color: #ffffff;
+            font-family: 'Courier New', 'SF Mono', 'Monaco', monospace;
+            overflow: hidden;
+            cursor: none;
+            position: relative;
+            height: 100vh;
+        }
+        
+        .quantum-field {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(255, 0, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 0, 0.06) 0%, transparent 50%);
+            animation: quantum-fluctuation 3s ease-in-out infinite;
+            z-index: 0;
+        }
+        
+        .glitch-static {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(
+                    90deg,
+                    transparent 0px,
+                    rgba(255, 255, 255, 0.03) 1px,
+                    transparent 2px,
+                    transparent 3px
+                ),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent 0px,
+                    rgba(255, 0, 255, 0.02) 1px,
+                    transparent 2px,
+                    transparent 4px
+                );
+            animation: static-interference 0.1s linear infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .quantum-interface {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .glitch-container {
+            position: relative;
+            background: rgba(0, 0, 17, 0.8);
+            border: 1px solid rgba(255, 0, 255, 0.3);
+            padding: 120px 100px;
+            backdrop-filter: blur(5px);
+            animation: container-glitch 8s ease-in-out infinite;
+        }
+        
+        .glitch-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(255, 0, 255, 0.1) 0%,
+                transparent 25%,
+                rgba(0, 255, 255, 0.1) 50%,
+                transparent 75%,
+                rgba(255, 255, 0, 0.1) 100%
+            );
+            animation: quantum-scan 6s linear infinite;
+            pointer-events: none;
+        }
+        
+        .quantum-title {
+            font-size: clamp(4rem, 14vw, 12rem);
+            font-weight: 900;
+            margin-bottom: 2rem;
+            color: #ffffff;
+            animation: title-glitch 4s ease-in-out infinite;
+            letter-spacing: -0.1em;
+            line-height: 0.8;
+            position: relative;
+            text-transform: uppercase;
+        }
+        
+        .quantum-title::before {
+            content: 'QUANTUM GLITCH';
+            position: absolute;
+            top: 0;
+            left: 2px;
+            color: #ff00ff;
+            animation: glitch-layer-1 0.3s ease-in-out infinite;
+            z-index: -1;
+        }
+        
+        .quantum-title::after {
+            content: 'QUANTUM GLITCH';
+            position: absolute;
+            top: 0;
+            left: -2px;
+            color: #00ffff;
+            animation: glitch-layer-2 0.4s ease-in-out infinite;
+            z-index: -2;
+        }
+        
+        .error-message {
+            font-size: clamp(1rem, 2vw, 1.4rem);
+            font-weight: 400;
+            color: #ff00ff;
+            margin-bottom: 1rem;
+            font-family: 'Courier New', monospace;
+            animation: error-blink 2s ease-in-out infinite;
+            letter-spacing: 0.1em;
+        }
+        
+        .system-status {
+            font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 3rem;
+            font-family: 'Courier New', monospace;
+            animation: status-flicker 1.5s ease-in-out infinite;
+        }
+        
+        .quantum-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+        
+        .q-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ff00ff;
+            animation: particle-chaos 2s ease-in-out infinite;
+        }
+        
+        .distortion-layers {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 3;
+        }
+        
+        .distortion-bar {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 0, 255, 0.8) 50%, 
+                transparent 100%
+            );
+            animation: distortion-sweep 3s linear infinite;
+        }
+        
+        @keyframes quantum-fluctuation {
+            0%, 100% { 
+                filter: hue-rotate(0deg) contrast(1) brightness(1); 
+            }
+            33% { 
+                filter: hue-rotate(90deg) contrast(1.2) brightness(1.1); 
+            }
+            66% { 
+                filter: hue-rotate(180deg) contrast(0.8) brightness(0.9); 
+            }
+        }
+        
+        @keyframes static-interference {
+            0% { 
+                opacity: 0.1; 
+                transform: translateX(0px) translateY(0px); 
+            }
+            25% { 
+                opacity: 0.3; 
+                transform: translateX(2px) translateY(-1px); 
+            }
+            50% { 
+                opacity: 0.1; 
+                transform: translateX(-1px) translateY(2px); 
+            }
+            75% { 
+                opacity: 0.2; 
+                transform: translateX(1px) translateY(-2px); 
+            }
+            100% { 
+                opacity: 0.1; 
+                transform: translateX(0px) translateY(0px); 
+            }
+        }
+        
+        @keyframes container-glitch {
+            0%, 90%, 100% { 
+                transform: translate(0, 0) scale(1); 
+                filter: contrast(1);
+            }
+            92% { 
+                transform: translate(-5px, 2px) scale(1.01); 
+                filter: contrast(1.2);
+            }
+            94% { 
+                transform: translate(3px, -1px) scale(0.99); 
+                filter: contrast(0.8);
+            }
+            96% { 
+                transform: translate(-2px, 3px) scale(1.02); 
+                filter: contrast(1.1);
+            }
+        }
+        
+        @keyframes quantum-scan {
+            0% { 
+                transform: translateY(-100vh) skewX(0deg); 
+            }
+            100% { 
+                transform: translateY(100vh) skewX(2deg); 
+            }
+        }
+        
+        @keyframes title-glitch {
+            0%, 96%, 100% { 
+                transform: translate(0, 0); 
+                filter: contrast(1);
+            }
+            97% { 
+                transform: translate(-10px, 3px); 
+                filter: contrast(1.5);
+            }
+            98% { 
+                transform: translate(8px, -2px); 
+                filter: contrast(0.5);
+            }
+            99% { 
+                transform: translate(-5px, 5px); 
+                filter: contrast(2);
+            }
+        }
+        
+        @keyframes glitch-layer-1 {
+            0%, 90%, 100% { 
+                opacity: 0; 
+            }
+            91% { 
+                opacity: 0.7; 
+                transform: translate(5px, -2px); 
+            }
+            93% { 
+                opacity: 0.3; 
+                transform: translate(-3px, 4px); 
+            }
+            95% { 
+                opacity: 0.8; 
+                transform: translate(2px, -3px); 
+            }
+        }
+        
+        @keyframes glitch-layer-2 {
+            0%, 92%, 100% { 
+                opacity: 0; 
+            }
+            93% { 
+                opacity: 0.5; 
+                transform: translate(-7px, 3px); 
+            }
+            95% { 
+                opacity: 0.2; 
+                transform: translate(4px, -5px); 
+            }
+            97% { 
+                opacity: 0.6; 
+                transform: translate(-2px, 2px); 
+            }
+        }
+        
+        @keyframes error-blink {
+            0%, 70%, 100% { 
+                opacity: 1; 
+            }
+            75%, 85% { 
+                opacity: 0; 
+            }
+        }
+        
+        @keyframes status-flicker {
+            0%, 80%, 100% { 
+                opacity: 0.7; 
+            }
+            85%, 95% { 
+                opacity: 1; 
+            }
+        }
+        
+        @keyframes particle-chaos {
+            0% { 
+                transform: translate(0, 0) rotate(0deg) scale(1); 
+                background: #ff00ff; 
+            }
+            25% { 
+                transform: translate(20px, -10px) rotate(90deg) scale(1.5); 
+                background: #00ffff; 
+            }
+            50% { 
+                transform: translate(-15px, 25px) rotate(180deg) scale(0.5); 
+                background: #ffff00; 
+            }
+            75% { 
+                transform: translate(30px, -20px) rotate(270deg) scale(2); 
+                background: #ff00ff; 
+            }
+            100% { 
+                transform: translate(0, 0) rotate(360deg) scale(1); 
+                background: #00ffff; 
+            }
+        }
+        
+        @keyframes distortion-sweep {
+            0% { 
+                top: -5px; 
+                opacity: 0; 
+            }
+            50% { 
+                opacity: 1; 
+            }
+            100% { 
+                top: 100vh; 
+                opacity: 0; 
+            }
+        }
+        
+        /* 響應式調整 */
+        @media (max-width: 768px) {
+            .glitch-container {
+                padding: 80px 40px;
+            }
+            
+            .error-message,
+            .system-status {
+                font-size: clamp(0.8rem, 3vw, 1rem);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quantum-field"></div>
+    <div class="glitch-static"></div>
+    <div class="distortion-layers" id="distortionLayers"></div>
+    <div class="quantum-particles" id="quantumParticles"></div>
+    
+    <div class="quantum-interface">
+        <div class="glitch-container">
+            <h1 class="quantum-title">Quantum Glitch</h1>
+            <div class="error-message">ERROR: REALITY.EXE HAS STOPPED WORKING</div>
+            <div class="system-status">
+                QUANTUM STATE: SUPERPOSITION<br>
+                COHERENCE: 42.7% | ENTANGLEMENT: ACTIVE<br>
+                PROBABILITY WAVE: COLLAPSING...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 量子故障效果
+        class QuantumGlitch {
+            constructor() {
+                this.distortionLayers = document.getElementById('distortionLayers');
+                this.quantumParticles = document.getElementById('quantumParticles');
+                this.init();
+            }
+            
+            init() {
+                this.createDistortionBars();
+                this.createQuantumParticles();
+                this.startQuantumChaos();
+                this.initGlobalGlitch();
+            }
+            
+            createDistortionBars() {
+                // 創造扭曲掃描線
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(() => {
+                        this.createDistortionBar();
+                    }, i * 600);
+                }
+            }
+            
+            createDistortionBar() {
+                const bar = document.createElement('div');
+                bar.className = 'distortion-bar';
+                bar.style.animationDelay = Math.random() * 3 + 's';
+                bar.style.animationDuration = (2 + Math.random() * 2) + 's';
+                
+                // 隨機位置和顏色
+                const colors = ['#ff00ff', '#00ffff', '#ffff00', '#ff0000'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                bar.style.background = `linear-gradient(90deg, transparent 0%, ${color} 50%, transparent 100%)`;
+                
+                this.distortionLayers.appendChild(bar);
+                
+                // 3秒後移除並創造新的
+                setTimeout(() => {
+                    if (bar.parentNode) {
+                        bar.remove();
+                        this.createDistortionBar();
+                    }
+                }, 3000 + Math.random() * 2000);
+            }
+            
+            createQuantumParticles() {
+                // 創造量子粒子
+                for (let i = 0; i < 15; i++) {
+                    setTimeout(() => {
+                        this.createParticle();
+                    }, i * 100);
+                }
+            }
+            
+            createParticle() {
+                const particle = document.createElement('div');
+                particle.className = 'q-particle';
+                
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 2 + 's';
+                particle.style.animationDuration = (1.5 + Math.random()) + 's';
+                
+                // 隨機大小
+                const size = 2 + Math.random() * 4;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                this.quantumParticles.appendChild(particle);
+                
+                // 2秒後移除並創造新的
+                setTimeout(() => {
+                    if (particle.parentNode) {
+                        particle.remove();
+                        this.createParticle();
+                    }
+                }, 2000 + Math.random() * 1000);
+            }
+            
+            startQuantumChaos() {
+                // 定期創造量子爆發
+                setInterval(() => {
+                    if (Math.random() > 0.8) {
+                        this.createQuantumBurst();
+                    }
+                }, 2000);
+                
+                // 定期創造現實故障
+                setInterval(() => {
+                    if (Math.random() > 0.9) {
+                        this.createRealityGlitch();
+                    }
+                }, 3000);
+            }
+            
+            createQuantumBurst() {
+                // 創造量子爆發效果
+                const burst = document.createElement('div');
+                burst.style.position = 'fixed';
+                burst.style.left = Math.random() * 100 + '%';
+                burst.style.top = Math.random() * 100 + '%';
+                burst.style.width = '50px';
+                burst.style.height = '50px';
+                burst.style.background = 'radial-gradient(circle, rgba(255, 0, 255, 0.8), transparent)';
+                burst.style.pointerEvents = 'none';
+                burst.style.animation = 'quantum-burst 1s ease-out forwards';
+                burst.style.zIndex = '7';
+                
+                // CSS for burst animation
+                if (!document.getElementById('burst-style')) {
+                    const style = document.createElement('style');
+                    style.id = 'burst-style';
+                    style.textContent = `
+                        @keyframes quantum-burst {
+                            0% { 
+                                transform: scale(0) rotate(0deg); 
+                                opacity: 1; 
+                                filter: hue-rotate(0deg);
+                            }
+                            50% { 
+                                transform: scale(3) rotate(180deg); 
+                                opacity: 0.7; 
+                                filter: hue-rotate(180deg);
+                            }
+                            100% { 
+                                transform: scale(6) rotate(360deg); 
+                                opacity: 0; 
+                                filter: hue-rotate(360deg);
+                            }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+                
+                document.body.appendChild(burst);
+                
+                setTimeout(() => {
+                    if (burst.parentNode) {
+                        burst.remove();
+                    }
+                }, 1000);
+            }
+            
+            createRealityGlitch() {
+                // 創造現實故障效果
+                const glitch = document.createElement('div');
+                glitch.style.position = 'fixed';
+                glitch.style.top = '0';
+                glitch.style.left = '0';
+                glitch.style.width = '100%';
+                glitch.style.height = '100%';
+                glitch.style.background = 'rgba(255, 0, 255, 0.1)';
+                glitch.style.pointerEvents = 'none';
+                glitch.style.animation = 'reality-glitch 0.3s ease-out forwards';
+                glitch.style.zIndex = '8';
+                glitch.style.mixBlendMode = 'difference';
+                
+                // CSS for glitch animation
+                if (!document.getElementById('reality-glitch-style')) {
+                    const style = document.createElement('style');
+                    style.id = 'reality-glitch-style';
+                    style.textContent = `
+                        @keyframes reality-glitch {
+                            0% { 
+                                opacity: 0; 
+                                transform: translateX(0); 
+                            }
+                            20% { 
+                                opacity: 1; 
+                                transform: translateX(10px); 
+                            }
+                            40% { 
+                                opacity: 0.5; 
+                                transform: translateX(-5px); 
+                            }
+                            60% { 
+                                opacity: 1; 
+                                transform: translateX(3px); 
+                            }
+                            80% { 
+                                opacity: 0.3; 
+                                transform: translateX(-2px); 
+                            }
+                            100% { 
+                                opacity: 0; 
+                                transform: translateX(0); 
+                            }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+                
+                document.body.appendChild(glitch);
+                
+                setTimeout(() => {
+                    if (glitch.parentNode) {
+                        glitch.remove();
+                    }
+                }, 300);
+            }
+            
+            initGlobalGlitch() {
+                // 全域故障效果
+                setInterval(() => {
+                    if (Math.random() > 0.95) {
+                        document.body.style.filter = 'contrast(2) brightness(0.5) saturate(3)';
+                        setTimeout(() => {
+                            document.body.style.filter = 'none';
+                        }, 50);
+                    }
+                }, 500);
+                
+                // 隨機色相旋轉
+                setInterval(() => {
+                    if (Math.random() > 0.9) {
+                        const hueRotation = Math.random() * 360;
+                        document.body.style.filter = `hue-rotate(${hueRotation}deg)`;
+                        setTimeout(() => {
+                            document.body.style.filter = 'none';
+                        }, 100);
+                    }
+                }, 1000);
+            }
+        }
+        
+        // 啟動量子故障
+        document.addEventListener('DOMContentLoaded', () => {
+            new QuantumGlitch();
+        });
+        
+        // 防止右鍵選單
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        
+        // 鍵盤互動增強故障效果
+        document.addEventListener('keydown', (e) => {
+            if (Math.random() > 0.7) {
+                document.body.style.transform = `translate(${Math.random() * 4 - 2}px, ${Math.random() * 4 - 2}px)`;
+                setTimeout(() => {
+                    document.body.style.transform = 'none';
+                }, 50);
+            }
+        });
+    </script>
+</body>
+</html>

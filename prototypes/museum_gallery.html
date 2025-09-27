@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Museum Gallery - 博物館展覽廳</title>
+    <style>
+        :root {
+            --museum-ivory: #fafafa;        /* 博物館級別的象牙白 */
+            --museum-charcoal: #2c2c2c;    /* 深炭灰色 */
+            --museum-gold: #d4af37;        /* 博物館金色裝飾 */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            background: var(--museum-ivory);
+            color: var(--museum-charcoal);
+            line-height: 1.7;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* 博物館專用游標 */
+        .museum-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--museum-gold);
+            border-radius: 2px;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.15s ease;
+            transform: translate(-50%, -50%);
+            background: rgba(212, 175, 55, 0.1);
+            backdrop-filter: blur(2px);
+        }
+
+        .museum-cursor.hover {
+            width: 40px;
+            height: 40px;
+            background: rgba(212, 175, 55, 0.2);
+            border-width: 3px;
+        }
+
+        /* 畫廊級別的光影背景 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 30%, rgba(212, 175, 55, 0.03) 0%, transparent 70%),
+                radial-gradient(ellipse at 80% 70%, rgba(44, 44, 44, 0.02) 0%, transparent 70%),
+                linear-gradient(135deg, transparent 0%, rgba(212, 175, 55, 0.01) 50%, transparent 100%);
+            pointer-events: none;
+            z-index: -1;
+            animation: galleryLight 25s ease-in-out infinite;
+        }
+
+        @keyframes galleryLight {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* 導航列 */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(250, 250, 250, 0.95);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            padding: 0 80px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(44, 44, 44, 0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--museum-charcoal);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '🏛️';
+            margin-left: 15px;
+            font-size: 24px;
+            animation: monumentFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes monumentFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 60px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--museum-charcoal);
+            font-weight: 500;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            padding: 8px 0;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--museum-gold);
+            transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        /* 主要內容區 */
+        main {
+            margin-top: 100px;
+        }
+
+        /* Hero 區塊 */
+        .hero {
+            padding: 120px 80px;
+            text-align: center;
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 2px;
+            height: 200px;
+            background: linear-gradient(to bottom, transparent, var(--museum-gold), transparent);
+            transform: translateX(-50%);
+            animation: galleryBeam 6s ease-in-out infinite;
+        }
+
+        @keyframes galleryBeam {
+            0%, 100% { opacity: 0.3; transform: translateX(-50%) scaleY(1); }
+            50% { opacity: 0.8; transform: translateX(-50%) scaleY(1.2); }
+        }
+
+        .hero-badge {
+            background: var(--museum-gold);
+            color: var(--museum-ivory);
+            padding: 15px 40px;
+            border: 1px solid var(--museum-gold);
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 50px;
+            position: relative;
+            animation: exhibitGlow 5s ease-in-out infinite;
+        }
+
+        @keyframes exhibitGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.5); }
+        }
+
+        .hero-title {
+            font-size: clamp(3.5rem, 9vw, 8rem);
+            font-weight: 400;
+            line-height: 0.9;
+            margin-bottom: 50px;
+            color: var(--museum-charcoal);
+            text-transform: uppercase;
+            letter-spacing: -3px;
+            position: relative;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.3rem, 3vw, 2.2rem);
+            font-weight: 300;
+            margin-bottom: 60px;
+            color: var(--museum-gold);
+            font-style: italic;
+            max-width: 900px;
+        }
+
+        .hero-description {
+            font-size: 20px;
+            line-height: 1.8;
+            margin-bottom: 80px;
+            color: var(--museum-charcoal);
+            max-width: 800px;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 22px 50px;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: none;
+            cursor: none;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--museum-gold);
+            color: var(--museum-ivory);
+            border: 2px solid var(--museum-gold);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--museum-charcoal);
+            border: 2px solid var(--museum-charcoal);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(44, 44, 44, 0.1);
+            transition: all 0.4s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(44, 44, 44, 0.2);
+        }
+
+        /* 展覽區 */
+        .exhibition {
+            padding: 120px 80px;
+            background: rgba(44, 44, 44, 0.03);
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 100px;
+        }
+
+        .section-title {
+            font-size: clamp(3rem, 7vw, 5rem);
+            font-weight: 400;
+            color: var(--museum-charcoal);
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+        }
+
+        .section-subtitle {
+            font-size: 24px;
+            color: var(--museum-gold);
+            font-style: italic;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .exhibition-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 80px;
+            margin-top: 100px;
+        }
+
+        .exhibition-piece {
+            background: var(--museum-ivory);
+            padding: 80px 60px;
+            border: 1px solid rgba(44, 44, 44, 0.1);
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: none;
+            overflow: hidden;
+        }
+
+        .exhibition-piece::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--museum-gold), var(--museum-charcoal));
+            transform: scaleX(0);
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform-origin: left;
+        }
+
+        .exhibition-piece:hover::before {
+            transform: scaleX(1);
+        }
+
+        .exhibition-piece:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(44, 44, 44, 0.15);
+        }
+
+        .piece-icon {
+            font-size: 56px;
+            margin-bottom: 40px;
+            display: block;
+            animation: artifactFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes artifactFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .exhibition-piece h3 {
+            font-size: 28px;
+            font-weight: 400;
+            color: var(--museum-charcoal);
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .exhibition-piece p {
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--museum-charcoal);
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        /* 館藏特色區 */
+        .collection {
+            padding: 120px 80px;
+            background: var(--museum-ivory);
+        }
+
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 60px;
+            margin-top: 100px;
+        }
+
+        .collection-item {
+            text-align: center;
+            position: relative;
+            padding: 60px 20px;
+        }
+
+        .collection-item::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -30px;
+            width: 2px;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, var(--museum-gold), transparent);
+            transform: translateY(-50%);
+        }
+
+        .collection-item:last-child::after {
+            display: none;
+        }
+
+        .collection-number {
+            width: 100px;
+            height: 100px;
+            border: 3px solid var(--museum-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--museum-gold);
+            margin: 0 auto 40px;
+            position: relative;
+            background: var(--museum-ivory);
+            animation: collectionOrbit 8s linear infinite;
+        }
+
+        @keyframes collectionOrbit {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .collection-item h4 {
+            font-size: 24px;
+            font-weight: 400;
+            color: var(--museum-charcoal);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .collection-item p {
+            font-size: 16px;
+            color: var(--museum-charcoal);
+            opacity: 0.7;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* 參觀資訊區 */
+        .visit-info {
+            padding: 120px 80px;
+            background: linear-gradient(135deg, var(--museum-charcoal) 0%, rgba(44, 44, 44, 0.9) 100%);
+            color: var(--museum-ivory);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .visit-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(212, 175, 55, 0.1) 2px, transparent 2px),
+                radial-gradient(circle at 75% 75%, rgba(250, 250, 250, 0.05) 1px, transparent 1px);
+            background-size: 150px 150px, 200px 200px;
+            animation: museumPattern 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes museumPattern {
+            0% { background-position: 0 0, 0 0; }
+            100% { background-position: 150px 150px, -200px 200px; }
+        }
+
+        .visit-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .visit-title {
+            font-size: clamp(3rem, 7vw, 5rem);
+            font-weight: 400;
+            margin-bottom: 50px;
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+        }
+
+        .visit-text {
+            font-size: 22px;
+            line-height: 1.8;
+            margin-bottom: 60px;
+            opacity: 0.9;
+            font-style: italic;
+            font-weight: 300;
+        }
+
+        .visit-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .detail-item {
+            background: rgba(250, 250, 250, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .detail-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--museum-gold);
+            background: rgba(250, 250, 250, 0.15);
+        }
+
+        .detail-item h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--museum-gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .detail-item p {
+            font-size: 16px;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        /* 頁腳 */
+        footer {
+            background: var(--museum-charcoal);
+            color: var(--museum-ivory);
+            padding: 80px 80px 40px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .footer-title {
+            font-size: 32px;
+            font-weight: 400;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .footer-text {
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 50px;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-links a {
+            color: var(--museum-ivory);
+            text-decoration: none;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--museum-gold);
+        }
+
+        .footer-copyright {
+            font-size: 14px;
+            opacity: 0.6;
+            border-top: 1px solid rgba(250, 250, 250, 0.1);
+            padding-top: 40px;
+            font-weight: 300;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            nav {
+                padding: 0 20px;
+                height: 80px;
+            }
+
+            .nav-menu {
+                gap: 30px;
+            }
+
+            .hero, .exhibition, .collection, .visit-info, footer {
+                padding: 80px 20px;
+            }
+
+            .exhibition-grid {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .collection-grid {
+                grid-template-columns: 1fr;
+                gap: 80px;
+            }
+
+            .collection-item::after {
+                display: none;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 25px;
+            }
+
+            .visit-details {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .exhibition-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .exhibition-piece {
+                padding: 60px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 博物館游標 -->
+    <div class="museum-cursor" id="museumCursor"></div>
+
+    <!-- 導航列 -->
+    <nav>
+        <div class="logo">Museum Gallery</div>
+        <ul class="nav-menu">
+            <li><a href="../index.html">首頁</a></li>
+            <li><a href="#exhibition">展覽</a></li>
+            <li><a href="#collection">館藏</a></li>
+            <li><a href="#visit">參觀</a></li>
+        </ul>
+    </nav>
+
+    <!-- 主要內容 -->
+    <main>
+        <!-- Hero 區塊 -->
+        <section class="hero">
+            <div class="hero-badge">藝術 • 文化 • 傳承</div>
+            <h1 class="hero-title">Museum<br>Gallery</h1>
+            <p class="hero-subtitle">每一件藝術品都是人類文明的珍貴見證</p>
+            <p class="hero-description">
+                精心策劃的展覽空間，展示人類創造力的巔峰之作。
+                從古典藝術到當代創新，每個展廳都是一段跨越時空的文化之旅，
+                讓參觀者在寧靜的空間中與藝術大師進行心靈對話。
+            </p>
+            <div class="hero-buttons">
+                <a href="#exhibition" class="btn btn-primary">探索展覽</a>
+                <a href="#collection" class="btn btn-secondary">精選館藏</a>
+            </div>
+        </section>
+
+        <!-- 展覽區 -->
+        <section class="exhibition" id="exhibition">
+            <div class="section-header">
+                <h2 class="section-title">典藏展覽</h2>
+                <p class="section-subtitle">沉浸式的藝術體驗，感受文化的深度與廣度</p>
+            </div>
+            <div class="exhibition-grid">
+                <div class="exhibition-piece">
+                    <span class="piece-icon">🎨</span>
+                    <h3>古典繪畫</h3>
+                    <p>收藏橫跨文藝復興至印象派的經典畫作，展現西方藝術史的黃金時期。每幅作品都經過專業保存與修復，在最佳的光線條件下呈現原作的精髓。</p>
+                </div>
+                <div class="exhibition-piece">
+                    <span class="piece-icon">🗿</span>
+                    <h3>雕塑藝術</h3>
+                    <p>從古希臘羅馬的大理石雕像到現代抽象雕塑，展示人類對立體造型藝術的不懈追求。每件作品都配有詳細的歷史背景與藝術家介紹。</p>
+                </div>
+                <div class="exhibition-piece">
+                    <span class="piece-icon">🏺</span>
+                    <h3>陶瓷工藝</h3>
+                    <p>精選來自世界各地的陶瓷精品，從中國古代官窯到現代陶藝創作。展示陶瓷藝術在不同文化背景下的獨特發展軌跡與精湛技藝。</p>
+                </div>
+                <div class="exhibition-piece">
+                    <span class="piece-icon">📜</span>
+                    <h3>古籍文獻</h3>
+                    <p>珍貴的古代手稿、版畫與書籍收藏，見證文字藝術與印刷工藝的歷史演進。特殊的保存環境確保這些文化瑰寶能夠長久傳世。</p>
+                </div>
+                <div class="exhibition-piece">
+                    <span class="piece-icon">💎</span>
+                    <h3>裝飾藝術</h3>
+                    <p>精美的金銀器皿、珠寶首飾與裝飾品，展現各個時代的奢華工藝與審美標準。每件展品都體現了工藝師傅的巧思與精湛技術。</p>
+                </div>
+                <div class="exhibition-piece">
+                    <span class="piece-icon">🖼️</span>
+                    <h3>當代藝術</h3>
+                    <p>展示當代藝術家的創新作品，包括裝置藝術、數位藝術與概念藝術。為觀眾提供理解當代文化與藝術發展趨勢的視窗。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 館藏特色區 */
+        <section class="collection" id="collection">
+            <div class="section-header">
+                <h2 class="section-title">館藏特色</h2>
+                <p class="section-subtitle">三大核心收藏系列，構建完整的藝術史敘事</p>
+            </div>
+            <div class="collection-grid">
+                <div class="collection-item">
+                    <div class="collection-number">I</div>
+                    <h4>歷史傳承</h4>
+                    <p>收藏跨越數千年的文物與藝術品，從史前文明到古典時代，呈現人類文明的發展軌跡與文化傳承的珍貴紀錄。</p>
+                </div>
+                <div class="collection-item">
+                    <div class="collection-number">II</div>
+                    <h4>藝術創新</h4>
+                    <p>展示各個歷史時期的藝術革新與突破，從技法創新到思想解放，記錄藝術家們如何推動人類美學認知的邊界。</p>
+                </div>
+                <div class="collection-item">
+                    <div class="collection-number">III</div>
+                    <h4>文化交流</h4>
+                    <p>呈現不同文化間的藝術交流與影響，展現人類文明在交匯融合中創造的多元藝術形式與文化瑰寶。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 參觀資訊區 */
+        <section class="visit-info" id="visit">
+            <div class="visit-content">
+                <h2 class="visit-title">參觀資訊</h2>
+                <p class="visit-text">
+                    我們致力於為每位參觀者提供最優質的藝術體驗。
+                    專業的導覽服務、舒適的觀展環境，讓您在寧靜的空間中
+                    感受藝術的魅力，體驗文化的深度。
+                </p>
+                <div class="visit-details">
+                    <div class="detail-item">
+                        <h4>開放時間</h4>
+                        <p>週二至週日 09:00-17:00<br>週一休館 (法定假日除外)</p>
+                    </div>
+                    <div class="detail-item">
+                        <h4>門票資訊</h4>
+                        <p>成人票 $300<br>學生票 $150<br>65歲以上長者免費</p>
+                    </div>
+                    <div class="detail-item">
+                        <h4>導覽服務</h4>
+                        <p>專業導覽員解說<br>語音導覽設備<br>特殊展覽專題導覽</p>
+                    </div>
+                    <div class="detail-item">
+                        <h4>設施服務</h4>
+                        <p>無障礙通道<br>兒童推車租借<br>藝術書店與咖啡廳</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 頁腳 -->
+    <footer>
+        <div class="footer-content">
+            <h3 class="footer-title">Museum Gallery</h3>
+            <p class="footer-text">保存文化遺產，傳承藝術精神</p>
+            <div class="footer-links">
+                <a href="#exhibition">展覽資訊</a>
+                <a href="#collection">館藏介紹</a>
+                <a href="#visit">參觀指南</a>
+                <a href="../index.html">返回首頁</a>
+            </div>
+            <div class="footer-copyright">
+                © 2024 Museum Gallery. 藝術與文化的永恆殿堂.
+            </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        // 博物館游標追踪系統
+        const museumCursor = document.getElementById('museumCursor');
+        const interactiveElements = document.querySelectorAll('a, .btn, .exhibition-piece, .detail-item, nav ul li');
+
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function updateCursor() {
+            cursorX += (mouseX - cursorX) * 0.1;
+            cursorY += (mouseY - cursorY) * 0.1;
+            
+            museumCursor.style.left = cursorX + 'px';
+            museumCursor.style.top = cursorY + 'px';
+            
+            requestAnimationFrame(updateCursor);
+        }
+
+        updateCursor();
+
+        // 互動元素懸停效果
+        interactiveElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                museumCursor.classList.add('hover');
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                museumCursor.classList.remove('hover');
+            });
+        });
+
+        // 展品入場動畫
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const exhibitionPieces = document.querySelectorAll('.exhibition-piece');
+        const collectionItems = document.querySelectorAll('.collection-item');
+
+        const animateOnScroll = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 150);
+                }
+            });
+        }, observerOptions);
+
+        // 設置初始狀態並開始觀察
+        [...exhibitionPieces, ...collectionItems].forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(40px)';
+            element.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            animateOnScroll.observe(element);
+        });
+
+        // 平滑滾動導航
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 特殊展品懸停光效
+        document.querySelectorAll('.exhibition-piece').forEach(piece => {
+            piece.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 30px 60px rgba(212, 175, 55, 0.2)';
+            });
+            
+            piece.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '';
+            });
+        });
+
+        // 載入確認
+        console.log('🏛️ Museum Gallery - 博物館展覽廳風格已載入');
+        console.log('✨ 特色：博物館質感、藝術展示、文化傳承、典雅氛圍');
+    </script>
+</body>
+</html>
