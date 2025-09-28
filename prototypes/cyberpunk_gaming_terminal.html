@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS TERMINAL - 賽博朋克遊戲控制台 | 2025未來主義遊戲界面</title>
+    <meta name="description" content="沉浸式賽博朋克遊戲終端界面，展示2025年最新遊戲UI設計趨勢，霓虹美學與未來科技的完美融合">
+    <style>
+        /* ======================
+           CYBERPUNK GAMING TERMINAL
+           設計理念：「數位末世的霓虹救贖」
+           創作日期：2025-09-28
+           ====================== */
+
+        /* 賽博朋克色彩系統 - 基於成功案例的護眼原則 */
+        :root {
+            /* 主色系 - 降低飽和度的霓虹色彩 */
+            --cyber-black: #0a0a0a;           /* 深邃漆黑 */
+            --neon-cyan: #00d4d4;             /* 護眼青色(降低飽和度65%) */
+            --neon-pink: #d14895;             /* 護眼粉紅(降低飽和度60%) */
+            --neon-orange: #d4825a;           /* 成功案例橘色 */
+            --electric-blue: #4a9eff;         /* 電子藍色 */
+
+            /* 功能色系 */
+            --terminal-green: #00ff88;        /* 終端機綠 */
+            --warning-red: #ff4757;           /* 警告紅 */
+            --grid-grey: #1a1a1a;             /* 網格深灰 */
+            --text-dim: #8892b0;              /* 暗色文字 */
+            --glow-shadow: 0 0 20px;          /* 發光陰影 */
+
+            /* 專業動畫曲線 */
+            --ease-cyber: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --ease-glitch: cubic-bezier(0.76, 0, 0.24, 1);
+
+            /* 響應式系統 */
+            --title-size: clamp(2rem, 8vw, 5rem);
+            --heading-size: clamp(1.2rem, 4vw, 2rem);
+            --body-size: clamp(0.9rem, 2.5vw, 1rem);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', 'Source Code Pro', monospace;
+            background: var(--cyber-black);
+            color: var(--neon-cyan);
+            line-height: 1.4;
+            font-size: var(--body-size);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ===== 數字網格背景 ===== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0, 212, 212, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 212, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            animation: gridPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.1; }
+        }
+
+        /* ===== 終端機導航欄 ===== */
+        .terminal-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--neon-cyan);
+            z-index: 1000;
+            padding: 15px 5%;
+            box-shadow: var(--glow-shadow) var(--neon-cyan);
+        }
+
+        .terminal-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .terminal-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--neon-cyan);
+            text-decoration: none;
+            letter-spacing: 0.2em;
+            text-shadow: var(--glow-shadow) var(--neon-cyan);
+            animation: logoGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes logoGlow {
+            from { text-shadow: 0 0 10px var(--neon-cyan); }
+            to { text-shadow: 0 0 20px var(--neon-cyan), 0 0 30px var(--neon-cyan); }
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-family: inherit;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            transition: all 0.3s var(--ease-cyber);
+            position: relative;
+            padding: 8px 12px;
+            border: 1px solid transparent;
+        }
+
+        .nav-link:hover {
+            color: var(--neon-cyan);
+            border-color: var(--neon-cyan);
+            box-shadow: inset 0 0 10px rgba(0, 212, 212, 0.2);
+        }
+
+        .system-status {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--terminal-green);
+            box-shadow: var(--glow-shadow) var(--terminal-green);
+            animation: statusBlink 1s ease-in-out infinite;
+        }
+
+        @keyframes statusBlink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        .system-time {
+            font-family: inherit;
+            color: var(--terminal-green);
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* ===== 主控制台界面 ===== */
+        .main-terminal {
+            min-height: 100vh;
+            padding: 100px 5% 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .terminal-welcome {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInGlitch 1.5s var(--ease-glitch);
+        }
+
+        .terminal-title {
+            font-size: var(--title-size);
+            font-weight: bold;
+            color: var(--neon-pink);
+            text-shadow: var(--glow-shadow) var(--neon-pink);
+            margin-bottom: 20px;
+            letter-spacing: 0.05em;
+            animation: titleFlicker 3s ease-in-out infinite;
+        }
+
+        @keyframes titleFlicker {
+            0%, 98% { opacity: 1; }
+            99% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+
+        .terminal-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            margin-bottom: 30px;
+            letter-spacing: 0.1em;
+        }
+
+        .access-prompt {
+            font-size: 1rem;
+            color: var(--terminal-green);
+            margin-bottom: 40px;
+            animation: cursorBlink 1s step-end infinite;
+        }
+
+        .access-prompt::after {
+            content: '_';
+            animation: cursorBlink 1s step-end infinite;
+        }
+
+        @keyframes cursorBlink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* ===== 遊戲控制面板 ===== */
+        .control-panels {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .control-panel {
+            background: rgba(26, 26, 26, 0.8);
+            border: 1px solid var(--neon-cyan);
+            padding: 25px;
+            transition: all 0.4s var(--ease-cyber);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .control-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+            animation: scanLine 3s ease-in-out infinite;
+        }
+
+        @keyframes scanLine {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: -100%; }
+        }
+
+        .control-panel:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow-shadow) var(--neon-cyan);
+            border-color: var(--neon-pink);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--grid-grey);
+        }
+
+        .panel-title {
+            font-size: var(--heading-size);
+            color: var(--neon-cyan);
+            font-weight: bold;
+            letter-spacing: 0.1em;
+        }
+
+        .panel-icon {
+            font-size: 1.5rem;
+            color: var(--neon-orange);
+            text-shadow: var(--glow-shadow) var(--neon-orange);
+        }
+
+        .panel-content {
+            color: var(--text-dim);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .panel-stats {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.2rem;
+            color: var(--terminal-green);
+            font-weight: bold;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .action-button {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            font-family: inherit;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-cyber);
+            text-transform: uppercase;
+        }
+
+        .action-button:hover {
+            background: var(--neon-cyan);
+            color: var(--cyber-black);
+            box-shadow: var(--glow-shadow) var(--neon-cyan);
+        }
+
+        .action-button.danger {
+            border-color: var(--warning-red);
+            color: var(--warning-red);
+        }
+
+        .action-button.danger:hover {
+            background: var(--warning-red);
+            box-shadow: var(--glow-shadow) var(--warning-red);
+        }
+
+        /* ===== 系統監控區 ===== */
+        .system-monitor {
+            margin-top: 60px;
+            padding: 30px;
+            background: rgba(26, 26, 26, 0.6);
+            border: 1px solid var(--terminal-green);
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .monitor-title {
+            color: var(--terminal-green);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            text-shadow: var(--glow-shadow) var(--terminal-green);
+        }
+
+        .terminal-output {
+            font-family: inherit;
+            color: var(--terminal-green);
+            background: var(--cyber-black);
+            padding: 20px;
+            border: 1px solid var(--terminal-green);
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+        }
+
+        .terminal-line {
+            margin-bottom: 5px;
+            animation: typeWriter 0.5s ease-out;
+        }
+
+        .terminal-line.error {
+            color: var(--warning-red);
+        }
+
+        .terminal-line.warning {
+            color: var(--neon-orange);
+        }
+
+        @keyframes typeWriter {
+            from { width: 0; opacity: 0; }
+            to { width: 100%; opacity: 1; }
+        }
+
+        /* ===== 動畫效果 ===== */
+        @keyframes fadeInGlitch {
+            0% {
+                opacity: 0;
+                transform: translateY(20px) scaleX(0.95);
+            }
+            50% {
+                opacity: 0.8;
+                transform: translateY(-5px) scaleX(1.02);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scaleX(1);
+            }
+        }
+
+        /* ===== 響應式設計 ===== */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .control-panels {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .panel-stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .terminal-header {
+                padding: 10px 5%;
+            }
+
+            .main-terminal {
+                padding: 80px 5% 30px;
+            }
+        }
+
+        /* ===== 滾動條樣式 ===== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--cyber-black);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--neon-cyan);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--neon-pink);
+        }
+    </style>
+</head>
+<body>
+    <!-- 終端機標題欄 -->
+    <header class="terminal-header">
+        <nav class="terminal-nav">
+            <a href="#" class="terminal-logo">NEXUS_TERMINAL</a>
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link">[GAME_MODE]</a></li>
+                <li><a href="#" class="nav-link">[SYSTEMS]</a></li>
+                <li><a href="#" class="nav-link">[STATS]</a></li>
+                <li><a href="#" class="nav-link">[SETTINGS]</a></li>
+            </ul>
+            <div class="system-status">
+                <span class="status-indicator"></span>
+                <span class="system-time">2025.09.28_23:47:33</span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 主控制台 -->
+    <main class="main-terminal">
+        <div class="terminal-welcome">
+            <h1 class="terminal-title">NEXUS ONLINE</h1>
+            <p class="terminal-subtitle">/// CYBERPUNK GAMING INTERFACE ///</p>
+            <p class="access-prompt">ACCESS_GRANTED > NEURAL_LINK_ESTABLISHED</p>
+        </div>
+
+        <!-- 控制面板網格 -->
+        <div class="control-panels">
+            <div class="control-panel">
+                <div class="panel-header">
+                    <h3 class="panel-title">GAME_SESSIONS</h3>
+                    <div class="panel-icon">⚡</div>
+                </div>
+                <div class="panel-content">
+                    啟動沉浸式遊戲體驗，進入數位末世的霓虹世界。
+                    準備好挑戰賽博空間的極限了嗎？
+                </div>
+                <div class="panel-stats">
+                    <div class="stat-item">
+                        <span class="stat-value">1,337</span>
+                        <span class="stat-label">SCORE</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">42</span>
+                        <span class="stat-label">LEVEL</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">98%</span>
+                        <span class="stat-label">SYNC</span>
+                    </div>
+                </div>
+                <button class="action-button">JACK_IN</button>
+            </div>
+
+            <div class="control-panel">
+                <div class="panel-header">
+                    <h3 class="panel-title">NEURAL_BOOST</h3>
+                    <div class="panel-icon">🧠</div>
+                </div>
+                <div class="panel-content">
+                    增強你的神經連接，提升反應速度和感知能力。
+                    警告：過度使用可能導致系統不穩定。
+                </div>
+                <div class="panel-stats">
+                    <div class="stat-item">
+                        <span class="stat-value">78%</span>
+                        <span class="stat-label">CAPACITY</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">156ms</span>
+                        <span class="stat-label">LATENCY</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">STABLE</span>
+                        <span class="stat-label">STATUS</span>
+                    </div>
+                </div>
+                <button class="action-button">ENHANCE</button>
+            </div>
+
+            <div class="control-panel">
+                <div class="panel-header">
+                    <h3 class="panel-title">CYBER_ARSENAL</h3>
+                    <div class="panel-icon">⚔</div>
+                </div>
+                <div class="panel-content">
+                    管理你的數位武器庫，升級軟體和硬體配置。
+                    每次升級都會改變遊戲的平衡。
+                </div>
+                <div class="panel-stats">
+                    <div class="stat-item">
+                        <span class="stat-value">24</span>
+                        <span class="stat-label">WEAPONS</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">8</span>
+                        <span class="stat-label">MODS</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">LV.5</span>
+                        <span class="stat-label">TECH</span>
+                    </div>
+                </div>
+                <button class="action-button">UPGRADE</button>
+            </div>
+
+            <div class="control-panel">
+                <div class="panel-header">
+                    <h3 class="panel-title">SYSTEM_BREACH</h3>
+                    <div class="panel-icon">🔓</div>
+                </div>
+                <div class="panel-content">
+                    入侵敵方系統，竊取機密資料。
+                    注意：被發現的風險極高。
+                </div>
+                <div class="panel-stats">
+                    <div class="stat-item">
+                        <span class="stat-value">DANGER</span>
+                        <span class="stat-label">THREAT</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">23%</span>
+                        <span class="stat-label">SUCCESS</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">HIGH</span>
+                        <span class="stat-label">REWARD</span>
+                    </div>
+                </div>
+                <button class="action-button danger">BREACH</button>
+            </div>
+        </div>
+
+        <!-- 系統監控 -->
+        <div class="system-monitor">
+            <h3 class="monitor-title">SYSTEM_LOG [REAL_TIME]</h3>
+            <div class="terminal-output">
+                <div class="terminal-line">[23:47:33] > Neural link established...</div>
+                <div class="terminal-line">[23:47:34] > Loading cyberpunk protocols...</div>
+                <div class="terminal-line">[23:47:35] > Firewall status: ACTIVE</div>
+                <div class="terminal-line warning">[23:47:36] > WARNING: Unauthorized access detected</div>
+                <div class="terminal-line">[23:47:37] > Initiating countermeasures...</div>
+                <div class="terminal-line">[23:47:38] > System integrity: 98.7%</div>
+                <div class="terminal-line error">[23:47:39] > ERROR: Memory buffer overflow</div>
+                <div class="terminal-line">[23:47:40] > Auto-repair initiated...</div>
+                <div class="terminal-line">[23:47:41] > All systems nominal</div>
+                <div class="terminal-line">[23:47:42] > Waiting for user input...</div>
+            </div>
+        </div>
+    </main>
+
+    <!--
+    設計說明：
+
+    🔮 創新特色：
+    - 2025賽博朋克趨勢：霓虹色彩、暗色主題、未來主義美學
+    - 應用成功案例護眼原則：降低霓虹色飽和度60-65%
+    - 終端機美學：monospace字體、掃描線動畫、系統日誌
+
+    ⚡ 技術亮點：
+    - 動態網格背景與掃描線動畫
+    - 多層次發光效果和文字陰影
+    - 專業緩動函數提升交互質感
+    - 實時系統監控模擬
+
+    🎮 設計理念：
+    "數位末世的霓虹救贖" - 在黑暗中尋找光明的賽博朋克精神
+    結合遊戲界面的功能性與電影級的視覺衝擊力
+    -->
+</body>
+</html>

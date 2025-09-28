@@ -80,18 +80,43 @@ class ManifestBuilder {
         for (const filename of files) {
             try {
                 const metadata = await this.extractFileMetadata(filename);
+
+                // 檢查是否有對應的截圖檔案
+                const screenshotName = filename.replace('.html', '.png');
+                const screenshotPath = path.join(__dirname, 'screenshots', screenshotName);
+
+                try {
+                    await fs.access(screenshotPath);
+                    metadata.screenshot = screenshotName;
+                    console.log(`   ✓ ${filename} - ${metadata.title} (有截圖)`);
+                } catch {
+                    console.log(`   ✓ ${filename} - ${metadata.title} (無截圖)`);
+                }
+
                 filesWithMetadata.push(metadata);
-                console.log(`   ✓ ${filename} - ${metadata.title}`);
             } catch (error) {
                 console.warn(`   ⚠️  ${filename} - 無法提取元數據: ${error.message}`);
                 // 使用基本元數據
-                filesWithMetadata.push({
+                const basicMetadata = {
                     name: filename,
                     title: this.extractTitleFromFilename(filename),
                     description: '獨立 HTML 藝術作品',
                     lastModified: null,
                     size: 0
-                });
+                };
+
+                // 也檢查基本元數據的截圖
+                const screenshotName = filename.replace('.html', '.png');
+                const screenshotPath = path.join(__dirname, 'screenshots', screenshotName);
+
+                try {
+                    await fs.access(screenshotPath);
+                    basicMetadata.screenshot = screenshotName;
+                } catch {
+                    // 無截圖檔案
+                }
+
+                filesWithMetadata.push(basicMetadata);
             }
         }
 

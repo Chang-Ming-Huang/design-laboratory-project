@@ -67,7 +67,19 @@ class DesignLabServer {
 
     async getFiles(req, res) {
         try {
-            // 檢查 prototypes 目錄是否存在
+            // 優先讀取 files-manifest.json
+            const manifestPath = path.join(__dirname, 'files-manifest.json');
+            try {
+                const manifestData = await fs.readFile(manifestPath, 'utf8');
+                const manifest = JSON.parse(manifestData);
+
+                // 直接回傳 manifest 中的檔案列表
+                return res.json(manifest.files || []);
+            } catch (manifestError) {
+                console.warn('無法讀取 files-manifest.json，使用備用方法:', manifestError.message);
+            }
+
+            // 備用方法：檢查 prototypes 目錄是否存在
             try {
                 await fs.access(this.prototypesDir);
             } catch (error) {

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentic Imperfection Lab | 真實不完美實驗室</title>
+    <style>
+        /*
+        Authentic Imperfection Lab - 2025 Trend Implementation
+
+        Inspired by:
+        - 2025 "Authentic Design" trend from Awwwards research
+        - Japanese Wabi-Sabi aesthetic philosophy
+        - Punk Rock visual energy and DIY culture
+        - Intentional design "mistakes" as beauty
+
+        Design Philosophy:
+        "Perfect imperfection beats imperfect perfection"
+
+        Creative Framework Applied:
+        - 反直覺測試: Making "errors" the hero elements
+        - 極端化原則: Push imperfection to become the aesthetic
+        - 跨領域靈感: Wabi-sabi + Punk Rock + Glitch Art
+        */
+
+        :root {
+            /* Imperfect Color Palette - Intentionally Off-Balance */
+            --wabi-sand: #f4f1eb;          /* Warm, aged white */
+            --wabi-stone: #8b7d6b;         /* Natural stone gray */
+            --wabi-rust: #a0522d;          /* Oxidized metal */
+            --punk-crack: #2c2c2c;         /* Deep charcoal */
+            --accent-tear: #d4825a;        /* Torn paper orange */
+            --mistake-red: #8b3a3a;        /* Muted warning red */
+
+            /* Intentionally Imperfect Measurements */
+            --gap-awkward: 37px;           /* Not 40px - intentionally off */
+            --border-uneven: 3.7px;       /* Slightly thick, imperfect */
+            --padding-organic: 23px 41px 19px 35px; /* All different */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--wabi-sand);
+            color: var(--punk-crack);
+            font-family: 'Courier New', monospace; /* Typewriter imperfection */
+            line-height: 1.7; /* Slightly loose for organic feel */
+            overflow-x: hidden;
+        }
+
+        /* Intentional Layout "Mistakes" */
+        .container {
+            max-width: 1180px; /* Not 1200px - subtly off */
+            margin: 0 auto;
+            padding: 0 1.8rem; /* Asymmetric by design */
+            position: relative;
+        }
+
+        /* Hero Section - Deliberate Asymmetry */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start; /* Left-aligned, not centered */
+            padding: var(--padding-organic);
+            position: relative;
+            background:
+                linear-gradient(137deg, transparent 60%, rgba(139, 125, 107, 0.05) 61%),
+                radial-gradient(circle at 23% 89%, rgba(212, 130, 90, 0.08) 0%, transparent 45%);
+        }
+
+        /* "Torn Paper" Title Effect */
+        .hero-title {
+            font-size: clamp(3.2rem, 9.3vw, 7.1rem); /* Irregular scaling */
+            font-weight: 900;
+            line-height: 0.82; /* Cramped, imperfect */
+            color: var(--punk-crack);
+            margin-bottom: 1.3rem;
+            letter-spacing: -0.07em;
+            transform: rotate(-0.8deg); /* Slight tilt - imperfection */
+            position: relative;
+        }
+
+        .hero-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: -15px;
+            right: 15px;
+            height: 4px;
+            background: var(--accent-tear);
+            transform: skew(-2deg);
+            opacity: 0.7;
+            border-radius: 0; /* Sharp edges, no smooth curves */
+        }
+
+        /* Glitch Text Effect - Controlled Chaos */
+        .glitch-text {
+            position: relative;
+            display: inline-block;
+            color: var(--mistake-red);
+        }
+
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch-text::before {
+            animation: glitch-1 2.5s infinite;
+            color: var(--wabi-rust);
+            z-index: -1;
+        }
+
+        .glitch-text::after {
+            animation: glitch-2 2.8s infinite;
+            color: var(--accent-tear);
+            z-index: -2;
+        }
+
+        @keyframes glitch-1 {
+            0%, 14%, 15%, 49%, 50%, 99%, 100% {
+                transform: translate(0);
+            }
+            15% {
+                transform: translate(-2px, 1px);
+            }
+            49% {
+                transform: translate(1px, -1px);
+            }
+        }
+
+        @keyframes glitch-2 {
+            0%, 20%, 21%, 62%, 63%, 99%, 100% {
+                transform: translate(0);
+            }
+            21% {
+                transform: translate(1px, 1px);
+            }
+            62% {
+                transform: translate(-1px, 2px);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.3vw, 1.6rem);
+            color: var(--wabi-stone);
+            margin-bottom: 2.7rem;
+            font-weight: 400;
+            max-width: 520px; /* Irregular width */
+            line-height: 1.8;
+            font-family: 'Georgia', serif; /* Mix typefaces for imperfection */
+        }
+
+        /* Broken Grid System - Intentional Misalignment */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr; /* Uneven columns */
+            gap: var(--gap-awkward);
+            margin: 80px 0;
+            align-items: start;
+        }
+
+        .content-card {
+            background: rgba(255, 255, 255, 0.6);
+            padding: var(--padding-organic);
+            border: var(--border-uneven) solid var(--wabi-stone);
+            border-radius: 0; /* No smooth curves */
+            position: relative;
+            transform: rotate(0.3deg); /* Slight rotation */
+            box-shadow:
+                7px 11px 23px rgba(44, 44, 44, 0.08),
+                -2px -3px 8px rgba(212, 130, 90, 0.05); /* Irregular shadows */
+        }
+
+        .content-card:nth-child(even) {
+            transform: rotate(-0.5deg);
+            margin-top: 23px; /* Uneven spacing */
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: var(--accent-tear);
+            z-index: -1;
+            transform: rotate(0.8deg);
+            opacity: 0.2;
+        }
+
+        /* Hand-drawn Style Elements */
+        .card-title {
+            font-size: 1.8rem;
+            color: var(--punk-crack);
+            margin-bottom: 1.1rem;
+            font-weight: 700;
+            text-decoration: underline;
+            text-decoration-color: var(--mistake-red);
+            text-decoration-thickness: 2px;
+            text-underline-offset: 4px;
+            text-decoration-style: wavy; /* Hand-drawn underline */
+        }
+
+        .card-text {
+            color: var(--wabi-stone);
+            line-height: 1.9;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Imperfect Buttons - Deliberately Inconsistent */
+        .imperfect-btn {
+            background: var(--wabi-rust);
+            color: var(--wabi-sand);
+            padding: 13px 27px 15px 31px; /* All different */
+            border: none;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            transform: skew(-1deg);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+        }
+
+        .imperfect-btn:hover {
+            background: var(--mistake-red);
+            transform: skew(-1deg) scale(1.02) rotate(0.5deg);
+            box-shadow: 5px 8px 15px rgba(44, 44, 44, 0.2);
+        }
+
+        .imperfect-btn:active {
+            transform: skew(-1deg) scale(0.98);
+        }
+
+        /* Tear Effect Section */
+        .tear-section {
+            margin: 100px 0;
+            padding: 60px 0;
+            background: var(--punk-crack);
+            color: var(--wabi-sand);
+            position: relative;
+            transform: rotate(-0.2deg);
+        }
+
+        .tear-section::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background:
+                radial-gradient(circle at 23px 10px, transparent 3px, var(--punk-crack) 4px),
+                radial-gradient(circle at 67px 8px, transparent 4px, var(--punk-crack) 5px),
+                radial-gradient(circle at 120px 12px, transparent 2px, var(--punk-crack) 3px);
+            background-size: 44px 20px;
+        }
+
+        .philosophy-text {
+            text-align: center;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 300;
+            line-height: 1.4;
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 0 2rem;
+            color: var(--wabi-sand);
+            font-style: italic;
+        }
+
+        /* Authenticity Manifesto - Broken Rules */
+        .manifesto {
+            margin: 80px 0;
+            background: rgba(212, 130, 90, 0.1);
+            padding: 50px var(--gap-awkward);
+            border-left: 8px solid var(--accent-tear);
+            border-bottom: 3px solid var(--wabi-rust);
+            transform: skew(-0.5deg);
+        }
+
+        .manifesto-title {
+            font-size: 2.5rem;
+            color: var(--mistake-red);
+            margin-bottom: 1.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-shadow: 2px 2px 0px var(--accent-tear);
+        }
+
+        .manifesto-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .manifesto-item {
+            font-size: 1.2rem;
+            color: var(--punk-crack);
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .manifesto-item::before {
+            content: '✗';
+            position: absolute;
+            left: 0;
+            color: var(--mistake-red);
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        /* Mobile Imperfection - Even on Small Screens */
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: var(--gap-awkward);
+            }
+
+            .hero {
+                padding: 2rem 1.5rem;
+                align-items: center;
+                text-align: center;
+            }
+
+            .hero-title {
+                transform: rotate(-0.5deg);
+            }
+
+            .manifesto {
+                padding: 30px 20px;
+                margin: 40px -10px; /* Bleed out slightly */
+            }
+        }
+
+        /* Loading Animation - Imperfect Reveal */
+        .fade-in-imperfect {
+            opacity: 0;
+            animation: fadeInImperfect 1.2s ease-out forwards;
+        }
+
+        .fade-in-imperfect:nth-child(2) { animation-delay: 0.2s; }
+        .fade-in-imperfect:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes fadeInImperfect {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) rotate(-0.5deg);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+
+        /* Hidden Hover Easter Egg */
+        .easter-egg {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--mistake-red);
+            color: var(--wabi-sand);
+            padding: 8px 12px;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            transform: rotate(15deg);
+            cursor: help;
+        }
+
+        body:hover .easter-egg {
+            opacity: 0.6;
+        }
+
+        .easter-egg:hover {
+            opacity: 1;
+            transform: rotate(15deg) scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero fade-in-imperfect">
+            <h1 class="hero-title">
+                Authentic
+                <span class="glitch-text" data-text="Imperfection">Imperfection</span>
+                Lab
+            </h1>
+            <p class="hero-subtitle">
+                Where deliberate flaws become design features, and perfect imperfection
+                challenges the sanitized aesthetics of digital conformity.
+            </p>
+            <button class="imperfect-btn">Embrace the Beautiful Mistakes</button>
+        </section>
+
+        <!-- Content Grid -->
+        <section class="content-grid fade-in-imperfect">
+            <div class="content-card">
+                <h3 class="card-title">Wabi-Sabi Philosophy</h3>
+                <p class="card-text">
+                    Finding beauty in impermanence, imperfection, and incompleteness.
+                    This Japanese aesthetic philosophy teaches us that flaws and
+                    asymmetry contain more soul than sterile perfection.
+                </p>
+                <button class="imperfect-btn">Discover Beauty</button>
+            </div>
+
+            <div class="content-card">
+                <h3 class="card-title">Punk Rock Energy</h3>
+                <p class="card-text">
+                    Raw, unpolished, and unapologetically authentic. We embrace
+                    the DIY spirit that says "good enough" often beats "perfect"
+                    when it comes to genuine human connection.
+                </p>
+                <button class="imperfect-btn">Feel the Raw</button>
+            </div>
+        </section>
+
+        <!-- Philosophy Statement -->
+        <section class="tear-section fade-in-imperfect">
+            <p class="philosophy-text">
+                "In a world obsessed with pixel-perfect designs, we dare to be beautifully broken.
+                Every intentional mistake tells a story that pristine templates never could."
+            </p>
+        </section>
+
+        <!-- Authenticity Manifesto -->
+        <section class="manifesto fade-in-imperfect">
+            <h2 class="manifesto-title">Authenticity Manifesto</h2>
+            <ul class="manifesto-list">
+                <li class="manifesto-item">Embrace asymmetry as natural beauty</li>
+                <li class="manifesto-item">Let hand-drawn elements show human touch</li>
+                <li class="manifesto-item">Choose character over clinical perfection</li>
+                <li class="manifesto-item">Make deliberate "mistakes" as design features</li>
+                <li class="manifesto-item">Value soul over seamless execution</li>
+                <li class="manifesto-item">Celebrate the beautifully broken</li>
+            </ul>
+        </section>
+    </div>
+
+    <!-- Easter Egg -->
+    <div class="easter-egg" title="Perfect is the enemy of authentic">
+        ✗
+    </div>
+
+    <script>
+        // Add subtle interactive imperfections
+        document.addEventListener('DOMContentLoaded', function() {
+            // Random micro-movements for cards
+            const cards = document.querySelectorAll('.content-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    const randomRotation = Math.random() * 2 - 1; // -1 to 1 degrees
+                    this.style.transform = `rotate(${randomRotation}deg) scale(1.02)`;
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'rotate(0.3deg) scale(1)';
+                });
+            });
+
+            // Subtle cursor imperfection
+            let mouseX = 0, mouseY = 0;
+            document.addEventListener('mousemove', function(e) {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+
+                // Occasionally add tiny cursor lag for imperfection
+                if (Math.random() < 0.01) {
+                    setTimeout(() => {
+                        const cursor = document.createElement('div');
+                        cursor.style.cssText = `
+                            position: fixed;
+                            left: ${mouseX - 2}px;
+                            top: ${mouseY - 2}px;
+                            width: 4px;
+                            height: 4px;
+                            background: var(--mistake-red);
+                            border-radius: 50%;
+                            pointer-events: none;
+                            z-index: 9999;
+                            opacity: 0.3;
+                        `;
+                        document.body.appendChild(cursor);
+                        setTimeout(() => cursor.remove(), 500);
+                    }, 50);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

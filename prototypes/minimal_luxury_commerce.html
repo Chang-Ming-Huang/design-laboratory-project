@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUXE - 極簡奢華商城 | 2025現代極簡主義電商設計</title>
+    <meta name="description" content="專業級現代極簡主義電商界面設計，展示2025年最新設計趨勢，極致簡約的奢華購物體驗">
+    <style>
+        /* ======================
+           MINIMAL LUXURY COMMERCE
+           設計理念：「極致簡約中的奢華力量」
+           創作日期：2025-09-28
+           ====================== */
+
+        /* 成功案例色彩科學應用 */
+        :root {
+            /* 主色系 - 基於成功案例的護眼配色科學 */
+            --primary-charcoal: #1a1a1a;      /* 專業深色 */
+            --accent-gold: #d4a574;           /* 奢華金銅色(降低飽和度) */
+            --soft-cream: #faf8f5;            /* 溫暖奶白 */
+            --neutral-grey: #8d8d8d;          /* 平衡灰調 */
+
+            /* 功能色系 */
+            --pure-white: #ffffff;
+            --subtle-border: #e8e6e3;
+            --shadow-soft: rgba(26, 26, 26, 0.08);
+            --hover-lift: rgba(212, 165, 116, 0.12);
+
+            /* 2025趨勢：專業緩動函數 */
+            --ease-luxury: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --ease-gentle: cubic-bezier(0.16, 1, 0.3, 1);
+
+            /* 響應式字體系統 */
+            --title-size: clamp(2.5rem, 6vw, 4rem);
+            --heading-size: clamp(1.5rem, 4vw, 2.2rem);
+            --body-size: clamp(1rem, 2.5vw, 1.1rem);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--soft-cream);
+            color: var(--primary-charcoal);
+            line-height: 1.6;
+            font-size: var(--body-size);
+            overflow-x: hidden;
+        }
+
+        /* ===== 極簡導航系統 ===== */
+        .nav-minimal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(250, 248, 245, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 20px 5%;
+            border-bottom: 1px solid var(--subtle-border);
+            transition: all 0.4s var(--ease-luxury);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 200;
+            letter-spacing: 0.15em;
+            color: var(--primary-charcoal);
+            text-decoration: none;
+            transition: all 0.3s var(--ease-luxury);
+        }
+
+        .logo:hover {
+            color: var(--accent-gold);
+            transform: translateY(-1px);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--neutral-grey);
+            font-weight: 300;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+            position: relative;
+            transition: all 0.3s var(--ease-luxury);
+            padding: 8px 0;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-charcoal);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent-gold);
+            transition: width 0.4s var(--ease-luxury);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: var(--neutral-grey);
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 8px;
+            transition: all 0.3s var(--ease-luxury);
+            position: relative;
+        }
+
+        .action-btn:hover {
+            color: var(--primary-charcoal);
+            transform: translateY(-2px);
+        }
+
+        /* ===== 英雄區域 - 2025極簡趨勢 ===== */
+        .hero-minimal {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 5% 80px;
+            position: relative;
+            background: linear-gradient(135deg,
+                var(--soft-cream) 0%,
+                rgba(212, 165, 116, 0.03) 100%);
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            animation: fadeInUp 1.2s var(--ease-gentle);
+        }
+
+        .hero-title {
+            font-size: var(--title-size);
+            font-weight: 100;
+            letter-spacing: 0.02em;
+            margin-bottom: 30px;
+            line-height: 1.1;
+            color: var(--primary-charcoal);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            color: var(--neutral-grey);
+            margin-bottom: 50px;
+            letter-spacing: 0.05em;
+        }
+
+        .cta-primary {
+            display: inline-block;
+            padding: 18px 40px;
+            background: var(--primary-charcoal);
+            color: var(--pure-white);
+            text-decoration: none;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            transition: all 0.4s var(--ease-luxury);
+            border-radius: 0;
+            margin-right: 20px;
+            font-size: 0.9rem;
+        }
+
+        .cta-primary:hover {
+            background: var(--accent-gold);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px var(--shadow-soft);
+        }
+
+        .cta-secondary {
+            display: inline-block;
+            padding: 18px 40px;
+            background: transparent;
+            color: var(--primary-charcoal);
+            text-decoration: none;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            border: 1px solid var(--primary-charcoal);
+            transition: all 0.4s var(--ease-luxury);
+            font-size: 0.9rem;
+        }
+
+        .cta-secondary:hover {
+            background: var(--primary-charcoal);
+            color: var(--pure-white);
+            transform: translateY(-3px);
+        }
+
+        /* ===== 產品展示區 - 極簡網格 ===== */
+        .products-section {
+            padding: 100px 5%;
+            background: var(--pure-white);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: var(--heading-size);
+            font-weight: 200;
+            margin-bottom: 80px;
+            letter-spacing: 0.05em;
+            color: var(--primary-charcoal);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: var(--pure-white);
+            transition: all 0.5s var(--ease-luxury);
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px var(--shadow-soft);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(45deg,
+                var(--soft-cream) 30%,
+                rgba(212, 165, 116, 0.1) 70%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--accent-gold);
+            margin-bottom: 30px;
+            transition: all 0.5s var(--ease-luxury);
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.02);
+        }
+
+        .product-info {
+            padding: 0 20px 30px;
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+            color: var(--primary-charcoal);
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            color: var(--accent-gold);
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+
+        .product-description {
+            font-size: 0.9rem;
+            color: var(--neutral-grey);
+            margin: 15px 0;
+            line-height: 1.5;
+        }
+
+        /* ===== 品牌理念區 ===== */
+        .philosophy-section {
+            padding: 120px 5%;
+            background: var(--primary-charcoal);
+            color: var(--soft-cream);
+            text-align: center;
+        }
+
+        .philosophy-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .philosophy-title {
+            font-size: var(--heading-size);
+            font-weight: 100;
+            margin-bottom: 40px;
+            letter-spacing: 0.1em;
+        }
+
+        .philosophy-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            font-weight: 300;
+            color: rgba(250, 248, 245, 0.8);
+            letter-spacing: 0.02em;
+        }
+
+        /* ===== 頁腳 ===== */
+        .footer-minimal {
+            padding: 80px 5% 40px;
+            background: var(--soft-cream);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 100;
+            letter-spacing: 0.2em;
+            margin-bottom: 30px;
+            color: var(--primary-charcoal);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: var(--neutral-grey);
+            text-decoration: none;
+            font-weight: 300;
+            transition: all 0.3s var(--ease-luxury);
+        }
+
+        .footer-link:hover {
+            color: var(--accent-gold);
+        }
+
+        .footer-copyright {
+            color: var(--neutral-grey);
+            font-size: 0.85rem;
+            font-weight: 300;
+        }
+
+        /* ===== 動畫效果 ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== 響應式設計 ===== */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero-minimal {
+                padding: 100px 5% 60px;
+                min-height: 80vh;
+            }
+
+            .cta-primary, .cta-secondary {
+                display: block;
+                margin: 10px 0;
+                text-align: center;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 極簡導航 -->
+    <nav class="nav-minimal">
+        <div class="nav-content">
+            <a href="#" class="logo">LUXE</a>
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link">Collection</a></li>
+                <li><a href="#" class="nav-link">About</a></li>
+                <li><a href="#" class="nav-link">Journal</a></li>
+                <li><a href="#" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="action-btn">⚯</button>
+                <button class="action-btn">◐</button>
+                <button class="action-btn">⬟</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 英雄區域 -->
+    <section class="hero-minimal">
+        <div class="hero-content">
+            <h1 class="hero-title">TIMELESS ELEGANCE</h1>
+            <p class="hero-subtitle">精選現代生活美學，每一件都是時光中的永恆藝術品</p>
+            <a href="#" class="cta-primary">EXPLORE COLLECTION</a>
+            <a href="#" class="cta-secondary">WATCH STORY</a>
+        </div>
+    </section>
+
+    <!-- 產品展示 -->
+    <section class="products-section">
+        <h2 class="section-title">Featured Collection</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image">◈</div>
+                <div class="product-info">
+                    <h3 class="product-name">Minimal Essence</h3>
+                    <p class="product-description">純粹線條中的生活哲學，簡約設計的永恆價值</p>
+                    <div class="product-price">$2,800</div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">◊</div>
+                <div class="product-info">
+                    <h3 class="product-name">Golden Ratio</h3>
+                    <p class="product-description">黃金比例的美學探索，數學與藝術的完美結合</p>
+                    <div class="product-price">$3,200</div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">◇</div>
+                <div class="product-info">
+                    <h3 class="product-name">Pure Form</h3>
+                    <p class="product-description">回歸本質的設計思維，功能與美感的極致平衡</p>
+                    <div class="product-price">$4,100</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 品牌理念 -->
+    <section class="philosophy-section">
+        <div class="philosophy-content">
+            <h2 class="philosophy-title">OUR PHILOSOPHY</h2>
+            <p class="philosophy-text">
+                在這個快速變化的世界中，我們堅信真正的奢華來自於簡約的力量。
+                每一件作品都承載著匠人的心血，透過極致的簡約設計，
+                讓生活回歸本質，讓美學成為日常。
+            </p>
+        </div>
+    </section>
+
+    <!-- 頁腳 -->
+    <footer class="footer-minimal">
+        <div class="footer-content">
+            <div class="footer-logo">LUXE</div>
+            <nav class="footer-links">
+                <a href="#" class="footer-link">Privacy Policy</a>
+                <a href="#" class="footer-link">Terms of Service</a>
+                <a href="#" class="footer-link">Newsletter</a>
+                <a href="#" class="footer-link">Customer Care</a>
+            </nav>
+            <p class="footer-copyright">© 2025 LUXE. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!--
+    設計說明：
+
+    🎨 創新特色：
+    - 應用成功案例的色彩科學：降低飽和度的奢華金銅色
+    - 2025極簡趨勢：純文字佈局、極度簡約的視覺語言
+    - 專業緩動函數提升交互品質
+
+    🔬 技術亮點：
+    - 響應式clamp()函數確保完美縮放
+    - 系統化色彩變量命名
+    - 護眼配色科學應用(飽和度控制)
+
+    💎 設計理念：
+    "極致簡約中的奢華力量" - 通過最少的元素表達最豐富的情感
+    摒棄一切不必要的裝飾，讓內容和功能成為唯一的主角
+    -->
+</body>
+</html>

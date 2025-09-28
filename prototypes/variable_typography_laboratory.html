@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Variable Typography Laboratory</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Recursive:wght,CASL,MONO,slnt@300..800,0..1,0..1,-15..0&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #1a1a1a;
+            --orange: #d4825a;
+            --white: #ffffff;
+            --coffee: #8d6e63;
+            --soft-blue: #4a90e2;
+            --mint: #50e3c2;
+
+            --font-variable: 'Recursive', sans-serif;
+            --font-base: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-base);
+            background: var(--white);
+            color: var(--black);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(135deg, var(--white) 0%, #f8f9fa 100%);
+        }
+
+        .hero-title {
+            font-family: var(--font-variable);
+            font-size: clamp(4rem, 12vw, 16rem);
+            font-weight: 400;
+            text-align: center;
+            color: var(--black);
+            line-height: 0.9;
+            font-variation-settings:
+                "wght" 400,
+                "CASL" 0.5,
+                "MONO" 0,
+                "slnt" 0;
+            transition: font-variation-settings 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+        }
+
+        .hero-title:hover {
+            font-variation-settings:
+                "wght" 800,
+                "CASL" 1,
+                "MONO" 1,
+                "slnt" -15;
+            color: var(--orange);
+        }
+
+        .breathing-text {
+            font-family: var(--font-variable);
+            font-size: clamp(2rem, 6vw, 8rem);
+            text-align: center;
+            margin: 100px 0;
+            font-variation-settings:
+                "wght" 300,
+                "CASL" 0,
+                "MONO" 0,
+                "slnt" 0;
+            animation: breathe 4s ease-in-out infinite;
+            color: var(--coffee);
+        }
+
+        @keyframes breathe {
+            0%, 100% {
+                font-variation-settings:
+                    "wght" 300,
+                    "CASL" 0,
+                    "MONO" 0,
+                    "slnt" 0;
+            }
+            50% {
+                font-variation-settings:
+                    "wght" 900,
+                    "CASL" 1,
+                    "MONO" 0.5,
+                    "slnt" -10;
+            }
+        }
+
+        .laboratory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 80px;
+            margin: 100px 0;
+        }
+
+        .experiment {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 60px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(212, 130, 90, 0.1);
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .experiment:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15);
+        }
+
+        .experiment-title {
+            font-family: var(--font-variable);
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--orange);
+            margin-bottom: 30px;
+            font-variation-settings:
+                "wght" 600,
+                "CASL" 0.3,
+                "MONO" 0,
+                "slnt" 0;
+        }
+
+        .weight-slider {
+            font-family: var(--font-variable);
+            font-size: 3rem;
+            color: var(--black);
+            margin: 40px 0;
+            font-variation-settings:
+                "wght" var(--current-weight, 400),
+                "CASL" 0,
+                "MONO" 0,
+                "slnt" 0;
+            transition: font-variation-settings 0.1s ease;
+        }
+
+        .slider-control {
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(to right, var(--soft-blue), var(--orange));
+            border-radius: 3px;
+            appearance: none;
+            outline: none;
+            margin: 20px 0;
+        }
+
+        .slider-control::-webkit-slider-thumb {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--orange);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(212, 130, 90, 0.3);
+        }
+
+        .morphing-headline {
+            font-family: var(--font-variable);
+            font-size: clamp(3rem, 8vw, 10rem);
+            text-align: center;
+            margin: 100px 0;
+            background: linear-gradient(45deg, var(--orange), var(--coffee), var(--soft-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-variation-settings:
+                "wght" 500,
+                "CASL" 0.5,
+                "MONO" 0,
+                "slnt" 0;
+        }
+
+        .scroll-reactive {
+            font-family: var(--font-variable);
+            font-size: clamp(2rem, 5vw, 6rem);
+            text-align: center;
+            margin: 200px 0;
+            color: var(--black);
+            font-variation-settings:
+                "wght" 300,
+                "CASL" 0,
+                "MONO" 0,
+                "slnt" 0;
+        }
+
+        .kinetic-poem {
+            margin: 150px 0;
+            text-align: center;
+        }
+
+        .poem-line {
+            font-family: var(--font-variable);
+            font-size: clamp(1.5rem, 4vw, 3.5rem);
+            display: block;
+            margin: 30px 0;
+            color: var(--coffee);
+            animation: kinetic-dance 6s ease-in-out infinite;
+        }
+
+        .poem-line:nth-child(1) {
+            animation-delay: 0s;
+            font-variation-settings: "wght" 300, "CASL" 0, "MONO" 0, "slnt" 0;
+        }
+
+        .poem-line:nth-child(2) {
+            animation-delay: 1s;
+            font-variation-settings: "wght" 500, "CASL" 0.5, "MONO" 0, "slnt" -5;
+        }
+
+        .poem-line:nth-child(3) {
+            animation-delay: 2s;
+            font-variation-settings: "wght" 700, "CASL" 1, "MONO" 0.3, "slnt" -10;
+        }
+
+        .poem-line:nth-child(4) {
+            animation-delay: 3s;
+            font-variation-settings: "wght" 900, "CASL" 0, "MONO" 1, "slnt" -15;
+        }
+
+        @keyframes kinetic-dance {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+                opacity: 0.7;
+            }
+            25% {
+                transform: translateY(-20px) scale(1.05);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-40px) scale(1.1);
+                opacity: 1;
+            }
+            75% {
+                transform: translateY(-20px) scale(1.05);
+                opacity: 1;
+            }
+        }
+
+        .interactive-playground {
+            background: var(--black);
+            color: var(--white);
+            padding: 100px 0;
+            margin: 100px 0;
+            border-radius: 40px;
+        }
+
+        .playground-title {
+            font-family: var(--font-variable);
+            font-size: 4rem;
+            text-align: center;
+            color: var(--orange);
+            margin-bottom: 60px;
+            font-variation-settings: "wght" 700, "CASL" 0.5, "MONO" 0, "slnt" 0;
+        }
+
+        .control-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            padding: 0 40px;
+        }
+
+        .control-group {
+            text-align: center;
+        }
+
+        .control-label {
+            display: block;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            color: var(--mint);
+            font-weight: 600;
+        }
+
+        .playground-text {
+            font-family: var(--font-variable);
+            font-size: clamp(3rem, 8vw, 8rem);
+            text-align: center;
+            color: var(--white);
+            margin: 60px 0;
+            font-variation-settings:
+                "wght" var(--demo-weight, 400),
+                "CASL" var(--demo-casual, 0.5),
+                "MONO" var(--demo-mono, 0),
+                "slnt" var(--demo-slant, 0);
+            transition: font-variation-settings 0.2s ease;
+        }
+
+        .metrics-display {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 60px auto;
+            max-width: 600px;
+            font-family: var(--font-variable);
+            font-variation-settings: "wght" 400, "CASL" 0, "MONO" 1, "slnt" 0;
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            font-size: 1.2rem;
+        }
+
+        .metric-value {
+            color: var(--orange);
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .laboratory-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .experiment {
+                padding: 40px 20px;
+            }
+
+            .control-panel {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">TYPE</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="breathing-text">Typography Lives</div>
+
+        <div class="laboratory-grid">
+            <div class="experiment">
+                <h3 class="experiment-title">Weight Explorer</h3>
+                <div class="weight-slider" id="weightDemo">Typography Evolution</div>
+                <input type="range" class="slider-control" id="weightSlider" min="300" max="900" value="400">
+                <p>Adjust weight from thin to black</p>
+            </div>
+
+            <div class="experiment">
+                <h3 class="experiment-title">Casual Control</h3>
+                <div class="weight-slider" id="casualDemo">Expressive Text</div>
+                <input type="range" class="slider-control" id="casualSlider" min="0" max="1" step="0.1" value="0.5">
+                <p>From linear to cursive personality</p>
+            </div>
+
+            <div class="experiment">
+                <h3 class="experiment-title">Mono Switch</h3>
+                <div class="weight-slider" id="monoDemo">Code & Content</div>
+                <input type="range" class="slider-control" id="monoSlider" min="0" max="1" step="0.1" value="0">
+                <p>Proportional to monospace spectrum</p>
+            </div>
+
+            <div class="experiment">
+                <h3 class="experiment-title">Slant Dynamic</h3>
+                <div class="weight-slider" id="slantDemo">Italic Innovation</div>
+                <input type="range" class="slider-control" id="slantSlider" min="-15" max="0" value="0">
+                <p>Upright to slanted expression</p>
+            </div>
+        </div>
+
+        <div class="morphing-headline" id="morphingText">Variable Future</div>
+
+        <div class="scroll-reactive" id="scrollText">Scroll to Transform</div>
+
+        <div class="kinetic-poem">
+            <span class="poem-line">Words that dance</span>
+            <span class="poem-line">Letters that breathe</span>
+            <span class="poem-line">Typography evolves</span>
+            <span class="poem-line">Design transcends</span>
+        </div>
+    </div>
+
+    <div class="interactive-playground">
+        <div class="container">
+            <h2 class="playground-title">Interactive Laboratory</h2>
+
+            <div class="control-panel">
+                <div class="control-group">
+                    <label class="control-label">Weight</label>
+                    <input type="range" class="slider-control" id="demoWeight" min="300" max="900" value="400">
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Casual</label>
+                    <input type="range" class="slider-control" id="demoCasual" min="0" max="1" step="0.1" value="0.5">
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Mono</label>
+                    <input type="range" class="slider-control" id="demoMono" min="0" max="1" step="0.1" value="0">
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Slant</label>
+                    <input type="range" class="slider-control" id="demoSlant" min="-15" max="0" value="0">
+                </div>
+            </div>
+
+            <div class="playground-text" id="playgroundText">EXPERIMENT</div>
+
+            <div class="metrics-display" id="metricsDisplay">
+                <div class="metric">
+                    <span>Weight:</span>
+                    <span class="metric-value" id="weightValue">400</span>
+                </div>
+                <div class="metric">
+                    <span>Casual:</span>
+                    <span class="metric-value" id="casualValue">0.5</span>
+                </div>
+                <div class="metric">
+                    <span>Mono:</span>
+                    <span class="metric-value" id="monoValue">0</span>
+                </div>
+                <div class="metric">
+                    <span>Slant:</span>
+                    <span class="metric-value" id="slantValue">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Individual experiment controls
+        const weightSlider = document.getElementById('weightSlider');
+        const weightDemo = document.getElementById('weightDemo');
+
+        weightSlider.addEventListener('input', (e) => {
+            const value = e.target.value;
+            weightDemo.style.setProperty('--current-weight', value);
+        });
+
+        const casualSlider = document.getElementById('casualSlider');
+        const casualDemo = document.getElementById('casualDemo');
+
+        casualSlider.addEventListener('input', (e) => {
+            const value = e.target.value;
+            casualDemo.style.fontVariationSettings = `"wght" 500, "CASL" ${value}, "MONO" 0, "slnt" 0`;
+        });
+
+        const monoSlider = document.getElementById('monoSlider');
+        const monoDemo = document.getElementById('monoDemo');
+
+        monoSlider.addEventListener('input', (e) => {
+            const value = e.target.value;
+            monoDemo.style.fontVariationSettings = `"wght" 500, "CASL" 0.5, "MONO" ${value}, "slnt" 0`;
+        });
+
+        const slantSlider = document.getElementById('slantSlider');
+        const slantDemo = document.getElementById('slantDemo');
+
+        slantSlider.addEventListener('input', (e) => {
+            const value = e.target.value;
+            slantDemo.style.fontVariationSettings = `"wght" 500, "CASL" 0.5, "MONO" 0, "slnt" ${value}`;
+        });
+
+        // Playground controls
+        const demoWeight = document.getElementById('demoWeight');
+        const demoCasual = document.getElementById('demoCasual');
+        const demoMono = document.getElementById('demoMono');
+        const demoSlant = document.getElementById('demoSlant');
+        const playgroundText = document.getElementById('playgroundText');
+
+        function updatePlaygroundText() {
+            const weight = demoWeight.value;
+            const casual = demoCasual.value;
+            const mono = demoMono.value;
+            const slant = demoSlant.value;
+
+            document.documentElement.style.setProperty('--demo-weight', weight);
+            document.documentElement.style.setProperty('--demo-casual', casual);
+            document.documentElement.style.setProperty('--demo-mono', mono);
+            document.documentElement.style.setProperty('--demo-slant', slant);
+
+            document.getElementById('weightValue').textContent = weight;
+            document.getElementById('casualValue').textContent = casual;
+            document.getElementById('monoValue').textContent = mono;
+            document.getElementById('slantValue').textContent = slant;
+        }
+
+        [demoWeight, demoCasual, demoMono, demoSlant].forEach(slider => {
+            slider.addEventListener('input', updatePlaygroundText);
+        });
+
+        // Scroll-based typography transformation
+        const scrollText = document.getElementById('scrollText');
+        const morphingText = document.getElementById('morphingText');
+
+        window.addEventListener('scroll', () => {
+            const scrollPercent = Math.min(window.scrollY / window.innerHeight, 1);
+
+            const weight = 300 + (scrollPercent * 600);
+            const casual = scrollPercent;
+            const mono = scrollPercent * 0.5;
+            const slant = scrollPercent * -15;
+
+            scrollText.style.fontVariationSettings = `"wght" ${weight}, "CASL" ${casual}, "MONO" ${mono}, "slnt" ${slant}`;
+
+            // Morphing text effect
+            const morphWeight = 400 + Math.sin(scrollPercent * Math.PI * 4) * 300;
+            const morphCasual = 0.5 + Math.cos(scrollPercent * Math.PI * 3) * 0.5;
+
+            morphingText.style.fontVariationSettings = `"wght" ${morphWeight}, "CASL" ${morphCasual}, "MONO" 0, "slnt" 0`;
+        });
+
+        // Mouse interaction for hero title
+        const heroTitle = document.querySelector('.hero-title');
+
+        heroTitle.addEventListener('mousemove', (e) => {
+            const rect = heroTitle.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width;
+            const y = (e.clientY - rect.top) / rect.height;
+
+            const weight = 300 + (x * 600);
+            const slant = -15 + (y * 15);
+            const casual = x;
+            const mono = y * 0.5;
+
+            heroTitle.style.fontVariationSettings = `"wght" ${weight}, "CASL" ${casual}, "MONO" ${mono}, "slnt" ${slant}`;
+        });
+
+        heroTitle.addEventListener('mouseleave', () => {
+            heroTitle.style.fontVariationSettings = `"wght" 400, "CASL" 0.5, "MONO" 0, "slnt" 0`;
+        });
+
+        // Initialize playground
+        updatePlaygroundText();
+    </script>
+</body>
+</html>

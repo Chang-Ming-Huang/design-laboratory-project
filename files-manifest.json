@@ -1,10 +1,10 @@
 {
   "metadata": {
     "version": "1.0.0",
-    "generated": "2025-09-27T16:28:54.723Z",
+    "generated": "2025-09-28T05:08:12.144Z",
     "generator": "build-manifest.js",
     "description": "AI 創意實驗室檔案清單 - 供 GitHub Pages 使用",
-    "totalFiles": 56
+    "totalFiles": 65
   },
   "environment": {
     "isStatic": true,
@@ -13,402 +13,530 @@
   },
   "files": [
     {
+      "name": "horizontal_rebellion_lab.html",
+      "title": "Horizontal Rebellion Lab | 水平革命實驗室",
+      "description": "Breaking 30 Years of Vertical Web Design",
+      "lastModified": "2025-09-28T05:01:54.036Z",
+      "size": 24,
+      "screenshot": "horizontal_rebellion_lab.png"
+    },
+    {
+      "name": "sustainable_brutalism_lab.html",
+      "title": "Sustainable Brutalism Lab | 永續粗野主義實驗室",
+      "description": "Raw Strength Serves The Earth",
+      "lastModified": "2025-09-28T05:00:26.275Z",
+      "size": 21,
+      "screenshot": "sustainable_brutalism_lab.png"
+    },
+    {
+      "name": "authentic_imperfection_lab.html",
+      "title": "Authentic Imperfection Lab | 真實不完美實驗室",
+      "description": "Authentic Imperfection Lab | 真實不完美實驗室 - 獨立 HTML 藝術作品",
+      "lastModified": "2025-09-28T04:59:02.935Z",
+      "size": 17,
+      "screenshot": "authentic_imperfection_lab.png"
+    },
+    {
+      "name": "nordic_nature_journal.html",
+      "title": "FJORD STORIES  北歐自然誌 | 2025自然風格部落格設計",
+      "description": "沉浸式北歐自然風格部落格，展示2025年自然美學趨勢，溫暖木質色調與極簡設計的完美融合",
+      "lastModified": "2025-09-28T04:41:17.226Z",
+      "size": 20,
+      "screenshot": "nordic_nature_journal.png"
+    },
+    {
+      "name": "cyberpunk_gaming_terminal.html",
+      "title": "NEXUS TERMINAL  賽博朋克遊戲控制台 | 2025未來主義遊戲界面",
+      "description": "沉浸式賽博朋克遊戲終端界面，展示2025年最新遊戲UI設計趨勢，霓虹美學與未來科技的完美融合",
+      "lastModified": "2025-09-28T04:39:39.405Z",
+      "size": 21,
+      "screenshot": "cyberpunk_gaming_terminal.png"
+    },
+    {
+      "name": "minimal_luxury_commerce.html",
+      "title": "LUXE  極簡奢華商城 | 2025現代極簡主義電商設計",
+      "description": "專業級現代極簡主義電商界面設計，展示2025年最新設計趨勢，極致簡約的奢華購物體驗",
+      "lastModified": "2025-09-28T04:38:06.065Z",
+      "size": 16,
+      "screenshot": "minimal_luxury_commerce.png"
+    },
+    {
+      "name": "anti_design_rebellion.html",
+      "title": "AntiDesign Rebellion Interface",
+      "description": "AntiDesign Rebellion Interface - 獨立 HTML 藝術作品",
+      "lastModified": "2025-09-27T18:38:54.619Z",
+      "size": 23,
+      "screenshot": "anti_design_rebellion.png"
+    },
+    {
+      "name": "variable_typography_laboratory.html",
+      "title": "Variable Typography Laboratory",
+      "description": "Adjust weight from thin to black",
+      "lastModified": "2025-09-27T18:37:31.216Z",
+      "size": 19,
+      "screenshot": "variable_typography_laboratory.png"
+    },
+    {
+      "name": "neo_maximalist_studio.html",
+      "title": "NeoMaximalist Design Studio",
+      "description": "NeoMaximalist Design Studio - 獨立 HTML 藝術作品",
+      "lastModified": "2025-09-27T18:36:24.495Z",
+      "size": 13,
+      "screenshot": "neo_maximalist_studio.png"
+    },
+    {
       "name": "futuristic_ai_dashboard.html",
       "title": "未來主義 AI 儀表板  AI 創意實驗室",
       "description": "展示未來主義設計美學的 AI 儀表板界面，具有霓虹光效和動態數據視覺化",
       "lastModified": "2025-09-27T16:28:37.919Z",
-      "size": 17
+      "size": 17,
+      "screenshot": "futuristic_ai_dashboard.png"
     },
     {
       "name": "creative_agency_portfolio.html",
       "title": "Creative Agency Portfolio  AI Creative Laboratory",
       "description": "Creative Agency Portfolio  AI Creative Laboratory - 獨立 HTML 藝術作品",
       "lastModified": "2025-09-25T17:56:18.933Z",
-      "size": 26
+      "size": 26,
+      "screenshot": "creative_agency_portfolio.png"
     },
     {
       "name": "modern_architecture_firm.html",
       "title": "Modern Architecture Firm  AI Creative Laboratory",
       "description": "Principal Architect",
       "lastModified": "2025-09-25T17:47:44.282Z",
-      "size": 37
+      "size": 37,
+      "screenshot": "modern_architecture_firm.png"
     },
     {
       "name": "immersive_3d_experience.html",
       "title": "沉浸式 3D 交互體驗  未來介面實驗",
       "description": "沉浸式 3D 交互體驗  未來介面實驗 - 獨立 HTML 藝術作品",
       "lastModified": "2025-09-24T17:26:38.587Z",
-      "size": 21
+      "size": 21,
+      "screenshot": "immersive_3d_experience.png"
     },
     {
       "name": "experimental_typography_lab.html",
       "title": "實驗性字體實驗室  2025 巨字體革命",
       "description": "實驗性字體實驗室  2025 巨字體革命 - 獨立 HTML 藝術作品",
       "lastModified": "2025-09-24T17:25:04.812Z",
-      "size": 15
+      "size": 15,
+      "screenshot": "experimental_typography_lab.png"
     },
     {
       "name": "creative_studio.html",
       "title": "Creative Studio  創意工作室",
       "description": "Creative Studio  創意工作室 - 獨立 HTML 藝術作品",
       "lastModified": "2025-09-24T16:38:31.042Z",
-      "size": 35
+      "size": 35,
+      "screenshot": "creative_studio.png"
     },
     {
       "name": "software_premium.html",
       "title": "DevTools Pro  高級軟體品牌",
       "description": "DevTools Pro  高級軟體品牌 - 獨立 HTML 藝術作品",
       "lastModified": "2025-09-24T16:36:21.244Z",
-      "size": 33
+      "size": 33,
+      "screenshot": "software_premium.png"
     },
     {
       "name": "anti_design_chaos_theory.html",
       "title": "AntiDesign Chaos Theory  Intentional Chaos Laboratory",
       "description": "Intentional Chaos Theory Laboratory",
       "lastModified": "2025-09-24T13:31:27.062Z",
-      "size": 22
+      "size": 22,
+      "screenshot": "anti_design_chaos_theory.png"
     },
     {
       "name": "gradient_navigation_lab.html",
       "title": "Spatial Navigation Lab  3D空間導航實驗室",
       "description": "探索三維網頁導航的未來",
       "lastModified": "2025-09-07T07:27:42.347Z",
-      "size": 35
+      "size": 35,
+      "screenshot": "gradient_navigation_lab.png"
     },
     {
       "name": "spatial_navigation_lab.html",
       "title": "Spatial Navigation Lab  3D空間導航實驗室",
       "description": "探索三維網頁導航的未來",
       "lastModified": "2025-09-07T05:25:21.849Z",
-      "size": 27
+      "size": 27,
+      "screenshot": "spatial_navigation_lab.png"
     },
     {
       "name": "typography_first_manifesto.html",
       "title": "TypographyFirst Manifesto  字體至上主義宣言",
       "description": "TypographyFirst Manifesto  字體至上主義宣言 - 獨立 HTML 藝術作品",
       "lastModified": "2025-09-06T07:37:31.260Z",
-      "size": 33
+      "size": 33,
+      "screenshot": "typography_first_manifesto.png"
     },
     {
       "name": "modern_furniture_showroom.html",
       "title": "Nordic Form  Modern Scandinavian Furniture Gallery",
       "description": "Curated collection of contemporary Nordic design",
       "lastModified": "2025-09-05T17:04:41.311Z",
-      "size": 32
+      "size": 32,
+      "screenshot": "modern_furniture_showroom.png"
     },
     {
       "name": "bold_contemporary_firm.html",
       "title": "AXIOM Design  Bold Contemporary Interior Architecture",
       "description": "Fearless architecture that redefines luxury living",
       "lastModified": "2025-09-05T17:02:54.377Z",
-      "size": 29
+      "size": 29,
+      "screenshot": "bold_contemporary_firm.png"
     },
     {
       "name": "adaptive_intelligence_interface.html",
       "title": "Adaptive Intelligence Interface  AIDriven Personalization",
       "description": "Adaptive Intelligence Interface  AIDriven Personalization - 獨立 HTML 藝術作品",
       "lastModified": "2025-09-05T15:58:31.521Z",
-      "size": 35
+      "size": 35,
+      "screenshot": "adaptive_intelligence_interface.png"
     },
     {
       "name": "brutalist_manifesto_2025.html",
       "title": "Brutalist Manifesto 2025  Raw Digital Truth",
       "description": "Brutalist Manifesto 2025  Raw Digital Truth - 獨立 HTML 藝術作品",
       "lastModified": "2025-09-05T15:55:57.485Z",
-      "size": 19
+      "size": 19,
+      "screenshot": "brutalist_manifesto_2025.png"
     },
     {
       "name": "modern_financial_excellence.html",
       "title": "Modern Financial Excellence  Bold Innovation in Financial Technology",
       "description": "Modern Financial Excellence  Bold Innovation in Financial Technology - 獨立 HTML 藝術作品",
       "lastModified": "2025-09-04T16:37:37.374Z",
-      "size": 27
+      "size": 27,
+      "screenshot": "modern_financial_excellence.png"
     },
     {
       "name": "creative_agency_powerhouse.html",
       "title": "Creative Agency Powerhouse  Bold. Geometric. Unforgettable.",
       "description": "Ready to transform your brand?",
       "lastModified": "2025-09-04T16:12:59.265Z",
-      "size": 22
+      "size": 22,
+      "screenshot": "creative_agency_powerhouse.png"
     },
     {
       "name": "premium_tech_minimalism.html",
       "title": "Premium Tech Minimalism  Redefining Digital Excellence",
       "description": "Premium Tech Minimalism  Redefining Digital Excellence - 獨立 HTML 藝術作品",
       "lastModified": "2025-09-04T16:11:35.709Z",
-      "size": 16
+      "size": 16,
+      "screenshot": "premium_tech_minimalism.png"
     },
     {
       "name": "glassmorphic_neural_interface.html",
       "title": "Glassmorphic Neural Interface  AI Creative Laboratory",
       "description": "Glassmorphic Neural Interface  AI Creative Laboratory - 獨立 HTML 藝術作品",
       "lastModified": "2025-09-04T15:10:03.316Z",
-      "size": 27
+      "size": 27,
+      "screenshot": "glassmorphic_neural_interface.png"
     },
     {
       "name": "organic_maximalism_laboratory.html",
       "title": "Organic Maximalism Laboratory  AI Creative Laboratory",
       "description": "Organic Maximalism Laboratory  AI Creative Laboratory - 獨立 HTML 藝術作品",
       "lastModified": "2025-09-04T15:05:01.838Z",
-      "size": 33
+      "size": 33,
+      "screenshot": "organic_maximalism_laboratory.png"
     },
     {
       "name": "brutalist_typography_manifesto.html",
       "title": "Brutalist Typography Manifesto  AI Creative Laboratory",
       "description": "Brutalist Typography Manifesto  AI Creative Laboratory - 獨立 HTML 藝術作品",
       "lastModified": "2025-09-04T15:01:15.966Z",
-      "size": 19
+      "size": 19,
+      "screenshot": "brutalist_typography_manifesto.png"
     },
     {
       "name": "organic_flow.html",
       "title": "Organic Flow  自然流動美學",
       "description": "Organic Flow  自然流動美學 - 獨立 HTML 藝術作品",
       "lastModified": "2025-09-04T14:42:20.090Z",
-      "size": 25
+      "size": 25,
+      "screenshot": "organic_flow.png"
     },
     {
       "name": "glassmorphic_laboratory.html",
       "title": "Glassmorphic Laboratory  AR就緒玻璃美學",
       "description": "探索透明度與光線的無限可能，為AR時代設計的次世代界面美學",
       "lastModified": "2025-09-04T14:40:37.305Z",
-      "size": 23
+      "size": 23,
+      "screenshot": "glassmorphic_laboratory.png"
     },
     {
       "name": "brutalist_disruption.html",
       "title": "Brutalist Disruption  破壞式極簡主義",
       "description": "Brutalist Disruption  破壞式極簡主義 - 獨立 HTML 藝術作品",
       "lastModified": "2025-09-04T14:39:02.778Z",
-      "size": 18
+      "size": 18,
+      "screenshot": "brutalist_disruption.png"
     },
     {
       "name": "amber_preservation.html",
       "title": "🍯 Amber Preservation  AI 創意實驗室",
       "description": "🍯 Amber Preservation  AI 創意實驗室 - 獨立 HTML 藝術作品",
       "lastModified": "2025-09-04T14:19:54.901Z",
-      "size": 23
+      "size": 23,
+      "screenshot": "amber_preservation.png"
     },
     {
       "name": "tidal_rhythm.html",
       "title": "🌊 Tidal Rhythm  AI 創意實驗室",
       "description": "🌊 Tidal Rhythm  AI 創意實驗室 - 獨立 HTML 藝術作品",
       "lastModified": "2025-09-04T14:16:49.856Z",
-      "size": 20
+      "size": 20,
+      "screenshot": "tidal_rhythm.png"
     },
     {
       "name": "crystalline_memory.html",
       "title": "💎 Crystalline Memory  AI 創意實驗室",
       "description": "💎 Crystalline Memory  AI 創意實驗室 - 獨立 HTML 藝術作品",
       "lastModified": "2025-09-04T14:01:10.490Z",
-      "size": 23
+      "size": 23,
+      "screenshot": "crystalline_memory.png"
     },
     {
       "name": "biomimetic_interface.html",
       "title": "🧬 Biomimetic Interface  AI 創意實驗室",
       "description": "🧬 Biomimetic Interface  AI 創意實驗室 - 獨立 HTML 藝術作品",
       "lastModified": "2025-09-04T13:06:48.618Z",
-      "size": 20
+      "size": 20,
+      "screenshot": "biomimetic_interface.png"
     },
     {
       "name": "volcanic_minimalism.html",
       "title": "🌋 Volcanic Minimalism  AI 創意實驗室",
       "description": "🌋 Volcanic Minimalism  AI 創意實驗室 - 獨立 HTML 藝術作品",
       "lastModified": "2025-09-04T13:05:23.184Z",
-      "size": 16
+      "size": 16,
+      "screenshot": "volcanic_minimalism.png"
     },
     {
       "name": "modern_sophistication.html",
       "title": "Modern Sophistication",
       "description": "Modern Sophistication - 獨立 HTML 藝術作品",
       "lastModified": "2025-08-31T18:39:38.659Z",
-      "size": 24
+      "size": 24,
+      "screenshot": "modern_sophistication.png"
     },
     {
       "name": "liquid_geometry.html",
       "title": "Liquid Geometry",
       "description": "Liquid Geometry - 獨立 HTML 藝術作品",
       "lastModified": "2025-08-31T18:39:38.635Z",
-      "size": 16
+      "size": 16,
+      "screenshot": "liquid_geometry.png"
     },
     {
       "name": "corporate_elite.html",
       "title": "Corporate Elite  企業精英美學",
       "description": "EXCELLENCE · INTEGRITY · LEADERSHIP",
       "lastModified": "2025-08-31T18:39:38.628Z",
-      "size": 22
+      "size": 22,
+      "screenshot": "corporate_elite.png"
     },
     {
       "name": "consciousness_bending.html",
       "title": "Consciousness Bending",
       "description": "Where thoughts become reality and reality dissolves into pure imagination",
       "lastModified": "2025-08-31T18:39:38.610Z",
-      "size": 12
+      "size": 12,
+      "screenshot": "consciousness_bending.png"
     },
     {
       "name": "bauhaus_geometry.html",
       "title": "Bauhaus Geometry  包豪斯幾何美學",
       "description": "Bauhaus Geometry  包豪斯幾何美學 - 獨立 HTML 藝術作品",
       "lastModified": "2025-08-31T18:39:38.594Z",
-      "size": 17
+      "size": 17,
+      "screenshot": "bauhaus_geometry.png"
     },
     {
       "name": "concert_hall.html",
       "title": "Concert Hall  音樂廳演出空間",
       "description": "每一個音符都是靈魂的呼喚，每一場演出都是心靈的盛宴",
       "lastModified": "2025-08-31T18:29:55.722Z",
-      "size": 31
+      "size": 31,
+      "screenshot": "concert_hall.png"
     },
     {
       "name": "publishing_house.html",
       "title": "Publishing House  出版社編輯部",
       "description": "每一本書都是思想的燈塔，照亮人類智慧的海洋",
       "lastModified": "2025-08-31T18:26:50.982Z",
-      "size": 29
+      "size": 29,
+      "screenshot": "publishing_house.png"
     },
     {
       "name": "museum_gallery.html",
       "title": "Museum Gallery  博物館展覽廳",
       "description": "每一件藝術品都是人類文明的珍貴見證",
       "lastModified": "2025-08-31T18:23:57.054Z",
-      "size": 29
+      "size": 29,
+      "screenshot": "museum_gallery.png"
     },
     {
       "name": "artisan_craft.html",
       "title": "Artisan Craft  手工藝人品牌",
       "description": "每一件作品都是時間與技藝的結晶",
       "lastModified": "2025-08-31T18:20:35.441Z",
-      "size": 26
+      "size": 26,
+      "screenshot": "artisan_craft.png"
     },
     {
       "name": "medical_professional.html",
       "title": "Medical Professional  醫療專業界面",
       "description": "Medical Professional  醫療專業界面 - 獨立 HTML 藝術作品",
       "lastModified": "2025-08-31T18:09:50.680Z",
-      "size": 26
+      "size": 26,
+      "screenshot": "medical_professional.png"
     },
     {
       "name": "luxury_hospitality.html",
       "title": "Luxury Hospitality  奢華酒店體驗",
       "description": "— THE LUXURY HOSPITALITY COLLECTION",
       "lastModified": "2025-08-31T17:47:37.975Z",
-      "size": 22
+      "size": 22,
+      "screenshot": "luxury_hospitality.png"
     },
     {
       "name": "swiss_precision.html",
       "title": "Swiss Precision  瑞士精密設計",
       "description": "Swiss Precision  瑞士精密設計 - 獨立 HTML 藝術作品",
       "lastModified": "2025-08-31T17:46:07.840Z",
-      "size": 21
+      "size": 21,
+      "screenshot": "swiss_precision.png"
     },
     {
       "name": "tokyo_neon.html",
       "title": "Tokyo Neon  東京霓虹美學",
       "description": "Tokyo Neon  東京霓虹美學 - 獨立 HTML 藝術作品",
       "lastModified": "2025-08-31T17:41:55.569Z",
-      "size": 27
+      "size": 27,
+      "screenshot": "tokyo_neon.png"
     },
     {
       "name": "desert_modernism.html",
       "title": "Desert Modernism  沙漠現代主義",
       "description": "— Frank Lloyd Wright",
       "lastModified": "2025-08-31T17:39:55.036Z",
-      "size": 21
+      "size": 21,
+      "screenshot": "desert_modernism.png"
     },
     {
       "name": "nordic_zen.html",
       "title": "Nordic Zen  北歐禪意美學",
       "description": "— 在簡單中尋找深刻，在靜謐中發現力量 —",
       "lastModified": "2025-08-31T17:38:10.571Z",
-      "size": 17
+      "size": 17,
+      "screenshot": "nordic_zen.png"
     },
     {
       "name": "luxury_service.html",
       "title": "Luxury Service  奢華服務美學",
       "description": "BESPOKE · REFINED · EXTRAORDINARY",
       "lastModified": "2025-08-31T16:21:37.236Z",
-      "size": 29
+      "size": 29,
+      "screenshot": "luxury_service.png"
     },
     {
       "name": "fintech_modern.html",
       "title": "Fintech Modern  金融科技美學",
       "description": "DATA · PRECISION · INNOVATION",
       "lastModified": "2025-08-31T04:33:57.901Z",
-      "size": 25
+      "size": 25,
+      "screenshot": "fintech_modern.png"
     },
     {
       "name": "glass_architecture.html",
       "title": "Glass Architecture  玻璃建築美學",
       "description": "TRANSPARENCY · LIGHT · REFLECTION",
       "lastModified": "2025-08-31T04:30:27.998Z",
-      "size": 20
+      "size": 20,
+      "screenshot": "glass_architecture.png"
     },
     {
       "name": "concrete_brutalism.html",
       "title": "Concrete Brutalism  混凝土野獸派美學",
       "description": "RAW · MASSIVE · UNCOMPROMISING",
       "lastModified": "2025-08-31T04:28:36.058Z",
-      "size": 19
+      "size": 19,
+      "screenshot": "concrete_brutalism.png"
     },
     {
       "name": "industrial_elegance.html",
       "title": "Industrial Elegance  工業雅致美學",
       "description": "Precision · Strength · Beauty",
       "lastModified": "2025-08-31T04:14:49.040Z",
-      "size": 21
+      "size": 21,
+      "screenshot": "industrial_elegance.png"
     },
     {
       "name": "organic_warmth.html",
       "title": "Organic Warmth  有機溫暖美學",
       "description": "Organic Warmth in Digital Space",
       "lastModified": "2025-08-31T04:12:58.823Z",
-      "size": 16
+      "size": 16,
+      "screenshot": "organic_warmth.png"
     },
     {
       "name": "ethereal_minimalism.html",
       "title": "Ethereal Minimalism  空靈極簡美學",
       "description": "ETHEREAL MINIMALISM",
       "lastModified": "2025-08-31T04:11:33.862Z",
-      "size": 12
+      "size": 12,
+      "screenshot": "ethereal_minimalism.png"
     },
     {
       "name": "editorial_elegance.html",
       "title": "Editorial Elegance",
       "description": "在數位時代的浪潮中，我們依然堅信印刷美學的永恆價值。每一個字母的曲線，每一行文字的間距，都承載著設計師對完美的不懈追求。",
       "lastModified": "2025-08-30T16:07:46.691Z",
-      "size": 21
+      "size": 21,
+      "screenshot": "editorial_elegance.png"
     },
     {
       "name": "luxury_minimal.html",
       "title": "Luxury Minimal",
       "description": "Luxury Minimal - 獨立 HTML 藝術作品",
       "lastModified": "2025-08-30T16:06:24.641Z",
-      "size": 18
+      "size": 18,
+      "screenshot": "luxury_minimal.png"
     },
     {
       "name": "quantum_glitch.html",
       "title": "Quantum Glitch",
       "description": "Quantum Glitch - 獨立 HTML 藝術作品",
       "lastModified": "2025-08-30T14:24:15.227Z",
-      "size": 22
+      "size": 22,
+      "screenshot": "quantum_glitch.png"
     },
     {
       "name": "cybernetic_poetry.html",
       "title": "Cybernetic Poetry",
       "description": "Cybernetic Poetry - 獨立 HTML 藝術作品",
       "lastModified": "2025-08-30T14:22:23.700Z",
-      "size": 21
+      "size": 21,
+      "screenshot": "cybernetic_poetry.png"
     },
     {
       "name": "holographic_memory.html",
       "title": "Holographic Memory",
       "description": "Holographic Memory - 獨立 HTML 藝術作品",
       "lastModified": "2025-08-30T14:20:56.225Z",
-      "size": 20
+      "size": 20,
+      "screenshot": "holographic_memory.png"
     }
   ],
   "statistics": {
-    "totalSize": 1312,
+    "totalSize": 1486,
     "averageSize": 23,
-    "newestFile": "futuristic_ai_dashboard.html",
+    "newestFile": "horizontal_rebellion_lab.html",
     "oldestFile": "holographic_memory.html"
   }
 }

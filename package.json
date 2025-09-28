@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "npm run build && node server.js",
+    "dev": "node generate-screenshots.js && npm run build && node server.js",
     "dev:watch": "concurrently \"chokidar 'prototypes/*.html' -c 'npm run build'\" \"nodemon server.js\"",
     "build": "node build-manifest.js",
     "build:manifest": "node build-manifest.js",
@@ -33,10 +33,12 @@
     "node": ">=14.0.0"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "puppeteer": "^24.22.3"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/Chang-Ming-Huang/design-laboratory-project.git"

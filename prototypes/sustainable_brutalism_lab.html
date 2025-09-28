@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sustainable Brutalism Lab | 永續粗野主義實驗室</title>
+    <style>
+        /*
+        Sustainable Brutalism Lab - 2025 Trend Implementation
+
+        Inspired by:
+        - 2025 Pantone "Mocha Mousse" trend + sustainable design movement
+        - Brutalist architecture meets recycled material aesthetics
+        - Raw concrete + organic earth tones combination
+        - Environmental consciousness through visual language
+
+        Design Philosophy:
+        "Raw strength serves the earth"
+
+        Creative Framework Applied:
+        - 反直覺測試: Making "eco-friendly" visually aggressive and bold
+        - 極端化原則: Brutalist geometry + earth colors pushed to maximum contrast
+        - 跨領域靈感: Recycled building materials + Japanese Mocha ceremony + Soviet architecture
+        */
+
+        :root {
+            /* Sustainable Brutalism Palette - Mocha Mousse + Earth Systems */
+            --mocha-mousse: #a0826d;       /* Pantone 2025 Color of the Year */
+            --concrete-raw: #6b6b6b;       /* Unfinished concrete */
+            --earth-clay: #8b4513;         /* Raw clay, organic */
+            --forest-deep: #2d4a32;        /* Deep sustainable green */
+            --carbon-black: #1c1c1c;       /* Pure carbon */
+            --recycled-white: #f7f5f3;     /* Off-white, natural */
+            --rust-iron: #a0522d;          /* Oxidized metal */
+            --eco-warning: #d2b48c;        /* Natural tan warning */
+
+            /* Brutalist Measurements - Hard Geometric Values */
+            --block-unit: 64px;            /* Base brutalist module */
+            --concrete-thick: 8px;         /* Heavy border weight */
+            --structure-gap: 32px;         /* Rigid spacing system */
+            --shadow-harsh: 16px 16px 0px rgba(28, 28, 28, 0.3); /* No blur, raw shadow */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--recycled-white);
+            color: var(--carbon-black);
+            font-family: 'Courier New', 'Monaco', monospace; /* Typewriter, industrial */
+            line-height: 1.4; /* Tight, functional spacing */
+            overflow-x: hidden;
+        }
+
+        /* Brutalist Container - Rigid Structure */
+        .brutalist-container {
+            max-width: 1280px; /* Larger, industrial scale */
+            margin: 0 auto;
+            padding: 0;
+            position: relative;
+        }
+
+        /* Raw Concrete Header Block */
+        .concrete-header {
+            background: var(--concrete-raw);
+            color: var(--recycled-white);
+            padding: var(--block-unit) var(--structure-gap);
+            margin: 0;
+            position: relative;
+            border-bottom: var(--concrete-thick) solid var(--carbon-black);
+        }
+
+        .concrete-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg,
+                var(--mocha-mousse) 25%,
+                var(--earth-clay) 25% 50%,
+                var(--forest-deep) 50% 75%,
+                var(--rust-iron) 75%);
+        }
+
+        /* Harsh Typography - Industrial Strength */
+        .brutalist-title {
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 900;
+            line-height: 0.8; /* Brutally tight */
+            color: var(--recycled-white);
+            margin-bottom: 1rem;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+            text-shadow: 4px 4px 0px var(--carbon-black);
+        }
+
+        .eco-accent {
+            color: var(--mocha-mousse);
+            display: block;
+            font-size: 0.6em; /* Smaller but still powerful */
+            text-shadow: 2px 2px 0px var(--forest-deep);
+        }
+
+        .brutalist-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--eco-warning);
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Modular Block System - Brutalist Grid */
+        .block-system {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--structure-gap);
+            padding: var(--block-unit) var(--structure-gap);
+            background: var(--recycled-white);
+        }
+
+        .concrete-block {
+            background: var(--carbon-black);
+            color: var(--recycled-white);
+            padding: var(--structure-gap);
+            position: relative;
+            border: var(--concrete-thick) solid var(--concrete-raw);
+            box-shadow: var(--shadow-harsh);
+            transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .concrete-block:hover {
+            transform: translate(-8px, -8px);
+            box-shadow: 24px 24px 0px rgba(28, 28, 28, 0.4);
+        }
+
+        /* Color-Coded Sustainable Blocks */
+        .block-mocha {
+            border-color: var(--mocha-mousse);
+            background: var(--mocha-mousse);
+            color: var(--carbon-black);
+        }
+
+        .block-earth {
+            border-color: var(--earth-clay);
+            background: var(--earth-clay);
+        }
+
+        .block-forest {
+            border-color: var(--forest-deep);
+            background: var(--forest-deep);
+        }
+
+        .block-rust {
+            border-color: var(--rust-iron);
+            background: var(--rust-iron);
+        }
+
+        /* Block Content - Functional Typography */
+        .block-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .block-text {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .block-metric {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px solid currentColor;
+            text-transform: uppercase;
+        }
+
+        /* Brutalist Buttons - Raw Industrial Design */
+        .brutalist-btn {
+            background: transparent;
+            color: currentColor;
+            border: 4px solid currentColor;
+            padding: 12px 24px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.1s ease-out; /* Snappy, industrial feel */
+        }
+
+        .brutalist-btn:hover {
+            background: currentColor;
+            color: var(--carbon-black);
+            transform: translate(-4px, -4px);
+            box-shadow: 8px 8px 0px var(--carbon-black);
+        }
+
+        .brutalist-btn:active {
+            transform: translate(0, 0);
+            box-shadow: none;
+        }
+
+        /* Sustainable Data Dashboard - Functional Design */
+        .data-dashboard {
+            background: var(--forest-deep);
+            color: var(--recycled-white);
+            padding: var(--block-unit) var(--structure-gap);
+            margin: var(--structure-gap) 0;
+            border: var(--concrete-thick) solid var(--carbon-black);
+            position: relative;
+        }
+
+        .dashboard-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--mocha-mousse);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--structure-gap);
+        }
+
+        .metric-block {
+            background: var(--carbon-black);
+            padding: 24px;
+            border: 4px solid var(--mocha-mousse);
+            text-align: center;
+        }
+
+        .metric-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--mocha-mousse);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: var(--recycled-white);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+        }
+
+        /* Raw Material Texture Background */
+        .texture-section {
+            background:
+                radial-gradient(circle at 25% 25%, var(--concrete-raw) 2px, transparent 2px),
+                radial-gradient(circle at 75% 75%, var(--earth-clay) 1px, transparent 1px),
+                var(--recycled-white);
+            background-size: 32px 32px, 48px 48px;
+            padding: var(--block-unit) var(--structure-gap);
+            margin: var(--structure-gap) 0;
+            border-top: var(--concrete-thick) solid var(--concrete-raw);
+            border-bottom: var(--concrete-thick) solid var(--concrete-raw);
+        }
+
+        /* Manifesto Block - Central Statement */
+        .manifesto-block {
+            background: var(--mocha-mousse);
+            color: var(--carbon-black);
+            padding: var(--block-unit);
+            margin: var(--structure-gap);
+            border: var(--concrete-thick) solid var(--carbon-black);
+            box-shadow: var(--shadow-harsh);
+            text-align: center;
+            position: relative;
+        }
+
+        .manifesto-text {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 900;
+            line-height: 1.2;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        /* Eco-Stats Bar - Progress Indicators */
+        .eco-stats {
+            background: var(--concrete-raw);
+            padding: var(--structure-gap);
+            border: var(--concrete-thick) solid var(--carbon-black);
+        }
+
+        .stat-bar {
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-label {
+            color: var(--recycled-white);
+            font-weight: 900;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.1em;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 16px;
+            background: var(--carbon-black);
+            border: 2px solid var(--recycled-white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--mocha-mousse);
+            transition: width 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 4px,
+                rgba(28, 28, 28, 0.2) 4px,
+                rgba(28, 28, 28, 0.2) 8px
+            );
+        }
+
+        /* Mobile Brutalism - Maintain Power on Small Screens */
+        @media (max-width: 768px) {
+            .concrete-header {
+                padding: calc(var(--block-unit) * 0.75) calc(var(--structure-gap) * 0.75);
+            }
+
+            .block-system {
+                grid-template-columns: 1fr;
+                padding: calc(var(--block-unit) * 0.75) calc(var(--structure-gap) * 0.75);
+                gap: calc(var(--structure-gap) * 0.75);
+            }
+
+            .brutalist-title {
+                text-shadow: 2px 2px 0px var(--carbon-black);
+            }
+
+            .concrete-block {
+                box-shadow: 8px 8px 0px rgba(28, 28, 28, 0.3);
+            }
+
+            .concrete-block:hover {
+                transform: translate(-4px, -4px);
+                box-shadow: 12px 12px 0px rgba(28, 28, 28, 0.4);
+            }
+        }
+
+        /* Loading Animation - Industrial Assembly */
+        .industrial-load {
+            opacity: 0;
+            transform: translateY(32px);
+            animation: assemblyLine 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        .industrial-load:nth-child(2) { animation-delay: 0.1s; }
+        .industrial-load:nth-child(3) { animation-delay: 0.2s; }
+        .industrial-load:nth-child(4) { animation-delay: 0.3s; }
+
+        @keyframes assemblyLine {
+            0% {
+                opacity: 0;
+                transform: translateY(32px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Floating Carbon Counter */
+        .carbon-counter {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            background: var(--forest-deep);
+            color: var(--recycled-white);
+            padding: 16px;
+            border: 4px solid var(--mocha-mousse);
+            font-weight: 900;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            z-index: 1000;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .carbon-counter:hover {
+            background: var(--mocha-mousse);
+            color: var(--carbon-black);
+            transform: translate(-4px, -4px);
+            box-shadow: 8px 8px 0px var(--forest-deep);
+        }
+    </style>
+</head>
+<body>
+    <!-- Raw Concrete Header -->
+    <header class="concrete-header industrial-load">
+        <div class="brutalist-container">
+            <h1 class="brutalist-title">
+                Sustainable
+                <span class="eco-accent">Brutalism</span>
+            </h1>
+            <p class="brutalist-subtitle">Raw Strength Serves The Earth</p>
+        </div>
+    </header>
+
+    <div class="brutalist-container">
+        <!-- Block System -->
+        <section class="block-system industrial-load">
+            <div class="concrete-block block-mocha">
+                <h3 class="block-title">Mocha Foundation</h3>
+                <p class="block-text">
+                    Built on 2025's Pantone Color of the Year, our palette draws from
+                    organic earth systems and recycled material aesthetics.
+                </p>
+                <button class="brutalist-btn">Explore Palette</button>
+                <div class="block-metric">
+                    <span>Carbon Reduced</span>
+                    <span>67%</span>
+                </div>
+            </div>
+
+            <div class="concrete-block block-earth">
+                <h3 class="block-title">Clay Systems</h3>
+                <p class="block-text">
+                    Raw clay and earth tones create the foundation for sustainable
+                    digital experiences that mirror natural building materials.
+                </p>
+                <button class="brutalist-btn">Build Earth</button>
+                <div class="block-metric">
+                    <span>Materials Recycled</span>
+                    <span>89%</span>
+                </div>
+            </div>
+
+            <div class="concrete-block block-forest">
+                <h3 class="block-title">Forest Core</h3>
+                <p class="block-text">
+                    Deep sustainable greens anchor our environmental consciousness
+                    while maintaining brutalist visual strength.
+                </p>
+                <button class="brutalist-btn">Enter Forest</button>
+                <div class="block-metric">
+                    <span>Trees Saved</span>
+                    <span>134</span>
+                </div>
+            </div>
+
+            <div class="concrete-block block-rust">
+                <h3 class="block-title">Iron Oxidation</h3>
+                <p class="block-text">
+                    Rust and weathered metals represent the beauty of natural
+                    aging processes in our industrial design language.
+                </p>
+                <button class="brutalist-btn">Embrace Rust</button>
+                <div class="block-metric">
+                    <span>Metal Reclaimed</span>
+                    <span>78%</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sustainable Data Dashboard -->
+        <section class="data-dashboard industrial-load">
+            <h2 class="dashboard-title">Environmental Impact Metrics</h2>
+            <div class="metrics-grid">
+                <div class="metric-block">
+                    <div class="metric-number">-47%</div>
+                    <div class="metric-label">Carbon Footprint</div>
+                </div>
+                <div class="metric-block">
+                    <div class="metric-number">92%</div>
+                    <div class="metric-label">Renewable Energy</div>
+                </div>
+                <div class="metric-block">
+                    <div class="metric-number">156</div>
+                    <div class="metric-label">Days Zero Waste</div>
+                </div>
+                <div class="metric-block">
+                    <div class="metric-number">3.2TB</div>
+                    <div class="metric-label">Data Optimized</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Raw Material Texture Section -->
+        <section class="texture-section industrial-load">
+            <div class="manifesto-block">
+                <p class="manifesto-text">
+                    "Brutalist strength meets environmental consciousness.
+                    Raw concrete aesthetics serve the earth's future."
+                </p>
+            </div>
+        </section>
+
+        <!-- Eco-Stats Progress Section -->
+        <section class="eco-stats industrial-load">
+            <div class="stat-bar">
+                <div class="stat-label">Energy Efficiency</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 85%;"></div>
+                </div>
+            </div>
+            <div class="stat-bar">
+                <div class="stat-label">Material Reuse</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 78%;"></div>
+                </div>
+            </div>
+            <div class="stat-bar">
+                <div class="stat-label">Carbon Neutrality</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 93%;"></div>
+                </div>
+            </div>
+            <div class="stat-bar">
+                <div class="stat-label">Waste Reduction</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 67%;"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Floating Carbon Counter -->
+    <div class="carbon-counter" title="Real-time carbon impact">
+        CO₂ Saved<br>2.3 Tons
+    </div>
+
+    <script>
+        // Progressive loading animation for industrial feel
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.industrial-load');
+            elements.forEach((element, index) => {
+                setTimeout(() => {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+
+            // Animate progress bars on scroll
+            const progressBars = document.querySelectorAll('.progress-fill');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const width = entry.target.style.width;
+                        entry.target.style.width = '0%';
+                        setTimeout(() => {
+                            entry.target.style.width = width;
+                        }, 300);
+                    }
+                });
+            });
+
+            progressBars.forEach(bar => observer.observe(bar));
+
+            // Carbon counter animation
+            const carbonCounter = document.querySelector('.carbon-counter');
+            let carbonValue = 2.3;
+
+            setInterval(() => {
+                carbonValue += Math.random() * 0.1;
+                carbonCounter.innerHTML = `CO₂ Saved<br>${carbonValue.toFixed(1)} Tons`;
+            }, 3000);
+
+            // Brutalist hover effects with sound-like feedback
+            const blocks = document.querySelectorAll('.concrete-block');
+            blocks.forEach(block => {
+                block.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translate(-8px, -8px)';
+                });
+
+                block.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translate(0, 0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

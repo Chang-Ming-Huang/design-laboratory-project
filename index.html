@@ -124,16 +124,69 @@
             background: var(--primary-white);
             border: 1px solid var(--border-light);
             border-radius: 16px;
-            padding: 2rem;
+            padding: 0;
             transition: all 0.3s ease;
             cursor: pointer;
             box-shadow: var(--shadow-subtle);
+            overflow: hidden;
         }
 
         .file-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 10px 25px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.05);
             border-color: var(--accent-blue);
+        }
+
+        .card-screenshot {
+            width: 100%;
+            height: 200px;
+            background: var(--surface-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-screenshot img {
+            transition: transform 0.3s ease;
+        }
+
+        .card-screenshot:hover img {
+            transform: scale(1.05);
+        }
+
+        .screenshot-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--surface-light), var(--border-light));
+            color: var(--text-subtle);
+            font-size: 2rem;
+        }
+
+        .card-content {
+            padding: 2rem;
+        }
+
+        .card-screenshot.card-loading .screenshot-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--text-subtle);
+            font-size: 0.9rem;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            z-index: 2;
+        }
+
+        .card-screenshot:not(.card-loading) .screenshot-loading {
+            display: none;
+        }
+
+        .card-screenshot.card-loading img {
+            opacity: 0.3;
         }
 
         .file-card h3 {
@@ -468,13 +521,29 @@
                     ? `<button class="btn btn-danger" onclick="laboratory.confirmDelete('${file.name}')">刪除</button>`
                     : `<button class="btn btn-danger disabled" onclick="laboratory.showDeleteRestriction()" title="網頁版無法刪除檔案">🔒 刪除</button>`;
 
+                const screenshotSection = file.screenshot
+                    ? `<div class="card-screenshot card-loading">
+                         <img src="./screenshots/${file.screenshot}"
+                              alt="${file.title || this.extractTitle(file.name)}"
+                              onerror="this.parentElement.innerHTML='<div class=&quot;screenshot-placeholder&quot;>🎨</div>'"
+                              onload="this.parentElement.classList.remove('card-loading');"
+                              style="width: 100%; height: 100%; object-fit: cover;">
+                         <div class="screenshot-loading">載入中...</div>
+                       </div>`
+                    : `<div class="card-screenshot">
+                         <div class="screenshot-placeholder">🎨</div>
+                       </div>`;
+
                 return `
                     <div class="file-card">
-                        <h3>${file.title || this.extractTitle(file.name)}</h3>
-                        <p>${file.description || '獨立 HTML 藝術作品'}</p>
-                        <div class="card-buttons">
-                            <a href="./prototypes/${file.name}" target="_blank" class="btn btn-primary">預覽</a>
-                            ${deleteButton}
+                        ${screenshotSection}
+                        <div class="card-content">
+                            <h3>${file.title || this.extractTitle(file.name)}</h3>
+                            <p>${file.description || '獨立 HTML 藝術作品'}</p>
+                            <div class="card-buttons">
+                                <a href="./prototypes/${file.name}" target="_blank" class="btn btn-primary">預覽</a>
+                                ${deleteButton}
+                            </div>
                         </div>
                     </div>
                 `;

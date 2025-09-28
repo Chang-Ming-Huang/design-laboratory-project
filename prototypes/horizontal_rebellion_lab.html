@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizontal Rebellion Lab | 水平革命實驗室</title>
+    <style>
+        /*
+        Horizontal Navigation Rebellion Lab - 2025 Trend Implementation
+
+        Inspired by:
+        - 2025 "Experimental Navigation" trend from CSS Design Awards research
+        - Beauvoir-style horizontal scrolling revolution
+        - Breaking vertical web conventions completely
+        - Mixed horizontal/vertical typography compositions
+
+        Design Philosophy:
+        "Why scroll down when you can slide sideways?"
+
+        Creative Framework Applied:
+        - 反直覺測試: Complete rejection of vertical-first web design
+        - 文化逆向思維: Against 30 years of web scrolling behavior
+        - 極端化原則: Everything horizontal, maximum sideways experience
+        - 感官衝突策略: Force users to think differently about navigation
+        */
+
+        :root {
+            /* Horizontal Rebellion Palette - Breaking Web Norms */
+            --rebel-crimson: #dc143c;       /* Aggressive rebellion red */
+            --horizon-blue: #4682b4;        /* Endless horizon blue */
+            --sideways-gray: #696969;       /* Neutral movement gray */
+            --rebellion-black: #0a0a0a;     /* Deep authority black */
+            --break-white: #fafafa;         /* Clean break white */
+            --shock-orange: #ff6347;        /* Attention-breaking orange */
+            --steel-blue: #4682b4;          /* Industrial sideways */
+
+            /* Horizontal System Units */
+            --slide-unit: 100vw;            /* Full viewport width units */
+            --panel-height: 100vh;          /* Full viewport height */
+            --track-gap: 40px;              /* Horizontal spacing */
+            --rebellion-border: 6px;        /* Strong border definition */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--rebellion-black);
+            color: var(--break-white);
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            line-height: 1.5;
+            overflow-x: auto;
+            overflow-y: hidden; /* Kill vertical scrolling */
+            height: 100vh;
+            cursor: grab;
+        }
+
+        body:active {
+            cursor: grabbing;
+        }
+
+        /* Horizontal Container - The Revolution Begins */
+        .horizontal-world {
+            display: flex;
+            height: 100vh;
+            width: fit-content;
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Individual Panels - Vertical Content in Horizontal Flow */
+        .rebellion-panel {
+            width: 100vw;
+            height: 100vh;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+            position: relative;
+            border-right: var(--rebellion-border) solid var(--sideways-gray);
+        }
+
+        /* Panel Color Themes */
+        .panel-intro {
+            background: linear-gradient(45deg, var(--rebellion-black) 50%, var(--rebel-crimson) 50%);
+        }
+
+        .panel-manifesto {
+            background: var(--horizon-blue);
+            color: var(--rebellion-black);
+        }
+
+        .panel-experience {
+            background: var(--shock-orange);
+            color: var(--rebellion-black);
+        }
+
+        .panel-features {
+            background: var(--sideways-gray);
+            color: var(--break-white);
+        }
+
+        .panel-conclusion {
+            background: linear-gradient(-45deg, var(--steel-blue) 30%, var(--rebellion-black) 70%);
+        }
+
+        /* Revolutionary Typography - Mixed Orientations */
+        .horizontal-title {
+            font-size: clamp(4rem, 12vw, 10rem);
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            line-height: 0.8;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            text-align: center;
+            color: inherit;
+        }
+
+        .vertical-accent {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--break-white);
+            opacity: 0.7;
+        }
+
+        .sideways-text {
+            transform: rotate(-90deg);
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform-origin: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--break-white);
+            opacity: 0.6;
+            white-space: nowrap;
+        }
+
+        /* Content Blocks - Horizontal Layouts */
+        .content-block {
+            max-width: 800px;
+            text-align: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        .block-subtitle {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: inherit;
+            line-height: 1.2;
+        }
+
+        .block-text {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            line-height: 1.6;
+            margin-bottom: 3rem;
+            color: inherit;
+            opacity: 0.9;
+        }
+
+        /* Horizontal Action Buttons */
+        .rebellion-btn {
+            background: transparent;
+            color: inherit;
+            border: 4px solid currentColor;
+            padding: 20px 40px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rebellion-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: currentColor;
+            transition: left 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: -1;
+        }
+
+        .rebellion-btn:hover::before {
+            left: 0;
+        }
+
+        .rebellion-btn:hover {
+            color: var(--rebellion-black);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Horizontal Navigation Indicators */
+        .nav-dots {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .nav-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 3px solid var(--break-white);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: var(--rebel-crimson);
+            border-color: var(--rebel-crimson);
+            transform: scale(1.3);
+        }
+
+        .nav-dot:hover {
+            background: var(--shock-orange);
+            border-color: var(--shock-orange);
+        }
+
+        /* Scroll Hint - Teaching New Behavior */
+        .scroll-hint {
+            position: fixed;
+            top: 50%;
+            right: 30px;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            color: var(--break-white);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            z-index: 1000;
+            opacity: 0.7;
+        }
+
+        .scroll-arrow {
+            font-size: 2rem;
+            animation: sidewaysFloat 2s ease-in-out infinite;
+        }
+
+        @keyframes sidewaysFloat {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(10px); }
+        }
+
+        /* Feature Grid - Horizontal Layout */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border: 3px solid currentColor;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .feature-card:hover {
+            transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: inherit;
+            text-transform: uppercase;
+        }
+
+        .feature-text {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: inherit;
+            opacity: 0.9;
+        }
+
+        /* Mobile Adaptation - Horizontal Still Rules */
+        @media (max-width: 768px) {
+            .rebellion-panel {
+                padding: 40px 20px;
+            }
+
+            .horizontal-title {
+                font-size: clamp(2.5rem, 8vw, 4rem);
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .scroll-hint {
+                right: 15px;
+                font-size: 0.8rem;
+            }
+
+            .nav-dots {
+                bottom: 20px;
+                gap: 15px;
+            }
+
+            .vertical-accent,
+            .sideways-text {
+                display: none; /* Simplify on mobile */
+            }
+        }
+
+        /* Preloader - Horizontal Loading */
+        .horizontal-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: var(--rebellion-black);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader-text {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--rebel-crimson);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            animation: horizontalPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes horizontalPulse {
+            0%, 100% { transform: scaleX(1); opacity: 1; }
+            50% { transform: scaleX(1.1); opacity: 0.7; }
+        }
+
+        /* Progress Bar - Horizontal Movement */
+        .progress-track {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--rebel-crimson), var(--shock-orange));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Revolutionary Manifesto Styles */
+        .manifesto-list {
+            list-style: none;
+            padding: 0;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .manifesto-item {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            padding-left: 40px;
+            position: relative;
+            color: inherit;
+        }
+
+        .manifesto-item::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--rebel-crimson);
+            font-size: 1.5rem;
+            font-weight: 900;
+        }
+    </style>
+</head>
+<body>
+    <!-- Horizontal Loading -->
+    <div class="horizontal-loader" id="loader">
+        <div class="loader-text">Loading Rebellion...</div>
+    </div>
+
+    <!-- Progress Track -->
+    <div class="progress-track">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Scroll Hint -->
+    <div class="scroll-hint">
+        <div>Scroll</div>
+        <div class="scroll-arrow">→</div>
+        <div>Sideways</div>
+    </div>
+
+    <!-- Navigation Dots -->
+    <div class="nav-dots">
+        <div class="nav-dot active" data-panel="0"></div>
+        <div class="nav-dot" data-panel="1"></div>
+        <div class="nav-dot" data-panel="2"></div>
+        <div class="nav-dot" data-panel="3"></div>
+        <div class="nav-dot" data-panel="4"></div>
+    </div>
+
+    <!-- Horizontal World Container -->
+    <div class="horizontal-world" id="horizontalWorld">
+        <!-- Panel 1: Introduction -->
+        <section class="rebellion-panel panel-intro">
+            <div class="content-block">
+                <h1 class="horizontal-title">Horizontal<br>Rebellion</h1>
+                <p class="block-subtitle">Breaking 30 Years of Vertical Web Design</p>
+                <p class="block-text">
+                    Welcome to the sideways revolution. Why should the web only move up and down
+                    when human vision is naturally horizontal? It's time to rebel against
+                    vertical tyranny and embrace the endless horizon.
+                </p>
+                <button class="rebellion-btn">Join The Revolution</button>
+            </div>
+            <div class="vertical-accent">Revolutionary Design 2025</div>
+            <div class="sideways-text">Break The Vertical Chains</div>
+        </section>
+
+        <!-- Panel 2: Manifesto -->
+        <section class="rebellion-panel panel-manifesto">
+            <div class="content-block">
+                <h2 class="horizontal-title">Manifesto</h2>
+                <ul class="manifesto-list">
+                    <li class="manifesto-item">Horizontal scrolling as primary navigation</li>
+                    <li class="manifesto-item">Mixed typography orientations</li>
+                    <li class="manifesto-item">Rejection of vertical-first thinking</li>
+                    <li class="manifesto-item">Sideways storytelling experiences</li>
+                    <li class="manifesto-item">Breaking user expectations deliberately</li>
+                    <li class="manifesto-item">Embracing the endless horizon</li>
+                </ul>
+            </div>
+            <div class="vertical-accent">Manifesto of Change</div>
+        </section>
+
+        <!-- Panel 3: Experience Design -->
+        <section class="rebellion-panel panel-experience">
+            <div class="content-block">
+                <h2 class="horizontal-title">Experience</h2>
+                <p class="block-subtitle">Redefining Digital Navigation</p>
+                <p class="block-text">
+                    This experimental interface forces users to think differently about
+                    web interaction. By moving horizontally, we create a cinema-like
+                    experience where each panel tells part of a larger story.
+                    Your mouse becomes a director's camera, panning across scenes.
+                </p>
+                <button class="rebellion-btn">Experience The Future</button>
+            </div>
+            <div class="sideways-text">Horizontal Storytelling</div>
+        </section>
+
+        <!-- Panel 4: Features -->
+        <section class="rebellion-panel panel-features">
+            <div class="content-block">
+                <h2 class="horizontal-title">Features</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3 class="feature-title">Sideways Scrolling</h3>
+                        <p class="feature-text">
+                            Complete horizontal navigation system that breaks
+                            traditional web patterns.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Mixed Typography</h3>
+                        <p class="feature-text">
+                            Vertical, horizontal, and rotated text elements
+                            create visual complexity.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Panel System</h3>
+                        <p class="feature-text">
+                            Each viewport-sized panel functions as a unique
+                            storytelling chapter.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Rebellion UI</h3>
+                        <p class="feature-text">
+                            Interface elements that challenge conventional
+                            design expectations.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="vertical-accent">Feature Revolution</div>
+        </section>
+
+        <!-- Panel 5: Conclusion -->
+        <section class="rebellion-panel panel-conclusion">
+            <div class="content-block">
+                <h2 class="horizontal-title">Revolution<br>Complete</h2>
+                <p class="block-subtitle">The Horizontal Future is Now</p>
+                <p class="block-text">
+                    You've experienced the future of web navigation. Horizontal rebellion
+                    isn't just about scrolling sideways – it's about questioning every
+                    assumption we have about digital interaction. The revolution starts
+                    with a single scroll to the right.
+                </p>
+                <button class="rebellion-btn">Start Your Own Rebellion</button>
+            </div>
+            <div class="vertical-accent">2025 Experimental</div>
+            <div class="sideways-text">Welcome to Tomorrow</div>
+        </section>
+    </div>
+
+    <script>
+        // Horizontal Rebellion JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            const horizontalWorld = document.getElementById('horizontalWorld');
+            const progressBar = document.getElementById('progressBar');
+            const navDots = document.querySelectorAll('.nav-dot');
+            const loader = document.getElementById('loader');
+
+            // Hide loader after page load
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 500);
+            }, 1500);
+
+            // Update progress bar based on horizontal scroll
+            document.addEventListener('scroll', function() {
+                const scrollLeft = window.pageXOffset;
+                const maxScroll = document.body.scrollWidth - window.innerWidth;
+                const scrollPercent = (scrollLeft / maxScroll) * 100;
+                progressBar.style.width = scrollPercent + '%';
+
+                // Update active navigation dot
+                const panelIndex = Math.floor(scrollLeft / window.innerWidth);
+                navDots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === panelIndex);
+                });
+            });
+
+            // Navigation dot clicks
+            navDots.forEach((dot, index) => {
+                dot.addEventListener('click', function() {
+                    const targetScroll = index * window.innerWidth;
+                    window.scrollTo({
+                        left: targetScroll,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Keyboard navigation - Arrow keys for horizontal movement
+            document.addEventListener('keydown', function(e) {
+                const currentScroll = window.pageXOffset;
+                const panelWidth = window.innerWidth;
+
+                if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    window.scrollTo({
+                        left: currentScroll + panelWidth,
+                        behavior: 'smooth'
+                    });
+                } else if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    window.scrollTo({
+                        left: currentScroll - panelWidth,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+
+            // Enhanced mouse drag functionality
+            let isMouseDown = false;
+            let startX = 0;
+            let scrollStart = 0;
+
+            document.addEventListener('mousedown', function(e) {
+                isMouseDown = true;
+                startX = e.pageX;
+                scrollStart = window.pageXOffset;
+                document.body.style.userSelect = 'none';
+            });
+
+            document.addEventListener('mousemove', function(e) {
+                if (!isMouseDown) return;
+                e.preventDefault();
+                const deltaX = (e.pageX - startX) * 2; // Accelerated drag
+                window.scrollTo(scrollStart - deltaX, 0);
+            });
+
+            document.addEventListener('mouseup', function() {
+                isMouseDown = false;
+                document.body.style.userSelect = '';
+            });
+
+            // Touch support for mobile horizontal scrolling
+            let touchStartX = 0;
+            let touchScrollStart = 0;
+
+            document.addEventListener('touchstart', function(e) {
+                touchStartX = e.touches[0].pageX;
+                touchScrollStart = window.pageXOffset;
+            });
+
+            document.addEventListener('touchmove', function(e) {
+                e.preventDefault();
+                const deltaX = touchStartX - e.touches[0].pageX;
+                window.scrollTo(touchScrollStart + deltaX, 0);
+            }, { passive: false });
+
+            // Parallax effect for background elements
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageXOffset;
+                const verticalAccents = document.querySelectorAll('.vertical-accent');
+                const sidewaysTexts = document.querySelectorAll('.sideways-text');
+
+                verticalAccents.forEach((accent, index) => {
+                    const speed = 0.5 + (index * 0.1);
+                    accent.style.transform = `translateY(-50%) translateX(${scrolled * speed * -1}px)`;
+                });
+
+                sidewaysTexts.forEach((text, index) => {
+                    const speed = 0.3 + (index * 0.1);
+                    text.style.transform = `rotate(-90deg) translateX(${scrolled * speed}px)`;
+                });
+            });
+
+            // Hide scroll hint after first interaction
+            let hasScrolled = false;
+            window.addEventListener('scroll', function() {
+                if (!hasScrolled && window.pageXOffset > 50) {
+                    hasScrolled = true;
+                    document.querySelector('.scroll-hint').style.opacity = '0.3';
+                }
+            });
+
+            // Rebellion button interactions
+            const buttons = document.querySelectorAll('.rebellion-btn');
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    this.style.transform = 'translateY(-4px) scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(-4px)';
+                    }, 150);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
